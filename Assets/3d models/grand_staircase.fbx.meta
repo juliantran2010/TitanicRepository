@@ -1,0 +1,465 @@
+fileFormatVersion: 2
+guid: 744b1f9e052f8b3438c49d3631e9c987
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bronze
+    second: {fileID: 2800000, guid: 23c9f8b63bcc7404eb817e2494909a83, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Clock_details
+    second: {fileID: 2800000, guid: b155b35682cbd994793b962591970aa2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Clock_details_2
+    second: {fileID: 2800000, guid: 8103473e055c5ae46ade432a89c1224a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Clock_details_4
+    second: {fileID: 2800000, guid: 0f3ae4a8beeac5043a4803032a7826af, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Clock_face
+    second: {fileID: 2800000, guid: 623a8013c8c74f9489361c7b9f5c73f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Dark_wood_plain
+    second: {fileID: 2800000, guid: 925ddb6d931083b42addda962dc5a21a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_Class_Entrance_Pannelling_Boat_Deck
+    second: {fileID: 2800000, guid: 05877894c468c76419b1d4623f184157, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_Class_Entrance_Pannelling_Boat_Deck1_89
+    second: {fileID: 2800000, guid: 559b5cabdddca904fb0e5ad79c050750, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_Class_Entrance_Wood_Plain
+    second: {fileID: 2800000, guid: 028053257d54a874884c8f03da9d25f1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_Class_Entrance_Wood_Plain_1
+    second: {fileID: 2800000, guid: 11ff563ad5da4cf49af9428afb385c7f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_class_entrance_freize_molding
+    second: {fileID: 2800000, guid: f828988e5611b9b4ea0cf04f66733e05, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_class_entrance_freize_molding1
+    second: {fileID: 2800000, guid: fe380166d4eaa1446b08fa2faaa1021f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_class_entrance_freize_molding1_85
+    second: {fileID: 2800000, guid: 26c03fb502e28e04e80f307841ec0ad5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_class_entrance_freize_molding1_87
+    second: {fileID: 2800000, guid: 1aa952fd203c4d4409536cbce003c2fd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_class_entrance_freize_molding_5
+    second: {fileID: 2800000, guid: a84fa18c3b4ed6b43a589b9127362cdd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: First_class_entrance_hall_tile
+    second: {fileID: 2800000, guid: cc26cb9a40462864aa0d7650d4c3c1cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Floor_Vent_Material
+    second: {fileID: 2800000, guid: 97a2cb55974cfb34fad0c2424b4d2f75, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GrandStaircaseCabinDoors
+    second: {fileID: 2800000, guid: 5730e9501170c11439837f8fd0348e06, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GrandStaircaseCabinDoorsWhite
+    second: {fileID: 2800000, guid: 9fc268e7af79deb4d9bf2169dbf8c4b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Grand_Staircase_Entrance_Molding
+    second: {fileID: 2800000, guid: 569d9d43d3c0979478971b153b573421, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Grand_Staircase_Entrance_Molding1
+    second: {fileID: 2800000, guid: da2f54f6d15097748bd857d6fd96e015, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Honor_and_Glory_Crowning_Time
+    second: {fileID: 2800000, guid: 4e9ed8a423477374b9701ea251da5e72, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Rough
+    second: {fileID: 2800000, guid: 2afdf78f63863844080a35d3fd1a45eb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M
+    second: {fileID: 2800000, guid: 7dcefdb1973a2744bbd79f498441f760, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_101
+    second: {fileID: 2800000, guid: 6557c6dc1374dc248b06e08217c20a40, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_103
+    second: {fileID: 2800000, guid: 2eaa3164682967a49a387698622ceb13, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_105
+    second: {fileID: 2800000, guid: 0be82e875cff20c41bd3aaf97f15216b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_106
+    second: {fileID: 2800000, guid: 59eb5beb769062f4fbd861e336b39585, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_107
+    second: {fileID: 2800000, guid: 0a53853f6af419947a7e590d31c4eaba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_108
+    second: {fileID: 2800000, guid: 5f37fe56809f19044b97371229663fd2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_109
+    second: {fileID: 2800000, guid: 3dd20d3dbded10944b477d2b9c3cc1f3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_111
+    second: {fileID: 2800000, guid: 3085ab84f5c6aa24f890fc3dda47ebc9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_113
+    second: {fileID: 2800000, guid: 3dc52fb3b718d874f84b83342d874e9c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_115
+    second: {fileID: 2800000, guid: 3c6cacc641ae507479c962a2989b144b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_21
+    second: {fileID: 2800000, guid: 1d7a841ab3abc5348b7f8d1795cf8bdc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_22
+    second: {fileID: 2800000, guid: 64b72e246acc54b468eab1ebf27d973b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_24
+    second: {fileID: 2800000, guid: 95c5597080eeb844aa02a4966530cdae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_33
+    second: {fileID: 2800000, guid: 9971c88e6220c834fb384f19a753a7fc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_34
+    second: {fileID: 2800000, guid: 22e8ea0d1c4e0a54dbcb4e8f474f6a4d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_35
+    second: {fileID: 2800000, guid: fd8134329faab1246b5258357c0e8181, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_36
+    second: {fileID: 2800000, guid: 07f72011f82c0804a9775a0450f7490c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_37
+    second: {fileID: 2800000, guid: 082a55491f81096458ecaaa1f1408fe9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_38
+    second: {fileID: 2800000, guid: 4fa3033389dc3084185bdf2bbf714828, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_39
+    second: {fileID: 2800000, guid: c1a2684f92ffa94448a2ac2af4927451, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_47
+    second: {fileID: 2800000, guid: de0f8da54622d064cae6966144d18da0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_6
+    second: {fileID: 2800000, guid: 52b748ebb4444aa45963e33b1b64013a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_62
+    second: {fileID: 2800000, guid: 78991cb75cc01e24e811723444d559c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_63
+    second: {fileID: 2800000, guid: cfe5fd1fc23cb9b46bbbed2bbe8a9563, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_69
+    second: {fileID: 2800000, guid: ff3e665207e31824e92c8e33e215b2c6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_75
+    second: {fileID: 2800000, guid: 26f12e5de9dca374383a945a00cacf86, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_76
+    second: {fileID: 2800000, guid: 2383ff7177606084c950efba84c9736b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_8
+    second: {fileID: 2800000, guid: 68441a7a9836a3643b154cdb61db6ee9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_90
+    second: {fileID: 2800000, guid: 3a03aeca9f5dd874990821776e812786, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_92
+    second: {fileID: 2800000, guid: 816d07499cc567b438935962c073d8e7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_93
+    second: {fileID: 2800000, guid: 07d17f0bae4f22243ad3eb43d413fe77, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: OrnamentsRound0030_M_94
+    second: {fileID: 2800000, guid: 31354c7caa5c95b4aa1a1b6ce5e3751a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wrought_Iron
+    second: {fileID: 2800000, guid: 382a9142cb40e6348b6a8607c3620f79, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: __Metal_Rough_1
+    second: {fileID: 2800000, guid: ffaffea28e4644e45b40bd76bf55238d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: a-bdeckpainting
+    second: {fileID: 2800000, guid: a04d5067531a0e64b8dc6f70764312a3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: fa38c4_6b9e7c565802425ca1664f4eaf611adf~mv2_d_3002_3942_s_4_2
+    second: {fileID: 2800000, guid: cdcb9e68e142031498b4c3fff8532996, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: liftsigna
+    second: {fileID: 2800000, guid: 630979f4bfc62c34fbab39ee67a1cd43, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: liftsignd
+    second: {fileID: 2800000, guid: faac3629861a80c4e897d916937bc8be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: liftsigne
+    second: {fileID: 2800000, guid: 1c175cbad9e5ec044881cb30b4941638, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_1
+    second: {fileID: 2800000, guid: 69077c14dd2e0914db78daf684fd7e85, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_1_0
+    second: {fileID: 2800000, guid: fd1e8b3e6dfcf5a4c8477487c1e19138, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_2
+    second: {fileID: 2800000, guid: 7718e620e7ad33144b2a9ee0d842dbde, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_3
+    second: {fileID: 2800000, guid: 1db416900363f9a4ab92f4f6a1b87324, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_5
+    second: {fileID: 2800000, guid: 2215527bd2fb84948a8d1cc5c67064b7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_6
+    second: {fileID: 2800000, guid: 55239baf57748f04bafa814867a36527, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: material_7
+    second: {fileID: 2800000, guid: 1a83f892c47c33b4693e4374922f3f20, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ovalglass1
+    second: {fileID: 2800000, guid: 82f9aafd75f45bc4f98a7a3ff7ce6aa2, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
