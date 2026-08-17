@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Drawing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Vector2 interactIconSize = new Vector2(48f, 48f); // Größeres Icon für Hand, Sprechblase etc.
     [SerializeField] private Image crosshairImage;
     [SerializeField] private RectTransform crosshairRectTransform;
+    [SerializeField] private TextMeshProUGUI crosshairDescription;
+
     [SerializeField] private Sprite defaultIcon;
     [SerializeField] private Sprite talkIcon;
     [SerializeField] private Sprite pickupIcon;
@@ -51,7 +54,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (hit.collider.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
-                SetCrosshairIcon(interactable.Type, interactIconSize);
+                SetCrosshairIcon(interactable);
 
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {
@@ -61,7 +64,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            SetCrosshairIcon(InteractionType.None, defaultSize);
+            SetCrosshairIcon(null);
         }
     }
 
@@ -74,28 +77,39 @@ public class PlayerInteraction : MonoBehaviour
         interactable.Interact();
     }
 
-    private void SetCrosshairIcon(InteractionType type, Vector2 size)
+    private void SetCrosshairIcon(IInteractable interactable)
     {
-        switch (type)
+        if (interactable == null)
+        {
+            crosshairImage.sprite = defaultIcon;
+            crosshairDescription.text = "";
+            crosshairRectTransform.sizeDelta = defaultSize;
+            return;
+        }
+        crosshairRectTransform.sizeDelta = interactIconSize;
+        switch (interactable.Type)
         {
             case InteractionType.Dialogue:
                 crosshairImage.sprite = talkIcon;
+                crosshairDescription.text = "Talk to " + interactable.ObjectName;
                 break;
             case InteractionType.Pickup:
                 crosshairImage.sprite = pickupIcon;
+                crosshairDescription.text = "Pick up " + interactable.ObjectName;
                 break;
             case InteractionType.Inspect:
                 crosshairImage.sprite = inspectIcon;
+                crosshairDescription.text = "Inspect " + interactable.ObjectName;
                 break;
             case InteractionType.Use:
                 crosshairImage.sprite = useIcon;
+                crosshairDescription.text = "Use " + interactable.ObjectName;
                 break;
             default:
                 crosshairImage.sprite = defaultIcon;
+                crosshairDescription.text = "";
                 break;
         }
-        crosshairRectTransform.sizeDelta = size;
-
     }
 
 }

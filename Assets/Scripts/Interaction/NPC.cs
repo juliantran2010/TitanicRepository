@@ -9,7 +9,6 @@ public class NPC : MonoBehaviour, IInteractable
     public InteractionType Type => InteractionType.Dialogue;
     public void Interact()
     {
-        Debug.Log($"Interacting with {npcName}");
         DialogueManager.Instance.StartDialogue(dialogue);
     }
 }

@@ -43,7 +43,6 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        Debug.Log("Starting conversation with " + dialogue.dialogueLines[0].name);
         sentences.Clear();
         DialogueBox.SetActive(true);
         foreach (DialogueLine line in dialogue.dialogueLines)
