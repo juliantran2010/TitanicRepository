@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        Debug.Log("Starting conversation with " + dialogue.dialogueLines[0].name);
         sentences.Clear();
         DialogueBox.SetActive(true);
         foreach (DialogueLine line in dialogue.dialogueLines)
@@ -69,7 +70,16 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         DialogueBox.SetActive(false);
-        isInDialogue = false;
+        StartCoroutine(disableDialogueInNextFrame());
     }
 
+    /// <summary>
+    /// Disable Dialogue in next frame to avoid starting a new one directly after ending
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator disableDialogueInNextFrame()
+    {
+        yield return null;
+        isInDialogue = false;
+    }
 }
