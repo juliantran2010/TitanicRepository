@@ -20,8 +20,30 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		private DialogueManager dialogueManager;
+
+        private void Start()
+        {
+            dialogueManager = DialogueManager.Instance;
+        }
+        private void Update()
+        {
+            if (dialogueManager.isInDialogue)
+			{
+                // If in dialogue, stop player movement and camera rotation
+                move = Vector2.zero;
+                look = Vector2.zero;
+				SetCursorState(false);
+            }
+			else
+			{
+                SetCursorState(true);
+            }
+        }
+
+
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}

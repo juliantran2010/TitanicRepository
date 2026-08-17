@@ -95,7 +95,7 @@ namespace StarterAssets
 			}
 		}
 
-		private void Start()
+        private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
