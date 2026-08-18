@@ -8,13 +8,21 @@ public class PickupObject : MonoBehaviour, IInteractable
     [SerializeField] string objectName;
     public string ObjectName => objectName;
 
+    private void Start()
+    {
+        if (Inventory.Instance.ContainsItem(objectName))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Interact()
     {
         bool wasAdded = Inventory.Instance.AddItem(this);
         if (wasAdded)
         {
             transform.SetParent(Inventory.Instance.transform);
-            gameObject.SetActive(false);
+            AttachToCameraField attachScript = gameObject.AddComponent<AttachToCameraField>();
         }
     }
 }

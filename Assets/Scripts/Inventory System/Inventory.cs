@@ -1,6 +1,7 @@
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -31,5 +32,10 @@ public class Inventory : MonoBehaviour
         {
             OnInventoryChanged?.Invoke(); // UI aktualisieren
         }
+    }
+
+    public bool ContainsItem(string itemName)
+    {
+        return items.Any(i => i.ObjectName == itemName);
     }
 }
