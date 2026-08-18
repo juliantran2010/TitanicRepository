@@ -7,6 +7,7 @@ public enum InteractionType
     Pickup,
     Inspect,
     Use,
+    Teleport,
     None
 }
 public interface IInteractable

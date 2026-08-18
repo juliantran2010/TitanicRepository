@@ -27,6 +27,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Sprite pickupIcon;
     [SerializeField] private Sprite inspectIcon;
     [SerializeField] private Sprite useIcon;
+    [SerializeField] private Sprite teleportIcon;
 
 
 
@@ -49,6 +50,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void CheckForInteractable()
     {
+        SetCrosshairIcon(null);
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
         {
@@ -61,10 +63,6 @@ public class PlayerInteraction : MonoBehaviour
                     StartCoroutine(InteractInNextFrame(interactable));
                 }
             }
-        }
-        else
-        {
-            SetCrosshairIcon(null);
         }
     }
 
@@ -104,6 +102,10 @@ public class PlayerInteraction : MonoBehaviour
             case InteractionType.Use:
                 crosshairImage.sprite = useIcon;
                 crosshairDescription.text = "Use " + interactable.ObjectName;
+                break;
+            case InteractionType.Teleport:
+                crosshairImage.sprite = teleportIcon;
+                crosshairDescription.text = "Go to " + interactable.ObjectName;
                 break;
             default:
                 crosshairImage.sprite = defaultIcon;

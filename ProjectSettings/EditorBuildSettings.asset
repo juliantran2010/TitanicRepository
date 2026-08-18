@@ -6,7 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Grand Staircase.unity
+    guid: e6b94a762b41a3743afdc02761c6a9dd
+  - enabled: 1
+    path: Assets/Scenes/3rd Class Cabin Room.unity
+    guid: f69d333666157eb479349a10c0990b14
+  - enabled: 1
+    path: Assets/Scenes/Mail Room.unity
+    guid: f2993986193f8994590451a4b9be4264
+  - enabled: 1
+    path: Assets/Scenes/Marconi Room.unity
+    guid: d71c6f8ab3759cd41be291d5ff774472
+  - enabled: 1
+    path: Assets/Scenes/Water Titanic.unity
+    guid: 0ad3bbb59dd5d5247ad1650529f8cd21
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
