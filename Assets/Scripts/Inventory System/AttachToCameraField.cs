@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class AttachToCameraField : MonoBehaviour
@@ -7,11 +8,15 @@ public class AttachToCameraField : MonoBehaviour
     [SerializeField] private Vector3 viewportPosition = new Vector3(0.9f, 0.1f, 0.5f); // Rechter Rand, unten, 50cm vor Linse
 
     [Header("Animation")]
+    [SerializeField] private float animDuration = 0.5f; //Dauer des Flugs ins UI
+    [SerializeField] private Ease animEase = Ease.InOutCubic;
     [SerializeField] private float rotationSpeed = 25f;
     [SerializeField] private Vector3 targetScale = new Vector3(0.75f, 0.75f, 0.75f); // Macht das Objekt passend klein
-    private float currentYaw = 0f; // Speichert den aktuellen Drehwinkel
-
+    
     private Camera mainCam;
+    private float currentYaw = 0f; // Speichert den aktuellen Drehwinkel
+    private bool isFollowing = false;
+
 
     private void Start()
     {
@@ -20,13 +25,36 @@ public class AttachToCameraField : MonoBehaviour
         // Collider ausschalten, damit man nicht mehr am Item hängen bleibt
         if (TryGetComponent<Collider>(out var col)) col.enabled = false;
 
-        // Objekt auf UI-Größe verkleinern
-        transform.localScale = targetScale;
+        StartPickupAnimation();
+    }
+
+    private void StartPickupAnimation()
+    {
+        if (mainCam == null) mainCam = Camera.main;
+
+        isFollowing = false; // Deaktiviert das sprunghafte LateUpdate während des Tweens
+
+        // 1. Zielposition und -rotation berechnen
+        Vector3 targetWorldPos = mainCam.ViewportToWorldPoint(viewportPosition);
+        Quaternion targetRotation = mainCam.transform.rotation;
+
+        // 2. DOTween-Animationen starten
+        transform.DOMove(targetWorldPos, animDuration).SetEase(animEase);
+        transform.DORotateQuaternion(targetRotation, animDuration).SetEase(animEase);
+
+        // 3. Skalieren und am Ende LateUpdate aktivieren
+        transform.DOScale(targetScale, animDuration)
+            .SetEase(animEase)
+            .OnComplete(() =>
+            {
+                // Sobald DOTween fertig ist, übernimmt LateUpdate!
+                isFollowing = true;
+            });
     }
 
     private void LateUpdate()
     {
-        if (mainCam == null) return;
+        if (mainCam == null || !isFollowing) return;
 
         // 1. Position im Sichtfeld berechnen
         Vector3 targetWorldPos = mainCam.ViewportToWorldPoint(viewportPosition);
