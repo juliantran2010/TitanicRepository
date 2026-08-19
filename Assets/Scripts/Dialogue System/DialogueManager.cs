@@ -1,4 +1,5 @@
 using Ink.Runtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,7 +24,8 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
     public bool dialogueIsPlaying = false;
     private Story currentStory;
-    [SerializeField] private string SpeakerTag = "name:";
+    private Dialogue currentDialogue;
+    public Action<Dialogue> OnDialogueEnd;
 
     private void Awake()
     {
@@ -51,25 +53,54 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!dialogueIsPlaying) return;
-    }
-
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, Dictionary<string, object> variables = null)
     {
         currentStory = new Story(dialogue.inkJSON.text);
+        currentDialogue = dialogue;
+
+        if (variables != null)
+        {
+            foreach (var variable in variables)
+            {
+                SetInkVariable(variable.Key, variable.Value);
+            }
+        }
+
         dialogueIsPlaying = true;
         DialogueBox.SetActive(true);
         ContinueDialogue();
+    }
+
+    private void SetInkVariable(string varName, object value)
+    {
+        if (currentStory.variablesState.GlobalVariableExistsWithName(varName))
+        {
+            currentStory.variablesState[varName] = value;
+        }
+        else
+        {
+            Debug.LogWarning($"Variable '{varName}' existiert nicht in der Ink-Story!");
+        }
     }
 
     private void ContinueDialogue()
     {
         if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
-            nameText.text = currentStory.currentTags.Find(tag => tag.StartsWith(SpeakerTag))?.Substring(SpeakerTag.Length) ?? "Unknown";
+            string line = currentStory.Continue();
+            string[] parts = line.Split(new char[] { ':' });
+
+            if (parts.Length == 2)
+            {
+                nameText.text = parts[0].Trim();
+                dialogueText.text = parts[1].Trim();
+            }
+            else
+            {
+                nameText.text = "";
+                dialogueText.text = line.Trim();
+            }
+
         }
         else if (currentStory.currentChoices.Count > 0)
         {
@@ -95,6 +126,7 @@ public class DialogueManager : MonoBehaviour
     {
         yield return null;
         dialogueIsPlaying = false;
+        OnDialogueEnd?.Invoke(currentDialogue);
     }
 
     private void DisplayChoices()

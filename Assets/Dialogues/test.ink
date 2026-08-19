@@ -1,7 +1,7 @@
 -> main
 
 === main ===
-Which pokemon do you choose? #name: Colleague
+Colleague: Which pokemon do you choose?
     + [Charmander]
         -> chosen("Charmander")
     + [Bulbasaur]

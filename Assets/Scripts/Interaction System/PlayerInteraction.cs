@@ -77,7 +77,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void SetCrosshairIcon(IInteractable interactable)
     {
-        if (interactable == null)
+        if (interactable == null || interactable.Type == InteractionType.None)
         {
             crosshairImage.sprite = defaultIcon;
             crosshairDescription.text = "";
