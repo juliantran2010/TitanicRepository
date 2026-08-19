@@ -14,23 +14,20 @@ public class Cupboard : MonoBehaviour, IInteractable
     public void Interact()
     {
         bool hasKey = Inventory.Instance.ContainsItem("Cupboard Key");
+        //bool hasKey = true;
         var variables = new Dictionary<string, object>
         {
             { "hasKey", hasKey }
         };
+        DialogueManager.Instance.OnTriggerFound += OpenDoor;
         DialogueManager.Instance.StartDialogue(dialogue, variables);
-
-        if (hasKey)
-        {
-            DialogueManager.Instance.OnDialogueEnd += OpenDoor;
-        }
     }
 
-    private void OpenDoor(Dialogue _dialogue)
+    private void OpenDoor(string triggerName)
     {
-        if (_dialogue != dialogue) return;
+        if (triggerName != "open_cupboard") return;
         gameObject.transform.DORotate(new Vector3(0, -155, 0), 1f);
-        DialogueManager.Instance.OnDialogueEnd -= OpenDoor;
+        DialogueManager.Instance.OnTriggerFound -= OpenDoor;
         type = InteractionType.None; // Disable further interaction after opening the cupboard
     }
 }

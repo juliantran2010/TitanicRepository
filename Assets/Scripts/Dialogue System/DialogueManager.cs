@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory;
     private Dialogue currentDialogue;
     public Action<Dialogue> OnDialogueEnd;
+    public Action<string> OnTriggerFound;
 
     private void Awake()
     {
@@ -88,6 +89,7 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue)
         {
             string line = currentStory.Continue();
+            CheckForTags();
             string[] parts = line.Split(new char[] { ':' });
 
             if (parts.Length == 2)
@@ -101,6 +103,12 @@ public class DialogueManager : MonoBehaviour
                 dialogueText.text = line.Trim();
             }
 
+            //Leere Zeilen überspringen (z.B. wenn in einer Zeile nur ein # trigger steht)
+            if (dialogueText.text == "")
+            {
+                ContinueDialogue();
+            }
+
         }
         else if (currentStory.currentChoices.Count > 0)
         {
@@ -109,6 +117,18 @@ public class DialogueManager : MonoBehaviour
         else
         {
             EndDialogue();
+        }
+    }
+
+    private void CheckForTags()
+    {
+        foreach (string tag in currentStory.currentTags)
+        {
+            if (tag.StartsWith("trigger:"))
+            {
+                string triggerName = tag.Replace("trigger:", "").Trim();
+                OnTriggerFound?.Invoke(triggerName);
+            }
         }
     }
 
