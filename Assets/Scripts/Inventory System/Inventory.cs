@@ -26,10 +26,21 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    public void RemoveItem(string itemName)
+    {
+        var itemToRemove = items.FirstOrDefault(i => i.ObjectName == itemName);
+        if (itemToRemove != null)
+        {
+            items.Remove(itemToRemove);
+            Destroy(itemToRemove.gameObject);
+            OnInventoryChanged?.Invoke(); // UI aktualisieren
+        }
+    }
     public void RemoveItem(PickupObject item)
     {
         if (items.Remove(item))
         {
+            Destroy(item.gameObject);
             OnInventoryChanged?.Invoke(); // UI aktualisieren
         }
     }
