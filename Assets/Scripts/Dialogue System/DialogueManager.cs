@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Button continueButton;
+    [SerializeField] private TextMeshProUGUI continueButtonText;
 
     [Header("Choices UI")]
     [SerializeField] private Button[] choices;
@@ -99,15 +100,8 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
-        if (currentChoices.Count > 0)
-        {
-            continueButton.gameObject.SetActive(false);
-            dialogueText.text = "";
-        }
-        else
-        {
-            continueButton.gameObject.SetActive(true);
-        }
+        dialogueText.text = "";
+        continueButtonText.gameObject.SetActive(false);
         if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More choices than UI can support. Number of choices given: " + currentChoices.Count);
@@ -130,7 +124,7 @@ public class DialogueManager : MonoBehaviour
         {
             choice.gameObject.SetActive(false);
         }
-        continueButton.gameObject.SetActive(true);
+        continueButtonText.gameObject.SetActive(true);
         ContinueDialogue();
     }
 }
