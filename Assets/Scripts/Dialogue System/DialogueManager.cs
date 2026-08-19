@@ -46,6 +46,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[i] = choices[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
             int choiceIndex = i; // Capture the current value of i
             choices[i].onClick.AddListener(() => MakeChoice(choiceIndex));
+            choices[i].gameObject.SetActive(false); // Hide choices initially
         }
     }
 
@@ -68,6 +69,9 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueText.text = currentStory.Continue();
             nameText.text = currentStory.currentTags.Find(tag => tag.StartsWith(SpeakerTag))?.Substring(SpeakerTag.Length) ?? "Unknown";
+        }
+        else if (currentStory.currentChoices.Count > 0)
+        {
             DisplayChoices();
         }
         else
@@ -95,6 +99,15 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
+        if (currentChoices.Count > 0)
+        {
+            continueButton.gameObject.SetActive(false);
+            dialogueText.text = "";
+        }
+        else
+        {
+            continueButton.gameObject.SetActive(true);
+        }
         if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More choices than UI can support. Number of choices given: " + currentChoices.Count);
@@ -113,6 +126,11 @@ public class DialogueManager : MonoBehaviour
     private void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
+        foreach (Button choice in choices)
+        {
+            choice.gameObject.SetActive(false);
+        }
+        continueButton.gameObject.SetActive(true);
         ContinueDialogue();
     }
 }
