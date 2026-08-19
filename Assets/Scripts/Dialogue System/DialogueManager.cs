@@ -1,18 +1,28 @@
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject DialogueBox;
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI dialogueText;
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject DialogueBox;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private Button continueButton;
 
+    [Header("Choices UI")]
+    [SerializeField] private Button[] choices;
+    private TextMeshProUGUI[] choicesText;
+
+    [Header("State")]
     public static DialogueManager Instance { get; private set; }
-
-    public bool isInDialogue = false;
+    public bool dialogueIsPlaying = false;
+    private Story currentStory;
+    [SerializeField] private string SpeakerTag = "name:";
 
     private void Awake()
     {
@@ -26,44 +36,44 @@ public class DialogueManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private Queue<DialogueLine> sentences;
-
     void Start()
     {
-        sentences = new Queue<DialogueLine>();
+        DialogueBox.SetActive(false);
+        continueButton.onClick.AddListener(ContinueDialogue);
+        choicesText = new TextMeshProUGUI[choices.Length];
+        for (int i = 0; i < choices.Length; i++)
+        {
+            choicesText[i] = choices[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
+            int choiceIndex = i; // Capture the current value of i
+            choices[i].onClick.AddListener(() => MakeChoice(choiceIndex));
+        }
     }
 
     private void Update()
     {
-        if (isInDialogue && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            DisplayNextSentence();
-        }
+        if (!dialogueIsPlaying) return;
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        sentences.Clear();
+        currentStory = new Story(dialogue.inkJSON.text);
+        dialogueIsPlaying = true;
         DialogueBox.SetActive(true);
-        foreach (DialogueLine line in dialogue.dialogueLines)
-        {
-            sentences.Enqueue(line);
-        }
-        DisplayNextSentence();
-        isInDialogue = true;
+        ContinueDialogue();
     }
 
-    public void DisplayNextSentence()
+    private void ContinueDialogue()
     {
-        if (sentences.Count == 0)
+        if (currentStory.canContinue)
+        {
+            dialogueText.text = currentStory.Continue();
+            nameText.text = currentStory.currentTags.Find(tag => tag.StartsWith(SpeakerTag))?.Substring(SpeakerTag.Length) ?? "Unknown";
+            DisplayChoices();
+        }
+        else
         {
             EndDialogue();
-            return;
         }
-
-        DialogueLine line = sentences.Dequeue();
-        nameText.text = line.name;
-        dialogueText.text = line.sentence;
     }
 
     private void EndDialogue()
@@ -79,6 +89,30 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator disableDialogueInNextFrame()
     {
         yield return null;
-        isInDialogue = false;
+        dialogueIsPlaying = false;
+    }
+
+    private void DisplayChoices()
+    {
+        List<Choice> currentChoices = currentStory.currentChoices;
+        if (currentChoices.Count > choices.Length)
+        {
+            Debug.LogError("More choices than UI can support. Number of choices given: " + currentChoices.Count);
+        }
+        for (int i = 0; i < currentChoices.Count; i++)
+        {
+            choices[i].gameObject.SetActive(true);
+            choicesText[i].text = currentChoices[i].text;
+        }
+        for (int i = currentChoices.Count; i < choices.Length; i++)
+        {
+            choices[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void MakeChoice(int choiceIndex)
+    {
+        currentStory.ChooseChoiceIndex(choiceIndex);
+        ContinueDialogue();
     }
 }

@@ -44,7 +44,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (dialogueManager.isInDialogue) return;
+        if (dialogueManager.dialogueIsPlaying) return;
         CheckForInteractable();
     }
 

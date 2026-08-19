@@ -28,7 +28,7 @@ namespace StarterAssets
         }
         private void Update()
         {
-            if (dialogueManager.isInDialogue)
+            if (dialogueManager.dialogueIsPlaying)
 			{
                 // If in dialogue, stop player movement and camera rotation
                 move = Vector2.zero;
