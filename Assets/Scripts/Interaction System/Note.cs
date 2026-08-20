@@ -17,6 +17,7 @@ public class Note : MonoBehaviour, IInteractable
     [SerializeField] private float distanceInFront = 0.5f; // Abstand vor der Linse
     [SerializeField] private float moveDuration = 0.4f;
     [SerializeField] private Vector3 inspectRotationOffset = new Vector3(90f, 90f, -90f);
+    [SerializeField] private ParticleSystem interactionParticles;
 
     private InputAction escapeAction;
     private InputAction clickAction;
@@ -46,6 +47,7 @@ public class Note : MonoBehaviour, IInteractable
     {
         if (!isReading)
         {
+            interactionParticles.Stop();
             OpenNote();
         }
     }
