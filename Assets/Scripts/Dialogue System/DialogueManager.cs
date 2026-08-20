@@ -1,8 +1,10 @@
+using DG.Tweening;
 using Ink.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -22,7 +24,6 @@ public class DialogueManager : MonoBehaviour
 
     [Header("State")]
     public static DialogueManager Instance { get; private set; }
-    public bool dialogueIsPlaying = false;
     private Story currentStory;
     private Dialogue currentDialogue;
     public Action<Dialogue> OnDialogueEnd;
@@ -67,7 +68,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        dialogueIsPlaying = true;
+        GameStateManager.Instance.SetState(GameState.Dialogue);
         DialogueBox.SetActive(true);
         ContinueDialogue();
     }
@@ -135,17 +136,7 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         DialogueBox.SetActive(false);
-        StartCoroutine(disableDialogueInNextFrame());
-    }
-
-    /// <summary>
-    /// Disable Dialogue in next frame to avoid starting a new one directly after ending
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator disableDialogueInNextFrame()
-    {
-        yield return null;
-        dialogueIsPlaying = false;
+        GameStateManager.Instance.SetState(GameState.Gameplay);
         OnDialogueEnd?.Invoke(currentDialogue);
     }
 

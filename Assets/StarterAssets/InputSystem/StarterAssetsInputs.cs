@@ -20,23 +20,42 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		private DialogueManager dialogueManager;
+		private bool isGameplayState = true; // Track the current game state
 
-        private void Start()
+        private void OnEnable()
         {
-            dialogueManager = DialogueManager.Instance;
+            if (GameStateManager.Instance is not null)
+            {
+                GameStateManager.Instance.OnStateChanged += HandleStateChanged;
+            }
         }
-        private void Update()
+
+        private void OnDisable()
         {
-            if (dialogueManager != null && dialogueManager.dialogueIsPlaying)
-			{
-                // If in dialogue, stop player movement and camera rotation
+            if (GameStateManager.Instance is not null)
+            {
+                GameStateManager.Instance.OnStateChanged -= HandleStateChanged;
+            }
+        }
+
+        private void HandleStateChanged(GameState state)
+        {
+            isGameplayState = (state == GameState.Gameplay);
+
+            if (!isGameplayState)
+            {
+                // Input-Werte zurücksetzen & Blick-Input deaktivieren
                 move = Vector2.zero;
                 look = Vector2.zero;
-				SetCursorState(false);
+                jump = false;
+                sprint = false;
+
+                cursorInputForLook = false;
+                SetCursorState(false);
             }
-			else
-			{
+            else
+            {
+                cursorInputForLook = true;
                 SetCursorState(true);
             }
         }
@@ -45,24 +64,31 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
 		{
+			if (!isGameplayState) return;
 			MoveInput(value.Get<Vector2>());
 		}
 
 		public void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if(isGameplayState && cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
+			else
+			{
+				look = Vector2.zero; // Reset look input when not in gameplay state
+            }
 		}
 
 		public void OnJump(InputValue value)
 		{
+			if (!isGameplayState) return;
 			JumpInput(value.isPressed);
 		}
 
 		public void OnSprint(InputValue value)
 		{
+			if (!isGameplayState) return;
 			SprintInput(value.isPressed);
 		}
 #endif
@@ -70,33 +96,34 @@ namespace StarterAssets
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			move = newMoveDirection;
+			move = isGameplayState ? newMoveDirection : Vector2.zero;
 		} 
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-			look = newLookDirection;
+			look = isGameplayState ? newLookDirection : Vector2.zero;
 		}
 
 		public void JumpInput(bool newJumpState)
 		{
-			jump = newJumpState;
+			jump = isGameplayState && newJumpState;
 		}
 
 		public void SprintInput(bool newSprintState)
 		{
-			sprint = newSprintState;
+			sprint = isGameplayState && newSprintState;
 		}
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			SetCursorState(isGameplayState ? cursorLocked : false);
 		}
 
 		private void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-		}
+			Cursor.visible = !newState;
+        }
 	}
 	
 }

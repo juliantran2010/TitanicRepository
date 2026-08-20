@@ -1,15 +1,18 @@
+using DG.Tweening;
 using System.Collections;
 using System.Drawing;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
-
+    public static PlayerInteraction Instance { get; private set; }
     private Camera mainCamera;
-    private DialogueManager dialogueManager;
+    private bool canInteract = true;
+
 
     [Header("Einstellungen")]
     [SerializeField] private float interactionDistance = 3f;
@@ -22,29 +25,56 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private RectTransform crosshairRectTransform;
     [SerializeField] private TextMeshProUGUI crosshairDescription;
 
+    [Header("Crosshair Icons")]
     [SerializeField] private Sprite defaultIcon;
     [SerializeField] private Sprite talkIcon;
     [SerializeField] private Sprite pickupIcon;
     [SerializeField] private Sprite inspectIcon;
     [SerializeField] private Sprite useIcon;
+    [SerializeField] private Sprite readIcon;
     [SerializeField] private Sprite teleportIcon;
 
 
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         mainCamera = Camera.main;
         crosshairRectTransform = crosshairImage.GetComponent<RectTransform>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        dialogueManager = DialogueManager.Instance;
+        if (GameStateManager.Instance is not null)
+        {
+            GameStateManager.Instance.OnStateChanged += HandleStateChanged;
+        }
+    }
+    private void OnDisable()
+    {
+        if (GameStateManager.Instance is not null)
+        {
+            GameStateManager.Instance.OnStateChanged -= HandleStateChanged;
+        }
+    }
+
+    private void HandleStateChanged(GameState state)
+    {
+        canInteract = state == GameState.Gameplay;
+        crosshairImage.gameObject.SetActive(canInteract);
     }
 
     private void Update()
     {
-        if (dialogueManager.dialogueIsPlaying) return;
+        if (!canInteract) return;
         CheckForInteractable();
     }
 
@@ -60,19 +90,10 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {
-                    StartCoroutine(InteractInNextFrame(interactable));
+                    interactable.Interact();
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Start Dialogue in next frame to avoid skipping the first sentence
-    /// </summary>
-    private IEnumerator InteractInNextFrame(IInteractable interactable)
-    {
-        yield return null; // Wait for the next frame
-        interactable.Interact();
     }
 
     private void SetCrosshairIcon(IInteractable interactable)
@@ -106,6 +127,10 @@ public class PlayerInteraction : MonoBehaviour
             case InteractionType.Teleport:
                 crosshairImage.sprite = teleportIcon;
                 crosshairDescription.text = "Go to " + interactable.ObjectName;
+                break;
+            case InteractionType.Read:
+                crosshairImage.sprite = readIcon;
+                crosshairDescription.text = "Read " + interactable.ObjectName;
                 break;
             default:
                 crosshairImage.sprite = defaultIcon;

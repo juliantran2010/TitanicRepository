@@ -8,6 +8,7 @@ public enum InteractionType
     Inspect,
     Use,
     Teleport,
+    Read,
     None
 }
 public interface IInteractable
