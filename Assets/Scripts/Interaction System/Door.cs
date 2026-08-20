@@ -2,17 +2,18 @@ using GLTFast.Schema;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Door : MonoBehaviour, IInteractable
+public class Door : InteractableObject
 {
     [SerializeField] private string targetSceneName;
     [SerializeField] private string targetSpawnPointID;
 
-    public InteractionType Type => InteractionType.Teleport;
-
     [SerializeField] private string destinationName;
-    public string ObjectName => destinationName;
 
-    public void Interact()
+    public override InteractionType Type => InteractionType.Teleport;
+
+    public override string ObjectName => destinationName;
+
+    public override void Interact()
     {
         if (targetSpawnPointID != "")
             SpawnManager.Instance.SetNextSpawnPoint(targetSpawnPointID);

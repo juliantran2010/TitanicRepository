@@ -2,16 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Cupboard : MonoBehaviour, IInteractable
+public class Cupboard : InteractableObject
 {
     private InteractionType type = InteractionType.Use;
-    public InteractionType Type => type;
+    public override InteractionType Type => type;
 
-    public string ObjectName => "Cupboard";
-
+    public override string ObjectName => "Cupboard";
     [SerializeField] private Dialogue dialogue;
-
-    public void Interact()
+    public override void Interact()
     {
         bool hasKey = Inventory.Instance.ContainsItem("Cupboard Key");
         var variables = new Dictionary<string, object>

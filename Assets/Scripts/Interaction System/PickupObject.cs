@@ -1,12 +1,12 @@
 using NUnit.Framework.Interfaces;
 using UnityEngine;
 
-public class PickupObject : MonoBehaviour, IInteractable
+public class PickupObject : InteractableObject
 {
-    public InteractionType Type => InteractionType.Pickup;
+    public override InteractionType Type => InteractionType.Pickup;
 
     [SerializeField] string objectName;
-    public string ObjectName => objectName;
+    public override string ObjectName => objectName;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class PickupObject : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
+    public override void Interact()
     {
         bool wasAdded = Inventory.Instance.AddItem(this);
         if (wasAdded)

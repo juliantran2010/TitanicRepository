@@ -3,11 +3,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Note : MonoBehaviour, IInteractable
+public class Note : InteractableObject
 {
-    public InteractionType Type => InteractionType.Read;
+    public override InteractionType Type => InteractionType.Read;
 
-    public string ObjectName => "Note";
+    public override string ObjectName => "Note";
 
     [SerializeField] private TextMeshProUGUI noteDisplay;
     [TextArea(5, 10)]
@@ -16,14 +16,13 @@ public class Note : MonoBehaviour, IInteractable
     [Header("Inspect Settings")]
     [SerializeField] private float distanceInFront = 0.5f; // Abstand vor der Linse
     [SerializeField] private float moveDuration = 0.4f;
-    [SerializeField] private Vector3 inspectRotationOffset = new Vector3(90f, 90f, -90f);
     [SerializeField] private ParticleSystem interactionParticles;
 
     private InputAction escapeAction;
     private InputAction clickAction;
     private bool isReading = false;
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
+    private Vector3 originalLocalPosition;
+    private Quaternion originalLocalRotation;
     private Transform originalParent;
 
 
@@ -35,7 +34,15 @@ public class Note : MonoBehaviour, IInteractable
 
     private void Start()
     {
+        if (InteractionManager.Instance != null && InteractionManager.Instance.HasInteracted(UniqueID))
+        {
+            interactionParticles.Stop();
+        }
         noteDisplay.text = noteText;
+
+        originalLocalPosition = transform.localPosition;
+        originalLocalRotation = transform.localRotation;
+        originalParent = transform.parent;
     }
 
     private void OnDisable()
@@ -43,7 +50,7 @@ public class Note : MonoBehaviour, IInteractable
         if (isReading) CloseNote();
     }
 
-    public void Interact()
+    public override void Interact()
     {
         if (!isReading)
         {
@@ -57,19 +64,15 @@ public class Note : MonoBehaviour, IInteractable
         isReading = true;
         GameStateManager.Instance.SetState(GameState.Inspect);
 
-        originalPosition = transform.position;
-        originalRotation = transform.rotation;
-        originalParent = transform.parent;
-
         Transform camTransform = Camera.main.transform;
-        transform.SetParent(camTransform);
+        transform.SetParent(camTransform, true);
 
         // zur kamera bewegen
         transform.DOKill();
         Vector3 targetLocalPos = new Vector3(0f, 0f, distanceInFront);
         transform.DOLocalMove(targetLocalPos, moveDuration).SetEase(Ease.OutCubic);
-        transform.DOLocalRotate(inspectRotationOffset, moveDuration).SetEase(Ease.OutCubic);
-        
+        transform.DOLocalRotate(Vector3.zero, moveDuration).SetEase(Ease.OutCubic);
+
         escapeAction.Enable();
         escapeAction.performed += OnEscapePressed;
         clickAction.Enable();
@@ -92,9 +95,9 @@ public class Note : MonoBehaviour, IInteractable
         clickAction.Disable();
 
         transform.DOKill();
-        transform.SetParent(originalParent);
-        transform.DOMove(originalPosition, moveDuration).SetEase(Ease.OutCubic);
-        transform.DORotateQuaternion(originalRotation, moveDuration).SetEase(Ease.OutCubic);
+        transform.SetParent(originalParent, true);
+        transform.DOLocalMove(originalLocalPosition, moveDuration).SetEase(Ease.OutCubic);
+        transform.DOLocalRotateQuaternion(originalLocalRotation, moveDuration).SetEase(Ease.OutCubic);
         DOVirtual.DelayedCall(0f, () =>
         {
             //Erst im nächsten Frame den State zurücksetzen, damit die Note nicht direkt wieder geöffnet wird
