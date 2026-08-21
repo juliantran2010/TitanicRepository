@@ -3922,7 +3922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0e2948c31a6742946c64e43563338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Key
-  uniqueID: 8c5b458f-021e-4070-ba84-6574a7652382
+  uniqueID: 4d5aae09-3ebc-45c3-8b03-d30e77d2d433
   objectName: Cupboard Key
 --- !u!64 &4376220668415230892
 MeshCollider:

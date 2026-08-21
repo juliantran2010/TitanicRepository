@@ -131,7 +131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583585002844007101}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.8907, y: 0.6689, z: 1.6866}
   m_LocalScale: {x: 0.10538868, y: 0.15713553, z: 1}
   m_ConstrainProportionsScale: 0
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb07375d43b53a547b5822b76afa513b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Paper
+  uniqueID: 
   noteDisplay: {fileID: 6808044086919241347}
   noteText: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
     eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.

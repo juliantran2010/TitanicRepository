@@ -24,7 +24,7 @@ namespace StarterAssets
 
         private void OnEnable()
         {
-            if (GameStateManager.Instance is not null)
+            if (GameStateManager.Instance != null)
             {
                 GameStateManager.Instance.OnStateChanged += HandleStateChanged;
             }
@@ -32,7 +32,7 @@ namespace StarterAssets
 
         private void OnDisable()
         {
-            if (GameStateManager.Instance is not null)
+            if (GameStateManager.Instance != null)
             {
                 GameStateManager.Instance.OnStateChanged -= HandleStateChanged;
             }
