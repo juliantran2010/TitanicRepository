@@ -8,21 +8,21 @@ public class PickupObject : InteractableObject
     [SerializeField] string objectName;
     public override string ObjectName => objectName;
 
-    private void Start()
-    {
-        if (InteractionManager.Instance.HasInteracted(UniqueID))
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public override void Interact()
+    protected override void OnInteract()
     {
         bool wasAdded = Inventory.Instance.AddItem(this);
         if (wasAdded)
         {
             transform.SetParent(Inventory.Instance.transform);
             AttachToCameraField attachScript = gameObject.AddComponent<AttachToCameraField>();
+        }
+    }
+
+    protected override void OnStateRestored()
+    {
+        if (HasInteracted)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -9,7 +9,7 @@ public class Cupboard : InteractableObject
 
     public override string ObjectName => "Cupboard";
     [SerializeField] private Dialogue dialogue;
-    public override void Interact()
+    protected override void OnInteract()
     {
         bool hasKey = Inventory.Instance.ContainsItem("Cupboard Key");
         var variables = new Dictionary<string, object>
@@ -26,6 +26,16 @@ public class Cupboard : InteractableObject
         Inventory.Instance.RemoveItem("Cupboard Key");
         gameObject.transform.DORotate(new Vector3(0, -155, 0), 1f);
         DialogueManager.Instance.OnTriggerFound -= OpenDoor;
-        type = InteractionType.None; // Disable further interaction after opening the cupboard
+        GetComponent<BoxCollider>().enabled = false; // Disable further interaction after opening the cupboard
+        SetStateValue("isOpened", true);
+    }
+
+    protected override void OnStateRestored()
+    {
+        if (GetStateValue<bool>("isOpened"))
+        {
+            gameObject.transform.Rotate(new Vector3(0, -155, 0));
+            GetComponent<BoxCollider>().enabled = false;
+        }
     }
 }

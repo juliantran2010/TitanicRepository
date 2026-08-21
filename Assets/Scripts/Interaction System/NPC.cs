@@ -8,7 +8,7 @@ public class NPC : InteractableObject
 
     [SerializeField] private Dialogue dialogue;
     public override InteractionType Type => InteractionType.Dialogue;
-    public override void Interact()
+    protected override void OnInteract()
     {
         DialogueManager.Instance.StartDialogue(dialogue);
     }

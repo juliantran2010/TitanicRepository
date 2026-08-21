@@ -32,25 +32,25 @@ public class Note : InteractableObject
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
     }
 
-    private void Start()
+    protected override void Start()
     {
-        if (InteractionManager.Instance != null && InteractionManager.Instance.HasInteracted(UniqueID))
-        {
-            interactionParticles.Stop();
-        }
+        base.Start();
         noteDisplay.text = noteText;
-
         originalLocalPosition = transform.localPosition;
         originalLocalRotation = transform.localRotation;
         originalParent = transform.parent;
     }
 
-    private void OnDisable()
+    protected override void OnStateRestored()
     {
-        if (isReading) CloseNote();
+        Debug.Log("on restored");
+        if (HasInteracted)
+        {
+            interactionParticles.Stop();
+        }
     }
 
-    public override void Interact()
+    protected override void OnInteract()
     {
         if (!isReading)
         {

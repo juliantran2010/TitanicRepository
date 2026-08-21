@@ -2,10 +2,7 @@ using UnityEngine;
 
 public enum GameState
 {
-    Gameplay,   // Normales Laufen, First-Person-Blick
-    Inspect,    // Dokumente/Objekte ansehen
-    Dialogue,   // Gespräche führen
-    PauseMenu   // Menü offen
+    Gameplay, Inspect, Dialogue, PauseMenu
 }
 public class GameStateManager : MonoBehaviour
 {
@@ -19,8 +16,14 @@ public class GameStateManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

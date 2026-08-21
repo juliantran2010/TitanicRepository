@@ -13,7 +13,7 @@ public class Door : InteractableObject
 
     public override string ObjectName => destinationName;
 
-    public override void Interact()
+    protected override void OnInteract()
     {
         if (targetSpawnPointID != "")
             SpawnManager.Instance.SetNextSpawnPoint(targetSpawnPointID);

@@ -22,7 +22,7 @@ namespace StarterAssets
 
 		private bool isGameplayState = true; // Track the current game state
 
-        private void OnEnable()
+        private void Start()
         {
             if (GameStateManager.Instance != null)
             {
@@ -30,7 +30,7 @@ namespace StarterAssets
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (GameStateManager.Instance != null)
             {

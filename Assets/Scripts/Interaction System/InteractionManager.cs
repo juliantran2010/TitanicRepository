@@ -13,7 +13,6 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance { get; private set; }
     private Camera mainCamera;
     private bool canInteract = true;
-    public HashSet<string> InteractedObjects = new HashSet<string>();
 
 
     [Header("Einstellungen")]
@@ -53,14 +52,14 @@ public class InteractionManager : MonoBehaviour
         crosshairRectTransform = crosshairImage.GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         if (GameStateManager.Instance is not null)
         {
             GameStateManager.Instance.OnStateChanged += HandleStateChanged;
         }
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (GameStateManager.Instance is not null)
         {
@@ -72,11 +71,6 @@ public class InteractionManager : MonoBehaviour
     {
         canInteract = state == GameState.Gameplay;
         crosshairImage.gameObject.SetActive(canInteract);
-    }
-
-    public bool HasInteracted(string uniqueID)
-    {
-        return InteractedObjects.Contains(uniqueID);
     }
 
     private void Update()
@@ -98,7 +92,6 @@ public class InteractionManager : MonoBehaviour
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     interactable.Interact();
-                    InteractedObjects.Add(interactable.UniqueID);
                 }
             }
         }
