@@ -16,14 +16,20 @@ public abstract class InteractableObject : MonoBehaviour
     public string UniqueID => uniqueID;
     protected virtual void OnValidate()
     {
+        // Funktioniert nur im Unity-Editor
+#if UNITY_EDITOR
+        // Ignoriere Prefabs im Projekt-Ordner, betrifft nur Objekte in der Szene
+        if (!gameObject.scene.IsValid()) return;
+
         if (string.IsNullOrEmpty(uniqueID))
         {
             uniqueID = System.Guid.NewGuid().ToString();
 
-#if UNITY_EDITOR
+            // WICHTIG: Sagt Unity, dass das Objekt UND die Szene geänderten Speichercode haben
             UnityEditor.EditorUtility.SetDirty(this);
-#endif
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
         }
+#endif
     }
 
 

@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54b1b1546e1c924eac00b8dac1d9ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
+  uniqueID: 68be72ca-a7f2-4e28-b342-6a69504f61e4
   targetSceneName: Grand Staircase
   targetSpawnPointID: staircase_cabins_left
   destinationName: Grand Staircase
@@ -3921,6 +3922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0e2948c31a6742946c64e43563338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Key
+  uniqueID: 8c5b458f-021e-4070-ba84-6574a7652382
   objectName: Cupboard Key
 --- !u!64 &4376220668415230892
 MeshCollider:

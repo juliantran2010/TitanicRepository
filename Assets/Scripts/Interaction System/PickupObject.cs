@@ -10,7 +10,7 @@ public class PickupObject : InteractableObject
 
     private void Start()
     {
-        if (Inventory.Instance.ContainsItem(objectName))
+        if (InteractionManager.Instance.HasInteracted(UniqueID))
         {
             Destroy(gameObject);
         }
