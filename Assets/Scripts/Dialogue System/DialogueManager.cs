@@ -149,10 +149,16 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogError("More choices than UI can support. Number of choices given: " + currentChoices.Count);
         }
-        for (int i = 0; i < currentChoices.Count; i++)
+
+        for (int i = 0; i < Math.Min(currentChoices.Count, choices.Length); i++)
         {
             choices[i].gameObject.SetActive(true);
             choicesText[i].text = currentChoices[i].text;
+
+            // Prüfen, wie oft das Ziel dieser Wahl in Ink bereits besucht wurde
+            string pathString = currentChoices[i].pathStringOnChoice;
+            int visits = currentStory.state.VisitCountAtPathString(pathString);
+            choicesText[i].color = visits > 0 ? new Color(0.6f, 0.6f, 0.6f, 0.7f) : Color.white;
         }
         for (int i = currentChoices.Count; i < choices.Length; i++)
         {
