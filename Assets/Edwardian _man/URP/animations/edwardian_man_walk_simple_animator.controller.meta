@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7be0648cd5d6d5646a0a5b01ead88506
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 306716
+  packageName: Gentleman Modular
+  packageVersion: 1.0
+  assetPath: Assets/Edwardian _man/URP/animations/edwardian_man_walk_simple_animator.controller
+  uploadId: 720871

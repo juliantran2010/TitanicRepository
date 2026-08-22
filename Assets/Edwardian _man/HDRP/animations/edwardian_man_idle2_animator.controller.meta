@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 900096f14314827419e2224b2bc99ad6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 306716
+  packageName: Gentleman Modular
+  packageVersion: 1.0
+  assetPath: Assets/Edwardian _man/HDRP/animations/edwardian_man_idle2_animator.controller
+  uploadId: 720871
