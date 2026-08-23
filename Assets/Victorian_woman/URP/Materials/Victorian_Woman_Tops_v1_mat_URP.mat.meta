@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 72a649e3a3ec8bf4c8841b1b72ef2dbe
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303372
+  packageName: Victorian Era Modular Woman
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_woman/URP/Materials/Victorian_Woman_Tops_v1_mat_URP.mat
+  uploadId: 711403

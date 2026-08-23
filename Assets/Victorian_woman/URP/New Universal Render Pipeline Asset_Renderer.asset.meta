@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 85c3b5aa7ff897c48a6e3e00ca20316d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303372
+  packageName: Victorian Era Modular Woman
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_woman/URP/New Universal Render Pipeline Asset_Renderer.asset
+  uploadId: 711403

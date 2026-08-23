@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 74075e2c295901a468fd4f4c0cb8a7bf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303372
+  packageName: Victorian Era Modular Woman
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_woman/URP/Animations/victorian_woman_run_anim_cntr.controller
+  uploadId: 711403

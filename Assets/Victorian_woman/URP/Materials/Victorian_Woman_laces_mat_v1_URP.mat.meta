@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f67ca79081014064a92e27a71e482bd0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303372
+  packageName: Victorian Era Modular Woman
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_woman/URP/Materials/Victorian_Woman_laces_mat_v1_URP.mat
+  uploadId: 711403

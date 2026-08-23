@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: baccda2d73f3bf84cb565a70e493c90c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303372
+  packageName: Victorian Era Modular Woman
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_woman/URP/Animations/victorian_woman_walk_with_gentleman_anim_cntr.controller
+  uploadId: 711403
