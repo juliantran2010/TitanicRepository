@@ -20,7 +20,7 @@ public class DialogueObject : InteractableObject
         }
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         DialogueManager.Instance.OnDialogueEnd -= OnDialogueEnd;
     }
@@ -35,6 +35,6 @@ public class DialogueObject : InteractableObject
 
     protected override void OnStateRestored()
     {
-        dialogue.dialogueState = GetStateValue<string>("dialogue_state");
+        dialogue.dialogueState = GetStateValue("dialogue_state", string.Empty);
     }
 }

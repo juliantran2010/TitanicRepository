@@ -31,6 +31,35 @@ public class NPC : DialogueObject
             SetNewDestination();
     }
 
+    private void Reset()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.radius = 0.2f;
+            agent.stoppingDistance = 0f;
+            agent.speed = 0.2f;
+            agent.acceleration = 6f;
+            agent.height = 1f;
+            agent.autoBraking= false;
+            int walkableAreaIndex = NavMesh.GetAreaFromName("Walkable");
+            agent.areaMask = 1 << walkableAreaIndex;
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        waitTween.Kill();
+        SetStateValue("current_position", transform.position);
+    }
+
+    protected override void OnStateRestored()
+    {
+        base.OnStateRestored();
+        transform.position = GetStateValue<Vector3>("current_position");
+    }
+
     protected override void OnInteract()
     {
         base.OnInteract();
