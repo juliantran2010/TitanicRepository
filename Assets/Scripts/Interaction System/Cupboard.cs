@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Cupboard : InteractableObject
+public class Cupboard : DialogueObject
 {
     private InteractionType type = InteractionType.Use;
     public override InteractionType Type => type;
@@ -32,6 +32,7 @@ public class Cupboard : InteractableObject
 
     protected override void OnStateRestored()
     {
+        base.OnStateRestored();
         if (GetStateValue<bool>("isOpened"))
         {
             gameObject.transform.Rotate(new Vector3(0, -155, 0));

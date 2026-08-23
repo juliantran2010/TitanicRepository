@@ -107,31 +107,32 @@ public class InteractionManager : MonoBehaviour
             return;
         }
         crosshairRectTransform.sizeDelta = interactIconSize;
+        string objectName = interactable.ObjectName == "" ? interactable.gameObject.name : interactable.ObjectName;
         switch (interactable.Type)
         {
             case InteractionType.Dialogue:
                 crosshairImage.sprite = talkIcon;
-                crosshairDescription.text = "Talk to " + interactable.ObjectName;
+                crosshairDescription.text = "Talk to " + objectName;
                 break;
             case InteractionType.Pickup:
                 crosshairImage.sprite = pickupIcon;
-                crosshairDescription.text = "Pick up " + interactable.ObjectName;
+                crosshairDescription.text = "Pick up " + objectName;
                 break;
             case InteractionType.Inspect:
                 crosshairImage.sprite = inspectIcon;
-                crosshairDescription.text = "Inspect " + interactable.ObjectName;
+                crosshairDescription.text = "Inspect " + objectName;
                 break;
             case InteractionType.Use:
                 crosshairImage.sprite = useIcon;
-                crosshairDescription.text = "Use " + interactable.ObjectName;
+                crosshairDescription.text = "Use " + objectName;
                 break;
             case InteractionType.Teleport:
                 crosshairImage.sprite = teleportIcon;
-                crosshairDescription.text = "Go to " + interactable.ObjectName;
+                crosshairDescription.text = "Go to " + objectName;
                 break;
             case InteractionType.Read:
                 crosshairImage.sprite = readIcon;
-                crosshairDescription.text = "Read " + interactable.ObjectName;
+                crosshairDescription.text = "Read " + objectName;
                 break;
             default:
                 crosshairImage.sprite = defaultIcon;

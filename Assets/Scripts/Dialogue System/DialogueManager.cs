@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
     private Story currentStory;
     private Dialogue currentDialogue;
-    public Action<Dialogue> OnDialogueEnd;
+    public Action<Dialogue, Story> OnDialogueEnd;
     public Action<string> OnTriggerFound;
 
     private void Awake()
@@ -57,8 +57,14 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue, Dictionary<string, object> variables = null)
     {
-        currentStory = new Story(dialogue.inkJSON.text);
         currentDialogue = dialogue;
+        currentStory = new Story(dialogue.inkJSON.text);
+        string startPath = currentStory.state.currentPathString;
+        if (dialogue.dialogueState != "")
+        { 
+            currentStory.state.LoadJson(dialogue.dialogueState);
+            currentStory.ChoosePathString(startPath); // go to beginning
+        }
 
         if (variables != null)
         {
@@ -137,7 +143,7 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueBox.SetActive(false);
         GameStateManager.Instance.SetState(GameState.Gameplay);
-        OnDialogueEnd?.Invoke(currentDialogue);
+        OnDialogueEnd?.Invoke(currentDialogue, currentStory);
     }
 
     private void DisplayChoices()

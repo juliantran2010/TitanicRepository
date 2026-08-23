@@ -5,4 +5,5 @@ using UnityEngine;
 public class Dialogue
 {
     public TextAsset inkJSON;
+    public string dialogueState = "";
 }
