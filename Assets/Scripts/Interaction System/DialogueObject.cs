@@ -7,8 +7,8 @@ public class DialogueObject : InteractableObject
     [SerializeField] private string objectName;
     public override string ObjectName => objectName;
 
-    [SerializeField] private Dialogue dialogue;
-    public override InteractionType Type => InteractionType.Dialogue;
+    [SerializeField] protected Dialogue dialogue;
+    public override InteractionType Type => (dialogue != null && dialogue.inkJSON != null) ? InteractionType.Dialogue : InteractionType.None;
     protected override void OnInteract()
     {
         DialogueManager manager = DialogueManager.Instance;

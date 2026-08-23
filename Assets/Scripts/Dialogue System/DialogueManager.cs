@@ -103,6 +103,7 @@ public class DialogueManager : MonoBehaviour
             if (parts.Length == 2)
             {
                 nameText.text = parts[0].Trim();
+                nameText.color = nameText.text.ToLower() == "you" ? new Color32(92, 245, 155, 255) : new Color32(80, 120, 225, 255);
                 dialogueText.text = parts[1].Trim();
             }
             else

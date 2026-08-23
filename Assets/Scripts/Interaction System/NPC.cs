@@ -21,12 +21,16 @@ public class NPC : DialogueObject
     private Tween waitTween;
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
 
-    protected override void Start()
+    private void Awake()
     {
-        base.Start();
         startPosition = transform.position;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         if (shouldWander)
             SetNewDestination();
     }
@@ -63,6 +67,7 @@ public class NPC : DialogueObject
     protected override void OnInteract()
     {
         base.OnInteract();
+        if (dialogue == null || dialogue.inkJSON == null) return;
         if (shouldWander) StopWandering();
         DOTween.To(() => currentLookWeight, x => currentLookWeight = x, 1f, turnDuration);
     }
