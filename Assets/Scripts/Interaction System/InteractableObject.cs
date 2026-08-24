@@ -37,7 +37,7 @@ public abstract class InteractableObject : MonoBehaviour
     public abstract InteractionType Type { get; }
     public abstract string ObjectName { get; }
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
-    public bool HasInteracted => GetStateValue<bool>("hasInteracted", false);
+    public bool HasInteracted => GetPersistentStateValue<bool>("hasInteracted", false);
 
     protected virtual void Start()
     {
@@ -45,16 +45,16 @@ public abstract class InteractableObject : MonoBehaviour
     }
     public void Interact()
     {
-        SetStateValue("hasInteracted", true);
+        SetPersistentStateValue("hasInteracted", true);
         OnInteract();
     }
     protected abstract void OnInteract();
-    protected void SetStateValue<T>(string key, T value)
+    protected void SetPersistentStateValue<T>(string key, T value)
     {
         _localState[key] = value;
         SaveCurrentState();
     }
-    protected T GetStateValue<T>(string key, T defaultValue = default)
+    protected T GetPersistentStateValue<T>(string key, T defaultValue = default)
     {
         if (_localState.TryGetValue(key, out object value) && value is T typedValue)
         {

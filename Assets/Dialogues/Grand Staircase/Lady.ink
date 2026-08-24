@@ -9,7 +9,7 @@ Lady: Yes? Can I help you, young man?
 + [(Informal) Direct warning]
     You: Hey, listen — we've got a big problem, okay?
     Lady: (visibly taken aback) I beg your pardon? Do you know how to address a lady properly? (walks off immediately, offended)
-    -> options
+    -> END
 + [(Leave)]
     -> END
 * -> END

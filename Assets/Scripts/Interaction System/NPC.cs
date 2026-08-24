@@ -55,13 +55,13 @@ public class NPC : DialogueObject
     {
         base.OnDestroy();
         waitTween.Kill();
-        SetStateValue("current_position", transform.position);
+        SetPersistentStateValue("current_position", transform.position);
     }
 
     protected override void OnStateRestored()
     {
         base.OnStateRestored();
-        transform.position = GetStateValue<Vector3>("current_position");
+        transform.position = GetPersistentStateValue<Vector3>("current_position");
     }
 
     protected override void OnInteract()

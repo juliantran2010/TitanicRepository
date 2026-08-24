@@ -8,32 +8,30 @@ public class Cupboard : DialogueObject
     public override InteractionType Type => type;
 
     public override string ObjectName => "Cupboard";
-    [SerializeField] private Dialogue dialogue;
-    protected override void OnInteract()
+
+    protected override Dictionary<string, object> SetDialogueVariables()
     {
         bool hasKey = Inventory.Instance.ContainsItem("Cupboard Key");
-        var variables = new Dictionary<string, object>
+        return new Dictionary<string, object>
         {
             { "hasKey", hasKey }
         };
-        DialogueManager.Instance.OnTriggerFound += OpenDoor;
-        DialogueManager.Instance.StartDialogue(dialogue, variables);
     }
 
-    private void OpenDoor(string triggerName)
+    protected override void OnInkTrigger(string triggerName)
     {
         if (triggerName != "open_cupboard") return;
+        //Open Door
         Inventory.Instance.RemoveItem("Cupboard Key");
         gameObject.transform.DORotate(new Vector3(0, -155, 0), 1f);
-        DialogueManager.Instance.OnTriggerFound -= OpenDoor;
         GetComponent<BoxCollider>().enabled = false; // Disable further interaction after opening the cupboard
-        SetStateValue("isOpened", true);
+        SetPersistentStateValue("isOpened", true);
     }
 
     protected override void OnStateRestored()
     {
         base.OnStateRestored();
-        if (GetStateValue<bool>("isOpened"))
+        if (GetPersistentStateValue<bool>("isOpened"))
         {
             gameObject.transform.Rotate(new Vector3(0, -155, 0));
             GetComponent<BoxCollider>().enabled = false;

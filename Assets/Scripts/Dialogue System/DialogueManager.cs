@@ -61,8 +61,7 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(dialogue.inkJSON.text);
         string startPath = currentStory.state.currentPathString;
         if (dialogue.dialogueState != "")
-        { 
-            Debug.Log(dialogue.dialogueState);
+        {
             currentStory.state.LoadJson(dialogue.dialogueState);
             currentStory.ChoosePathString(startPath); // go to beginning
         }

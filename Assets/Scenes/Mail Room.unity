@@ -842,18 +842,6 @@ PrefabInstance:
       value: GameManagers
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
       value: -56.109764
       objectReference: {fileID: 0}
@@ -1294,18 +1282,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 630040224}
     m_Modifications:
-    - target: {fileID: 2625167523389720759, guid: d1f41faffd6da1c4490a05e7d52be4b5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.625
-      objectReference: {fileID: 0}
-    - target: {fileID: 2625167523389720759, guid: d1f41faffd6da1c4490a05e7d52be4b5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.625
-      objectReference: {fileID: 0}
-    - target: {fileID: 2625167523389720759, guid: d1f41faffd6da1c4490a05e7d52be4b5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.625
-      objectReference: {fileID: 0}
     - target: {fileID: 2625167523389720759, guid: d1f41faffd6da1c4490a05e7d52be4b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -41.037262
@@ -8231,7 +8207,7 @@ GameObject:
   - component: {fileID: 56565283773456042}
   - component: {fileID: 5871260878947000190}
   - component: {fileID: 9055826791015573678}
-  - component: {fileID: 9055826791015573677}
+  - component: {fileID: 9055826791015573679}
   m_Layer: 0
   m_Name: cabinet_door_02
   m_TagString: Untagged
@@ -8239,21 +8215,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &9055826791015573677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9055826791015573676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbf81563592b2a468be4bc663c0adfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Cupboard
-  uniqueID: 58b39448-53c7-4775-b13d-26890f6e2a3f
-  dialogue:
-    inkJSON: {fileID: 4900000, guid: b470d4b681e6c46428362e5a81c232e4, type: 3}
 --- !u!65 &9055826791015573678
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8275,6 +8236,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.42051584, y: 0.9209691, z: 0.03327895}
   m_Center: {x: 0.20537636, y: 0.000000029802322, z: 0.001349912}
+--- !u!114 &9055826791015573679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055826791015573676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbf81563592b2a468be4bc663c0adfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cupboard
+  uniqueID: c3fb9dbf-a3df-4540-8f94-f602b812c091
+  objectName: Cupboard
+  dialogue:
+    inkJSON: {fileID: 4900000, guid: b470d4b681e6c46428362e5a81c232e4, type: 3}
+    dialogueState: 
 --- !u!23 &9118682884488268419
 MeshRenderer:
   m_ObjectHideFlags: 0

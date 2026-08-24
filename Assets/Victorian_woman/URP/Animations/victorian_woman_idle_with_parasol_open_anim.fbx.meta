@@ -1,7 +1,14 @@
 fileFormatVersion: 2
 guid: e69ad09100598da438fbd27277420715
+AssetOrigin:
+  serializedVersion: 1
+  productId: 303372
+  packageName: Victorian Era Modular Woman
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_woman/URP/Animations/victorian_woman_idle_with_parasol_open_anim.fbx
+  uploadId: 711403
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -85,6 +92,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -893,8 +903,7 @@ ModelImporter:
     hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1be27b9279c3ad249804b88ca9c64ffb,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1be27b9279c3ad249804b88ca9c64ffb, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
@@ -906,10 +915,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 303372
-  packageName: Victorian Era Modular Woman
-  packageVersion: 1.0
-  assetPath: Assets/Victorian_woman/URP/Animations/victorian_woman_idle_with_parasol_open_anim.fbx
-  uploadId: 711403

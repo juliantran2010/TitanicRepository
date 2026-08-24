@@ -43,7 +43,6 @@ public class Note : InteractableObject
 
     protected override void OnStateRestored()
     {
-        Debug.Log("on restored");
         if (HasInteracted)
         {
             interactionParticles.Stop();
