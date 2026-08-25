@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cef83662da5bfb74a9b832c86ce3a0f3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 359266
+  packageName: Victorian Working Class Women
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_working_women/URP/Demoscene/camera_holder.controller
+  uploadId: 856030

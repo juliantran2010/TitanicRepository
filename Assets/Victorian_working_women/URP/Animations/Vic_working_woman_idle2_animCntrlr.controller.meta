@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e9be880b33a99684d89f6fb1066f8a77
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 359266
+  packageName: Victorian Working Class Women
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_working_women/URP/Animations/Vic_working_woman_idle2_animCntrlr.controller
+  uploadId: 856030

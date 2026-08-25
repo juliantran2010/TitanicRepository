@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cd20587ce8e4b4d47a92b6670eab40b6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 359266
+  packageName: Victorian Working Class Women
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_working_women/URP/Animations/Vic_working_woman_walk_animCntrlr.controller
+  uploadId: 856030
