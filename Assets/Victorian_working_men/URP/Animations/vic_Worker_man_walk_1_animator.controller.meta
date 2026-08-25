@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a91859dba104ba24b959d304ac567ef1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331886
+  packageName: Victorian Working Class Men
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_working_men/URP/Animations/vic_Worker_man_walk_1_animator.controller
+  uploadId: 785290

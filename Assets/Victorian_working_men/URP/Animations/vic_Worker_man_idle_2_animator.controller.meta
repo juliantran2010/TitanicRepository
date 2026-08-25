@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8cfa3e743a427024dac8f3059711e37c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331886
+  packageName: Victorian Working Class Men
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_working_men/URP/Animations/vic_Worker_man_idle_2_animator.controller
+  uploadId: 785290
