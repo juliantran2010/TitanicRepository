@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5fc436938c958fd45b038c7aad872387
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296856
+  packageName: Victorian Era Modular Man
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_man/URP/animations/vic_man_walk_simple_animator.controller
+  uploadId: 694298

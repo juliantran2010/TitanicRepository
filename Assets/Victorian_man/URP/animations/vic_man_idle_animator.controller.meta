@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ee7ba42f5e9544e409e4278f532e3a54
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296856
+  packageName: Victorian Era Modular Man
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_man/URP/animations/vic_man_idle_animator.controller
+  uploadId: 694298

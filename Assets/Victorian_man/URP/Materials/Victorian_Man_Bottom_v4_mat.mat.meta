@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dadf2af357ed4b54f8cf099f3b48ceae
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296856
+  packageName: Victorian Era Modular Man
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_man/URP/Materials/Victorian_Man_Bottom_v4_mat.mat
+  uploadId: 694298

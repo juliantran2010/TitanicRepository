@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86361b781cd188443ba1aa41928231b6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296856
+  packageName: Victorian Era Modular Man
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_man/URP/animations/vic_man_walk_with_lady_animator.controller
+  uploadId: 694298

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b0edc2feb541c142ba6d119e1d66d95
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296856
+  packageName: Victorian Era Modular Man
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_man/URP/animations/vic_man_idle_with_cane_animator.controller
+  uploadId: 694298

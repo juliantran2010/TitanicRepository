@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bb6a688d266f05f4aa4957bf4dd5938e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296856
+  packageName: Victorian Era Modular Man
+  packageVersion: 1.0
+  assetPath: Assets/Victorian_man/URP/animations/vic_man_walk_with_cane_animator.controller
+  uploadId: 694298
