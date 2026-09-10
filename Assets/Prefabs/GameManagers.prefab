@@ -773,6 +773,7 @@ GameObject:
   - component: {fileID: 4506080811275305254}
   - component: {fileID: 7234680643877256501}
   - component: {fileID: 2599536739403416728}
+  - component: {fileID: 8110802278284289392}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -933,6 +934,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestManager
   questContainer: {fileID: 309861824425975461}
   questItemPrefab: {fileID: 4038486426957147646, guid: 2a9c3ab257997c9458b71fbbcf9d0e72, type: 3}
+--- !u!114 &8110802278284289392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447482488667911103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c663b3aa728aa4ea097733a9d7ba4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tutorial
+  requiredWalkDuration: 1.2
 --- !u!1 &3476532097174624147
 GameObject:
   m_ObjectHideFlags: 0
@@ -2465,10 +2479,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 30
+    m_Right: 30
+    m_Top: 20
+    m_Bottom: 20
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 0

@@ -150,6 +150,11 @@ public class DialogueManager : MonoBehaviour
                     string completeId = parts[1].Trim();
                     QuestManager.Instance.CompleteQuest(completeId);
                     break;
+                case "teleport" when parts.Length >= 3:
+                    string sceneName = parts[1].Trim();
+                    string spawnPointID = parts[2].Trim();
+                    GameSceneManager.Instance.ChangeScene(sceneName, spawnPointID);
+                    break;
                 default:
                     Debug.LogWarning($"Unbekannter Tag-Befehl: {command}");
                     break;

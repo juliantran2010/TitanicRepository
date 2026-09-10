@@ -1,6 +1,8 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem; // Wichtig: Namespace für das neue Input System
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement; // Wichtig: Namespace für das neue Input System
 
 public class BinocularController : MonoBehaviour
 {
@@ -124,7 +126,7 @@ public class BinocularController : MonoBehaviour
         return seq;
     }
 
-    private void LowerBinoculars()
+    private void LowerBinoculars(Action OnLowered = null)
     {
         PickupObject binoculars = Inventory.Instance.GetItem("binoculars");
         if (binoculars == null) return;
@@ -160,6 +162,7 @@ public class BinocularController : MonoBehaviour
             {
                 attachScript.enabled = true;
             }
+            OnLowered?.Invoke();
         });
     }
 
@@ -196,6 +199,10 @@ public class BinocularController : MonoBehaviour
     private void OnIcebergDiscovered(GameObject iceberg)
     {
         icebergFound = true;
-        Debug.Log("Eisberg entdeckt!");
+        Debug.Log("Iceberg discovered!");
+        LowerBinoculars(() =>
+        {
+            GameSceneManager.Instance.ChangeScene("Water Titanic", "Titanic Deck");
+        });
     }
 }
