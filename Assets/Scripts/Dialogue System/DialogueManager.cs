@@ -132,10 +132,27 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (string tag in currentStory.currentTags)
         {
-            if (tag.StartsWith("trigger:"))
+            string[] parts = tag.Split(':', 3);
+            string command = parts[0].Trim().ToLower();
+
+            switch (command)
             {
-                string triggerName = tag.Replace("trigger:", "").Trim();
-                OnTriggerFound?.Invoke(triggerName);
+                case "trigger" when parts.Length >= 2:
+                    string triggerName = parts[1].Trim();
+                    OnTriggerFound?.Invoke(triggerName);
+                    break;
+                case "add_quest" when parts.Length >= 3:
+                    string addId = parts[1].Trim();
+                    string description = parts[2].Trim();
+                    QuestManager.Instance.AddQuest(addId, description);
+                    break;
+                case "complete_quest" when parts.Length >= 2:
+                    string completeId = parts[1].Trim();
+                    QuestManager.Instance.CompleteQuest(completeId);
+                    break;
+                default:
+                    Debug.LogWarning($"Unbekannter Tag-Befehl: {command}");
+                    break;
             }
         }
     }
