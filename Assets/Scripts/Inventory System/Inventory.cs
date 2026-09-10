@@ -49,4 +49,9 @@ public class Inventory : MonoBehaviour
     {
         return items.Any(i => i.ObjectName == itemName);
     }
+
+    public PickupObject GetItem(string itemName)
+    {
+        return items.FirstOrDefault(i => i.ObjectName == itemName);
+    }
 }

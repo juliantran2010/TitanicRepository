@@ -16,9 +16,10 @@ public class AttachToCameraField : MonoBehaviour
     private Camera mainCam;
     private float currentYaw = 0f; // Speichert den aktuellen Drehwinkel
     private bool isFollowing = false;
+    private Sequence pickupSequence;
 
 
-    private void Start()
+    private void OnEnable()
     {
         mainCam = Camera.main;
 
@@ -28,28 +29,44 @@ public class AttachToCameraField : MonoBehaviour
         StartPickupAnimation();
     }
 
+    private void OnDisable()
+    {
+        pickupSequence?.Kill();
+        transform.DOKill();
+        isFollowing = false;
+    }
+
     private void StartPickupAnimation()
     {
-        if (mainCam == null) mainCam = Camera.main;
+        // Vorherige Tweens sicher abbrechen
+        pickupSequence?.Kill();
+        transform.DOKill();
+        isFollowing = false;
 
-        isFollowing = false; // Deaktiviert das sprunghafte LateUpdate während des Tweens
-
-        // 1. Zielposition und -rotation berechnen
+        // Lokale Zielposition relativ zur Kamera berechnen
         Vector3 targetWorldPos = mainCam.ViewportToWorldPoint(viewportPosition);
-        Quaternion targetRotation = mainCam.transform.rotation;
+        Vector3 targetLocalPos = mainCam.transform.InverseTransformPoint(targetWorldPos);
 
-        // 2. DOTween-Animationen starten
-        transform.DOMove(targetWorldPos, animDuration).SetEase(animEase);
-        transform.DORotateQuaternion(targetRotation, animDuration).SetEase(animEase);
+        pickupSequence = DOTween.Sequence();
 
-        // 3. Skalieren und am Ende LateUpdate aktivieren
-        transform.DOScale(targetScale, animDuration)
-            .SetEase(animEase)
-            .OnComplete(() =>
-            {
-                // Sobald DOTween fertig ist, übernimmt LateUpdate!
-                isFollowing = true;
-            });
+        // Über DOTween.To jeden Frame die Zielkoordinate an die aktuelle Kameraposition anpassen
+        Vector3 startPos = transform.position;
+        pickupSequence.Join(DOTween.To(() => 0f, t =>
+        {
+            // Verhindert das Verfehlen bei Kamerabewegung: Interpoliert flüssig zur *aktuellen* Kameraposition
+            Vector3 currentTarget = mainCam.ViewportToWorldPoint(viewportPosition);
+            transform.position = Vector3.Lerp(startPos, currentTarget, t);
+        }, 1f, animDuration).SetEase(animEase));
+
+        pickupSequence.Join(transform.DORotateQuaternion(mainCam.transform.rotation, animDuration).SetEase(animEase));
+        pickupSequence.Join(transform.DOScale(targetScale, animDuration).SetEase(animEase));
+
+        pickupSequence.OnComplete(() =>
+        {
+            // Initialer Winkel für nahtlosen Übergang ins LateUpdate
+            currentYaw = 0f;
+            isFollowing = true;
+        });
     }
 
     private void LateUpdate()

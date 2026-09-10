@@ -15,4 +15,6 @@ public class PersistentPlayer : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+
 }
