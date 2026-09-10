@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class QuestManager : MonoBehaviour
     [Header("UI Referenzen")]
     [SerializeField] private Transform questContainer; // Das Objekt mit dem Vertical Layout Group
     [SerializeField] private GameObject questItemPrefab; // Dein QuestEntryPrefab
+
+    public Action<string> OnQuestAdded;
+    public Action<string> OnQuestCompleted;
 
     // Speichert aktive Quests mit einer ID/Titel
     private readonly Dictionary<string, GameObject> activeQuests = new Dictionary<string, GameObject>();
@@ -47,6 +51,7 @@ public class QuestManager : MonoBehaviour
         newEntry.transform.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutBack);
 
         activeQuests.Add(questId, newEntry);
+        OnQuestAdded?.Invoke(questId);
     }
 
     /// <summary>
@@ -83,6 +88,7 @@ public class QuestManager : MonoBehaviour
         {
             activeQuests.Remove(questId);
             Destroy(entry);
+            OnQuestCompleted?.Invoke(questId);
         }
     }
 }

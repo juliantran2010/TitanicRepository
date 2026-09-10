@@ -1,9 +1,9 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -34,6 +34,9 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private Sprite useIcon;
     [SerializeField] private Sprite readIcon;
     [SerializeField] private Sprite teleportIcon;
+
+
+    public Action<InteractableObject> OnInteracted;
 
 
 
@@ -92,6 +95,7 @@ public class InteractionManager : MonoBehaviour
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     interactable.Interact();
+                    OnInteracted?.Invoke(interactable);
                 }
             }
         }
