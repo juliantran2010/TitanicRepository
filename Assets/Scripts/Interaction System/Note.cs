@@ -8,6 +8,8 @@ public class Note : InteractableObject
     public override string DisplayName => "Note";
     public override InteractionType Type => InteractionType.Read;
 
+    [SerializeField] private Dialogue dialogueAfterLooking;
+
     [SerializeField] private TextMeshProUGUI noteDisplay;
     [TextArea(5, 10)]
     [SerializeField] private string noteText;
@@ -23,6 +25,7 @@ public class Note : InteractableObject
     private Vector3 originalLocalPosition;
     private Quaternion originalLocalRotation;
     private Transform originalParent;
+    private bool hasBeenRead = false; // zusätzlich speichern, da HasInteracted schon zu früh true ist (clues müssen noch ausgewertet werden)
 
 
     private void Awake()
@@ -46,6 +49,7 @@ public class Note : InteractableObject
         {
             interactionParticles.Stop();
         }
+        hasBeenRead = GetPersistentStateValue("has_been_read", false);
     }
 
     protected override void OnInteract()
@@ -100,6 +104,12 @@ public class Note : InteractableObject
         {
             //Erst im nächsten Frame den State zurücksetzen, damit die Note nicht direkt wieder geöffnet wird
             GameStateManager.Instance.SetState(GameState.Gameplay);
+            if (!hasBeenRead && dialogueAfterLooking != null)
+            {
+                DialogueManager.Instance.StartDialogue(dialogueAfterLooking);
+            }
+            hasBeenRead = true;
+            SetPersistentStateValue("has_been_read", true);
         });
     }
 

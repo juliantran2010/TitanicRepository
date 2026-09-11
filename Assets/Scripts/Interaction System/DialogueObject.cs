@@ -19,7 +19,7 @@ public class DialogueObject : InteractableObject
         if (dialogueManger == null) return;
         if (dialogue != null && dialogue.inkJSON != null)
         {
-            dialogueManger.OnDialogueEnd += OnDialogueEnd;
+            dialogueManger.OnDialogueCompleted += OnDialogueEnd;
             dialogueManger.OnTriggerFound += OnInkTrigger;
             dialogueManger.StartDialogue(dialogue);
         }
@@ -27,7 +27,8 @@ public class DialogueObject : InteractableObject
 
     protected virtual void OnDestroy()
     {
-        dialogueManger.OnDialogueEnd -= OnDialogueEnd;
+        if (dialogueManger == null) return;
+        dialogueManger.OnDialogueCompleted -= OnDialogueEnd;
         dialogueManger.OnTriggerFound -= OnInkTrigger;
     }
 
@@ -36,7 +37,7 @@ public class DialogueObject : InteractableObject
         if (dialogue != _dialogue) return;
         dialogue.dialogueState = _story.state.ToJson();
         SetPersistentStateValue("dialogue_state", dialogue.dialogueState);
-        dialogueManger.OnDialogueEnd -= OnDialogueEnd;
+        dialogueManger.OnDialogueCompleted -= OnDialogueEnd;
         dialogueManger.OnTriggerFound -= OnInkTrigger;
     }
 

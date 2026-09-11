@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Ink.Runtime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +10,9 @@ public class NPC : DialogueObject
     [Header("Looking at player")]
     [SerializeField] private float turnDuration = 0.5f;
     private Animator animator;
+    [SerializeField] private float animatorSpeed = 1f;
     [SerializeField] private float currentLookWeight = 0f;
+    [SerializeField] private bool shouldLookAtPlayer = true;
 
     [Header("Wander")]
     [SerializeField] private Vector3 startPosition;
@@ -20,7 +23,6 @@ public class NPC : DialogueObject
     private NavMeshAgent agent;
     private Tween waitTween;
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
-
     private void Awake()
     {
         startPosition = transform.position;
@@ -33,6 +35,7 @@ public class NPC : DialogueObject
         base.Start();
         if (shouldWander)
             SetNewDestination();
+        animator.speed = animatorSpeed;
     }
 
     private void Reset()
@@ -69,7 +72,9 @@ public class NPC : DialogueObject
         base.OnInteract();
         if (dialogue == null || dialogue.inkJSON == null) return;
         if (shouldWander) StopWandering();
-        DOTween.To(() => currentLookWeight, x => currentLookWeight = x, 1f, turnDuration);
+
+        if (shouldLookAtPlayer)
+            DOTween.To(() => currentLookWeight, x => currentLookWeight = x, 1f, turnDuration);
     }
 
     private void OnAnimatorIK(int layerIndex)

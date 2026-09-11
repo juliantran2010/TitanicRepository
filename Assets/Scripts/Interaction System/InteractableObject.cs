@@ -9,6 +9,8 @@ public abstract class InteractableObject : MonoBehaviour
 {
     [SerializeField] private string uniqueID;
     public string UniqueID => uniqueID;
+
+    public string UniqueInteractionLabel = "";
     protected void OnValidate()
     {
         #if UNITY_EDITOR
@@ -40,7 +42,9 @@ public abstract class InteractableObject : MonoBehaviour
     [SerializeField] private string displayName;
     public virtual string DisplayName => displayName;
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
-    public bool HasInteracted => GetPersistentStateValue<bool>("hasInteracted", false);
+    public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
+
+    [SerializeField] private Dialogue DialogeIfCannotInteract;
 
     protected virtual void Start()
     {
@@ -48,9 +52,18 @@ public abstract class InteractableObject : MonoBehaviour
     }
     public void Interact()
     {
-        SetPersistentStateValue("hasInteracted", true);
-        OnInteract();
+        if (DialogeIfCannotInteract.inkJSON != null && (!QuestManager.Instance.TryGetVariable("can_interact_" + ObjectName, out object canInteract) || !(bool)canInteract))
+        {
+            DialogueManager.Instance.StartDialogue(DialogeIfCannotInteract);
+            return;
+        }
+        else
+        {
+            SetPersistentStateValue("has_interacted", true);
+            OnInteract();
+        }
     }
+
     protected abstract void OnInteract();
     protected void SetPersistentStateValue<T>(string key, T value)
     {

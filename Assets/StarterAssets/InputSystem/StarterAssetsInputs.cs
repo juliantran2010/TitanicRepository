@@ -38,9 +38,9 @@ namespace StarterAssets
             }
         }
 
-        private void HandleStateChanged(GameState state)
+        private void HandleStateChanged(GameState oldState, GameState newState)
         {
-            isGameplayState = (state == GameState.Gameplay);
+            isGameplayState = (newState == GameState.Gameplay);
 
             if (!isGameplayState)
             {

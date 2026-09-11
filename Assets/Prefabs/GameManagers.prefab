@@ -887,6 +887,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1066d6def80a06a49bf8f821d621a773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
+  introDialogue:
+    inkJSON: {fileID: 4900000, guid: 6b99a2007c5a97d44809e35aa72b50b9, type: 3}
+    dialogueState: 
+    startPath: 
 --- !u!114 &4506080811275305254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2251,7 +2255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00018310547, y: 0}
+  m_AnchoredPosition: {x: 0.00024414062, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1404050459030412446
@@ -2439,7 +2443,6 @@ GameObject:
   m_Component:
   - component: {fileID: 309861824425975461}
   - component: {fileID: 4365009821198586038}
-  - component: {fileID: 6611793787356515008}
   m_Layer: 5
   m_Name: QuestLog
   m_TagString: Untagged
@@ -2463,8 +2466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0004272461, y: 0}
-  m_SizeDelta: {x: 500, y: 0}
+  m_AnchoredPosition: {x: 0.00048828125, y: 0}
+  m_SizeDelta: {x: 500, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &4365009821198586038
 MonoBehaviour:
@@ -2484,7 +2487,7 @@ MonoBehaviour:
     m_Top: 20
     m_Bottom: 20
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -2492,20 +2495,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &6611793787356515008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8424497312506040952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
 --- !u!1 &8545957920204834775
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,9 +70,9 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    private void HandleStateChanged(GameState state)
+    private void HandleStateChanged(GameState oldState, GameState newState)
     {
-        canInteract = state == GameState.Gameplay;
+        canInteract = newState == GameState.Gameplay;
         crosshairImage.gameObject.SetActive(canInteract);
     }
 
@@ -111,6 +111,7 @@ public class InteractionManager : MonoBehaviour
             return;
         }
         crosshairRectTransform.sizeDelta = interactIconSize;
+
         string objectName = interactable.DisplayName == "" ? interactable.ObjectName : interactable.DisplayName;
         if (string.IsNullOrEmpty(objectName))
         {
@@ -146,6 +147,11 @@ public class InteractionManager : MonoBehaviour
                 crosshairImage.sprite = defaultIcon;
                 crosshairDescription.text = "";
                 break;
+        }
+        if (interactable.UniqueInteractionLabel != "")
+        {
+            crosshairDescription.text = interactable.UniqueInteractionLabel;
+            return;
         }
     }
 

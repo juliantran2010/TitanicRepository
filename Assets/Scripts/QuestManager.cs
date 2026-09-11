@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
@@ -32,6 +33,14 @@ public class QuestManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void OnVariableChanged(string varName, object value)
+    {
+        if (varName.StartsWith("has_") && value is bool hasValue && hasValue)
+        {
+            CompleteQuest("pickup_" + varName.Substring(4));
+        }
+    }
+
     /// <summary>
     /// Fügt dem Log eine neue Quest mit weichem Einblenden hinzu.
     /// </summary>
@@ -46,11 +55,15 @@ public class QuestManager : MonoBehaviour
         if (newEntry.TryGetComponent<TMP_Text>(out var textComponent))
         {
             textComponent.text = $"<color=#FFCC00><b>(!)</b></color> {questDescription}";
+            textComponent.ForceMeshUpdate(); // Erzwingt ein Update, um die Größe korrekt zu berechnen
         }
 
         // DOTween: Zarter Einblend-Effekt (Scale-In von 0 auf 1)
         newEntry.transform.localScale = Vector3.zero;
         newEntry.transform.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutBack);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(newEntry.GetComponent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(questContainer.GetComponent<RectTransform>());
 
         activeQuests.Add(questId, newEntry);
         OnQuestAdded?.Invoke(questId);
@@ -98,6 +111,7 @@ public class QuestManager : MonoBehaviour
     public void SetVariable(string varName, object value)
     {
         globalVariables[varName] = value;
+        OnVariableChanged(varName, value);
     }
 
     public bool TryGetVariable(string varName, out object value)

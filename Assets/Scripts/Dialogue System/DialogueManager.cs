@@ -27,8 +27,9 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
     private Story currentStory;
     private Dialogue currentDialogue;
-    public Action<Dialogue, Story> OnDialogueEnd;
+    public Action<Dialogue, Story> OnDialogueCompleted;
     public Action<string> OnTriggerFound;
+    private GameState previousGameState;
 
     private void Awake()
     {
@@ -58,17 +59,19 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        previousGameState = GameStateManager.Instance.CurrentState;
         currentDialogue = dialogue;
         currentStory = new Story(dialogue.inkJSON.text);
-        string startPath = currentStory.state.currentPathString;
+
+        //Start path setzen, falls angegeben, sonst den Anfang
+        string startPath = dialogue.startPath != "" ? dialogue.startPath : currentStory.state.currentPathString;
         if (dialogue.dialogueState != "")
         {
             currentStory.state.LoadJson(dialogue.dialogueState);
-            currentStory.ChoosePathString(startPath); // go to beginning
         }
+        currentStory.ChoosePathString(startPath);
 
         SyncVariablesWithInk(currentStory);
-
         GameStateManager.Instance.SetState(GameState.Dialogue);
         DialogueBox.SetActive(true);
         ContinueDialogue();
@@ -82,7 +85,7 @@ public class DialogueManager : MonoBehaviour
             CheckForTags();
             string[] parts = line.Split(new char[] { ':' });
 
-            if (parts.Length == 2)
+            if (parts.Length == 2 && parts[1].StartsWith(" ")) // Check if the second part starts with a space (excludes e.g. 10:15 pm)
             {
                 nameText.text = parts[0].Trim();
                 nameText.color = nameText.text.ToLower() == "you" ? new Color32(92, 245, 155, 255) : new Color32(80, 120, 225, 255);
@@ -153,8 +156,8 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         DialogueBox.SetActive(false);
-        GameStateManager.Instance.SetState(GameState.Gameplay);
-        OnDialogueEnd?.Invoke(currentDialogue, currentStory);
+        GameStateManager.Instance.SetState(previousGameState);
+        OnDialogueCompleted?.Invoke(currentDialogue, currentStory);
     }
 
     private void DisplayChoices()

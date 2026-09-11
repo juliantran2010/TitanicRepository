@@ -13,6 +13,20 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
+        GameStateManager.Instance.OnStateChanged += HandleStateChanged;
+    }
+
+    private void HandleStateChanged(GameState oldState, GameState newState)
+    {
+        if (oldState == GameState.Intro && newState == GameState.Gameplay)
+        {
+            StartTutorial();
+            GameStateManager.Instance.OnStateChanged -= HandleStateChanged;
+        }
+    }
+
+    public void StartTutorial()
+    {
         if (QuestManager.Instance == null)
         {
             Debug.LogError("QuestManager instance is not found. Make sure QuestManager is initialized before Tutorial.");
@@ -27,7 +41,6 @@ public class Tutorial : MonoBehaviour
         if (QuestManager.Instance != null)
         {
             QuestManager.Instance.OnQuestCompleted -= HandleQuestCompleted;
-            QuestManager.Instance.OnQuestAdded -= HandleQuestAdded;
             InteractionManager.Instance.OnInteracted -= HandleInteracted;
         }
     }
@@ -77,10 +90,6 @@ public class Tutorial : MonoBehaviour
                 QuestManager.Instance.AddQuest("tut_interact", "Interact with people/objects using [Left Click]");
                 InteractionManager.Instance.OnInteracted += HandleInteracted;
                 break;
-            case "tut_interact":
-                QuestManager.Instance.AddQuest("tut_explore", "Explore the titanic");
-                QuestManager.Instance.OnQuestAdded += HandleQuestAdded;
-                break;
             case "binoculars":
                 QuestManager.Instance.AddQuest("tut_binoculars", "Use the binoculars with [Right Click]");
                 break;
@@ -91,11 +100,5 @@ public class Tutorial : MonoBehaviour
     {
         InteractionManager.Instance.OnInteracted -= HandleInteracted;
         QuestManager.Instance.CompleteQuest("tut_interact");
-    }
-
-    private void HandleQuestAdded(string questId)
-    {
-        QuestManager.Instance.OnQuestAdded -= HandleQuestAdded;
-        QuestManager.Instance.CompleteQuest("tut_explore");
     }
 }

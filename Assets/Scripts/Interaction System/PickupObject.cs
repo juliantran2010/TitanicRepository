@@ -5,6 +5,8 @@ public class PickupObject : InteractableObject
 {
     public override InteractionType Type => InteractionType.Pickup;
 
+    [SerializeField] private Dialogue dialogueAfterPickup;
+
     protected override void OnInteract()
     {
         bool wasAdded = Inventory.Instance.AddItem(this);
@@ -12,6 +14,10 @@ public class PickupObject : InteractableObject
         {
             transform.SetParent(Inventory.Instance.transform);
             AttachToCameraField attachScript = gameObject.AddComponent<AttachToCameraField>();
+            if (dialogueAfterPickup != null && dialogueAfterPickup.inkJSON != null)
+            {
+                DialogueManager.Instance.StartDialogue(dialogueAfterPickup);
+            }
         }
     }
 
