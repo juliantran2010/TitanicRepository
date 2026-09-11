@@ -202,7 +202,7 @@ public class BinocularController : MonoBehaviour
         Debug.Log("Iceberg discovered!");
         LowerBinoculars(() =>
         {
-            GameSceneManager.Instance.ChangeScene("Water Titanic", "Titanic Deck");
+            GameSceneManager.Instance.ChangeScene("TitanicScene", "titanic_deck");
         });
     }
 }

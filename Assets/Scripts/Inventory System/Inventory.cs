@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
     {
         items.Add(item);
         OnInventoryChanged?.Invoke(); // UI aktualisieren
+        QuestManager.Instance.SetVariable("has_" + item.ObjectName, true); // Quest-Variable setzen
         return true;
     }
 
@@ -34,6 +35,7 @@ public class Inventory : MonoBehaviour
             items.Remove(itemToRemove);
             Destroy(itemToRemove.gameObject);
             OnInventoryChanged?.Invoke(); // UI aktualisieren
+            QuestManager.Instance.SetVariable("has_" + itemToRemove.ObjectName, false); // Quest-Variable setzen
         }
     }
     public void RemoveItem(PickupObject item)
@@ -42,6 +44,7 @@ public class Inventory : MonoBehaviour
         {
             Destroy(item.gameObject);
             OnInventoryChanged?.Invoke(); // UI aktualisieren
+            QuestManager.Instance.SetVariable("has_" + item.ObjectName, false); // Quest-Variable setzen
         }
     }
 

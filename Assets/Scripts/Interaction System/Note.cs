@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Note : InteractableObject
 {
+    public override string DisplayName => "Note";
     public override InteractionType Type => InteractionType.Read;
-
-    public override string ObjectName => "Note";
 
     [SerializeField] private TextMeshProUGUI noteDisplay;
     [TextArea(5, 10)]

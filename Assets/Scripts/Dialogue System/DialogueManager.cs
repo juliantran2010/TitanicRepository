@@ -3,6 +3,7 @@ using Ink.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue, Dictionary<string, object> variables = null)
+    public void StartDialogue(Dialogue dialogue)
     {
         currentDialogue = dialogue;
         currentStory = new Story(dialogue.inkJSON.text);
@@ -66,29 +67,11 @@ public class DialogueManager : MonoBehaviour
             currentStory.ChoosePathString(startPath); // go to beginning
         }
 
-        if (variables != null)
-        {
-            foreach (var variable in variables)
-            {
-                SetInkVariable(variable.Key, variable.Value);
-            }
-        }
+        SyncVariablesWithInk(currentStory);
 
         GameStateManager.Instance.SetState(GameState.Dialogue);
         DialogueBox.SetActive(true);
         ContinueDialogue();
-    }
-
-    private void SetInkVariable(string varName, object value)
-    {
-        if (currentStory.variablesState.GlobalVariableExistsWithName(varName))
-        {
-            currentStory.variablesState[varName] = value;
-        }
-        else
-        {
-            Debug.LogWarning($"Variable '{varName}' existiert nicht in der Ink-Story!");
-        }
     }
 
     private void ContinueDialogue()
@@ -137,6 +120,11 @@ public class DialogueManager : MonoBehaviour
 
             switch (command)
             {
+                case "set" when parts.Length >= 3:
+                    string variableName = parts[1].Trim();
+                    string value = parts[2].Trim().ToLower();
+                    QuestManager.Instance.HandleVariableTag(variableName, value);
+                    break;
                 case "trigger" when parts.Length >= 2:
                     string triggerName = parts[1].Trim();
                     OnTriggerFound?.Invoke(triggerName);
@@ -204,5 +192,25 @@ public class DialogueManager : MonoBehaviour
         }
         continueButtonText.gameObject.SetActive(true);
         ContinueDialogue();
+    }
+
+    private void SyncVariablesWithInk(Story story)
+    {
+        if (QuestManager.Instance == null) return;
+        var variableNames = story.variablesState.ToList();
+        foreach (string varName in variableNames)
+        {
+            if (QuestManager.Instance.TryGetVariable(varName, out object value))
+            {
+                try
+                {
+                    story.variablesState[varName] = value;
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogWarning($"Konnte Variable '{varName}' nicht an Ink übergeben: {ex.Message}");
+                }
+            }
+        }
     }
 }

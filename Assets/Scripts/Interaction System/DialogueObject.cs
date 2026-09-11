@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DialogueObject : InteractableObject
 {
-    [SerializeField] private string objectName;
-    public override string ObjectName => objectName;
-
     [SerializeField] protected Dialogue dialogue;
     public override InteractionType Type => (dialogue != null && dialogue.inkJSON != null) ? InteractionType.Dialogue : InteractionType.None;
 
@@ -24,11 +21,9 @@ public class DialogueObject : InteractableObject
         {
             dialogueManger.OnDialogueEnd += OnDialogueEnd;
             dialogueManger.OnTriggerFound += OnInkTrigger;
-            dialogueManger.StartDialogue(dialogue, SetDialogueVariables());
+            dialogueManger.StartDialogue(dialogue);
         }
     }
-
-    protected virtual Dictionary<string, object> SetDialogueVariables() { return null; }
 
     protected virtual void OnDestroy()
     {

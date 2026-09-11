@@ -111,7 +111,11 @@ public class InteractionManager : MonoBehaviour
             return;
         }
         crosshairRectTransform.sizeDelta = interactIconSize;
-        string objectName = interactable.ObjectName == "" ? interactable.gameObject.name : interactable.ObjectName;
+        string objectName = interactable.DisplayName == "" ? interactable.ObjectName : interactable.DisplayName;
+        if (string.IsNullOrEmpty(objectName))
+        {
+            objectName = interactable.gameObject.name;
+        }
         switch (interactable.Type)
         {
             case InteractionType.Dialogue:

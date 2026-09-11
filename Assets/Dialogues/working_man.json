@@ -1,1 +1,1 @@
-﻿{"inkVersion":21,"root":[["^You: Please let me go to the lookout. With my binoculars I can spot the iceberg","\n","^Worker: Alright","\n","#","^teleport:Water Titanic:Titanic Lookout","/#",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
+﻿{"inkVersion":21,"root":[["^You: Please let me go to the lookout. With my binoculars I can spot the iceberg","\n","^Worker: Alright","\n","#","^teleport:TitanicScene:titanic_lookout","/#",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

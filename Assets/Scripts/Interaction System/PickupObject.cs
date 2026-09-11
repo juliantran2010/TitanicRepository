@@ -5,9 +5,6 @@ public class PickupObject : InteractableObject
 {
     public override InteractionType Type => InteractionType.Pickup;
 
-    [SerializeField] string objectName;
-    public override string ObjectName => objectName;
-
     protected override void OnInteract()
     {
         bool wasAdded = Inventory.Instance.AddItem(this);

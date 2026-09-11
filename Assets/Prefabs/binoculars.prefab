@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6243148100993037890}
   - component: {fileID: 4893350698382151852}
   m_Layer: 0
-  m_Name: binoculars
+  m_Name: Binoculars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupObject
   uniqueID: 
   objectName: binoculars
+  displayName: Binoculars
 --- !u!64 &4893350698382151852
 MeshCollider:
   m_ObjectHideFlags: 0

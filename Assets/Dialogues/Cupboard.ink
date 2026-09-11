@@ -1,10 +1,10 @@
-VAR hasKey = false
+VAR has_cupboard_key = false
 
 // Gedankengang des Spielers vor dem Schrank
 I'm looking at the locked cupboard. 
 I probably need a key to open it and reach the binoculars inside.
 
-{ hasKey:
+{ has_cupboard_key:
     // Fall 1: Schlüssel ist vorhanden -> Interaktive Auswahl
     + [Use key to open the cupboard]
         You unlock the cupboard with a quiet click and retrieve the binoculars.

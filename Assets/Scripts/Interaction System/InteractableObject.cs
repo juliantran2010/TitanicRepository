@@ -35,7 +35,10 @@ public abstract class InteractableObject : MonoBehaviour
 
 
     public abstract InteractionType Type { get; }
-    public abstract string ObjectName { get; }
+    [SerializeField] private string objectName;
+    public virtual string ObjectName => objectName;
+    [SerializeField] private string displayName;
+    public virtual string DisplayName => displayName;
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
     public bool HasInteracted => GetPersistentStateValue<bool>("hasInteracted", false);
 

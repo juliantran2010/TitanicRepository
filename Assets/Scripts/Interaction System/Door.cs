@@ -6,12 +6,7 @@ public class Door : InteractableObject
 {
     [SerializeField] private string targetSceneName;
     [SerializeField] private string targetSpawnPointID;
-
-    [SerializeField] private string destinationName;
-
     public override InteractionType Type => InteractionType.Teleport;
-
-    public override string ObjectName => destinationName;
 
     protected override void OnInteract()
     {

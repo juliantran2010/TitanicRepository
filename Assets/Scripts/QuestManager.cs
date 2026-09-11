@@ -17,6 +17,8 @@ public class QuestManager : MonoBehaviour
 
     // Speichert aktive Quests mit einer ID/Titel
     private readonly Dictionary<string, GameObject> activeQuests = new Dictionary<string, GameObject>();
+    private readonly List<string> completedQuests = new List<string>();
+    private readonly Dictionary<string, object> globalVariables = new Dictionary<string, object>();
 
     private void Awake()
     {
@@ -88,7 +90,28 @@ public class QuestManager : MonoBehaviour
         {
             activeQuests.Remove(questId);
             Destroy(entry);
+            completedQuests.Add(questId);
             OnQuestCompleted?.Invoke(questId);
         }
+    }
+
+    public void SetVariable(string varName, object value)
+    {
+        globalVariables[varName] = value;
+    }
+
+    public bool TryGetVariable(string varName, out object value)
+    {
+        return globalVariables.TryGetValue(varName, out value);
+    }
+
+    public void HandleVariableTag(string name, string valStr)
+    {
+        if (bool.TryParse(valStr, out bool boolVal))
+            SetVariable(name, boolVal);
+        else if (int.TryParse(valStr, out int intVal))
+            SetVariable(name, intVal);
+        else
+            SetVariable(name, valStr);
     }
 }
