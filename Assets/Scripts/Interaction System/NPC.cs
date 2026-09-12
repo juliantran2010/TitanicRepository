@@ -54,9 +54,8 @@ public class NPC : DialogueObject
         }
     }
 
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        base.OnDestroy();
         waitTween.Kill();
         SetPersistentStateValue("current_position", transform.position);
     }
@@ -83,9 +82,8 @@ public class NPC : DialogueObject
         animator.SetLookAtPosition(Camera.main.transform.position);
     }
 
-    protected override void OnDialogueEnd(Dialogue _dialogue, Story _story)
+    protected override void OnDialogueEnd(Dialogue dialogue, Story story)
     {
-        base.OnDialogueEnd(_dialogue, _story);
         DOTween.To(() => currentLookWeight, x => currentLookWeight = x, 0f, turnDuration)
             .OnComplete(() =>
             {

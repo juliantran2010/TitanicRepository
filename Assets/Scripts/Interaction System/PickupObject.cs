@@ -1,28 +1,25 @@
 using NUnit.Framework.Interfaces;
 using UnityEngine;
 
-public class PickupObject : InteractableObject
+public class PickupObject : DialogueObject
 {
     public override InteractionType Type => InteractionType.Pickup;
 
-    [SerializeField] private Dialogue dialogueAfterPickup;
-
     protected override void OnInteract()
     {
+        base.OnInteract();
+        if (!CanInteract) return;
         bool wasAdded = Inventory.Instance.AddItem(this);
         if (wasAdded)
         {
             transform.SetParent(Inventory.Instance.transform);
             AttachToCameraField attachScript = gameObject.AddComponent<AttachToCameraField>();
-            if (dialogueAfterPickup != null && dialogueAfterPickup.inkJSON != null)
-            {
-                DialogueManager.Instance.StartDialogue(dialogueAfterPickup);
-            }
         }
     }
 
     protected override void OnStateRestored()
     {
+        base.OnStateRestored();
         if (HasInteracted)
         {
             Destroy(gameObject);

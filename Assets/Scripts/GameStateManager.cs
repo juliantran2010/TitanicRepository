@@ -47,17 +47,7 @@ public class GameStateManager : MonoBehaviour
             return;
         }
         SetState(GameState.Intro);
-        DialogueManager.Instance.OnDialogueCompleted += FinishIntro;
-        DialogueManager.Instance.StartDialogue(introDialogue);
-    }
-
-    private void FinishIntro(Dialogue dialogue, Story story)
-    {
-        if (dialogue == introDialogue)
-        {
-            SetState(GameState.Gameplay);
-            DialogueManager.Instance.OnDialogueCompleted -= FinishIntro;
-        }
+        DialogueManager.Instance.StartDialogue(introDialogue, (story) => SetState(GameState.Gameplay));
     }
 
 

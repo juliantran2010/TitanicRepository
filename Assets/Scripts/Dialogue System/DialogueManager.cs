@@ -27,9 +27,9 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
     private Story currentStory;
     private Dialogue currentDialogue;
-    public Action<Dialogue, Story> OnDialogueCompleted;
-    public Action<string> OnTriggerFound;
     private GameState previousGameState;
+    private Action<Story> callbackOnDialogueEnd;
+    private Action<string> callbackOnInkTrigger;
 
     private void Awake()
     {
@@ -57,11 +57,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, Action<Story> callbackDialogueEnd = null, Action<string> callbackInkTrigger = null)
     {
         previousGameState = GameStateManager.Instance.CurrentState;
         currentDialogue = dialogue;
         currentStory = new Story(dialogue.inkJSON.text);
+        callbackOnDialogueEnd = callbackDialogueEnd;
+        callbackOnInkTrigger = callbackInkTrigger;
 
         //Start path setzen, falls angegeben, sonst den Anfang
         string startPath = dialogue.startPath != "" ? dialogue.startPath : currentStory.state.currentPathString;
@@ -85,7 +87,7 @@ public class DialogueManager : MonoBehaviour
             CheckForTags();
             string[] parts = line.Split(new char[] { ':' });
 
-            if (parts.Length == 2 && parts[1].StartsWith(" ")) // Check if the second part starts with a space (excludes e.g. 10:15 pm)
+            if (parts.Length == 2 && !parts[0].Contains(" ")) // Check if no spaces in the name part, to avoid splitting on colons in dialogue text
             {
                 nameText.text = parts[0].Trim();
                 nameText.color = nameText.text.ToLower() == "you" ? new Color32(92, 245, 155, 255) : new Color32(80, 120, 225, 255);
@@ -130,12 +132,42 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case "trigger" when parts.Length >= 2:
                     string triggerName = parts[1].Trim();
-                    OnTriggerFound?.Invoke(triggerName);
+                    callbackOnInkTrigger?.Invoke(triggerName);
                     break;
                 case "add_quest" when parts.Length >= 3:
-                    string addId = parts[1].Trim();
-                    string description = parts[2].Trim();
-                    QuestManager.Instance.AddQuest(addId, description);
+                    //quests can be chained with '>' to indicate a sequence of quests
+                    string[] allQuests = tag.Split('>');
+                    string[] firstQuestParts = allQuests[0].Split(':', 3);
+                    string rootId = firstQuestParts[1].Trim();
+                    string rootDescription = firstQuestParts.Length >= 3 ? firstQuestParts[2].Trim() : "";
+                    Quest rootQuest = new Quest
+                    {
+                        id = rootId,
+                        description = rootDescription
+                    };
+
+                    if (allQuests.Length > 1)
+                    {
+                        Quest currentPointer = rootQuest;
+                        for (int i = 1; i < allQuests.Length; i++)
+                        {
+                            string questString = allQuests[i].Trim();
+                            string[] questParts = questString.Split(':', 2);
+                            if (questParts.Length >= 2)
+                            {
+                                Quest nextQuest = new Quest
+                                {
+                                    id = questParts[0].Trim(),
+                                    description = questParts[1].Trim()
+                                };
+
+                                // Kette anhängen und Pointer weiterbewegen
+                                currentPointer.nextQuest = nextQuest;
+                                currentPointer = nextQuest;
+                            }
+                        }
+                    }
+                    QuestManager.Instance.AddQuest(rootQuest);
                     break;
                 case "complete_quest" when parts.Length >= 2:
                     string completeId = parts[1].Trim();
@@ -157,7 +189,7 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueBox.SetActive(false);
         GameStateManager.Instance.SetState(previousGameState);
-        OnDialogueCompleted?.Invoke(currentDialogue, currentStory);
+        callbackOnDialogueEnd?.Invoke(currentStory);
     }
 
     private void DisplayChoices()

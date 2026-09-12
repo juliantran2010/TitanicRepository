@@ -44,24 +44,14 @@ public abstract class InteractableObject : MonoBehaviour
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
     public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
 
-    [SerializeField] private Dialogue DialogeIfCannotInteract;
-
     protected virtual void Start()
     {
         RestoreState();
     }
     public void Interact()
     {
-        if (DialogeIfCannotInteract.inkJSON != null && (!QuestManager.Instance.TryGetVariable("can_interact_" + ObjectName, out object canInteract) || !(bool)canInteract))
-        {
-            DialogueManager.Instance.StartDialogue(DialogeIfCannotInteract);
-            return;
-        }
-        else
-        {
-            SetPersistentStateValue("has_interacted", true);
-            OnInteract();
-        }
+        SetPersistentStateValue("has_interacted", true);
+        OnInteract();
     }
 
     protected abstract void OnInteract();

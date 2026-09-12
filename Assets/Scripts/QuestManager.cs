@@ -5,6 +5,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class Quest
+{
+    public string id;
+    public string description;
+    public Quest nextQuest = null;
+
+    public GameObject questEntryObject = null; // Referenz auf das zugehörige UI-Element
+}
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance { get; private set; }
@@ -17,7 +25,7 @@ public class QuestManager : MonoBehaviour
     public Action<string> OnQuestCompleted;
 
     // Speichert aktive Quests mit einer ID/Titel
-    private readonly Dictionary<string, GameObject> activeQuests = new Dictionary<string, GameObject>();
+    private readonly Dictionary<string, Quest> activeQuests = new Dictionary<string, Quest>();
     private readonly List<string> completedQuests = new List<string>();
     private readonly Dictionary<string, object> globalVariables = new Dictionary<string, object>();
 
@@ -41,12 +49,18 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void AddQuest(string questId, string description)
+    {
+        Quest newQuest = new Quest { id = questId, description = description };
+        AddQuest(newQuest);
+    }
+
     /// <summary>
     /// Fügt dem Log eine neue Quest mit weichem Einblenden hinzu.
     /// </summary>
-    public void AddQuest(string questId, string questDescription)
+    public void AddQuest(Quest quest)
     {
-        if (activeQuests.ContainsKey(questId)) return;
+        if (activeQuests.ContainsKey(quest.id)) return;
 
         // Neues Text-Element aus dem Prefab instanziieren
         GameObject newEntry = Instantiate(questItemPrefab, questContainer);
@@ -54,7 +68,7 @@ public class QuestManager : MonoBehaviour
         // Text setzen
         if (newEntry.TryGetComponent<TMP_Text>(out var textComponent))
         {
-            textComponent.text = $"<color=#FFCC00><b>(!)</b></color> {questDescription}";
+            textComponent.text = $"<color=#FFCC00><b>(!)</b></color> {quest.description}";
             textComponent.ForceMeshUpdate(); // Erzwingt ein Update, um die Größe korrekt zu berechnen
         }
 
@@ -64,9 +78,10 @@ public class QuestManager : MonoBehaviour
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(newEntry.GetComponent<RectTransform>());
         LayoutRebuilder.ForceRebuildLayoutImmediate(questContainer.GetComponent<RectTransform>());
+        quest.questEntryObject = newEntry; // Referenz auf das UI-Element speichern
 
-        activeQuests.Add(questId, newEntry);
-        OnQuestAdded?.Invoke(questId);
+        activeQuests.Add(quest.id, quest);
+        OnQuestAdded?.Invoke(quest.id);
     }
 
     /// <summary>
@@ -74,7 +89,10 @@ public class QuestManager : MonoBehaviour
     /// </summary>
     public void CompleteQuest(string questId, bool removeImmediately = false)
     {
-        if (!activeQuests.TryGetValue(questId, out GameObject entry)) return;
+        if (!activeQuests.TryGetValue(questId, out Quest quest)) return;
+
+        GameObject entry = quest.questEntryObject;
+        if (entry == null) return;
 
         if (entry.TryGetComponent<TMP_Text>(out var textComponent))
         {
@@ -99,12 +117,14 @@ public class QuestManager : MonoBehaviour
 
     private void RemoveQuest(string questId)
     {
-        if (activeQuests.TryGetValue(questId, out GameObject entry))
+        if (activeQuests.TryGetValue(questId, out Quest quest))
         {
             activeQuests.Remove(questId);
-            Destroy(entry);
+            Destroy(quest.questEntryObject);
             completedQuests.Add(questId);
             OnQuestCompleted?.Invoke(questId);
+
+            AddQuest(quest.nextQuest); // Nächste Quest hinzufügen, falls vorhanden
         }
     }
 

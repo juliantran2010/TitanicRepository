@@ -105,8 +105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupObject
   uniqueID: 
+  UniqueInteractionLabel: 
   objectName: binoculars
   displayName: Binoculars
+  dialogue:
+    inkJSON: {fileID: 4900000, guid: 20ea2c3eaae930b43a1f4094c9503c99, type: 3}
+    dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
 --- !u!64 &4893350698382151852
 MeshCollider:
   m_ObjectHideFlags: 0

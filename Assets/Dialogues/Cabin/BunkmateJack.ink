@@ -16,18 +16,14 @@ Sailor Jack: <color=\#D8A47F>(frowns)</color> A passenger? Down in the crew bert
     Sailor Jack: Aye, mind the hatch on your way out.
     -> END
 
-// ==========================================
-// EINSTIEGSPUNKT BEIM UNERLAUBTEN GREIFEN:
-// C# ruft: story.ChoosePathString("caught_stealing")
-// ==========================================
 === caught_stealing ===
-As you reach your hand toward the pillow, Jack's arm shoots out, slapping your wrist away! # complete_quest:find_key
+As you reach your hand toward the pillow, Jack's arm shoots out, slapping your wrist away!
 Sailor Jack: <color=\#D8A47F>(snarls)</color> Keep your hands to yourself! That belongs to me, you bloody thief! What do you think you're doing?
 -> berth_options
 
 === berth_options ===
 + [Demand the key on Lightoller's authority]
-    You: Officer Lightoller sent me. Second Officer Blair left the crow's nest locker key with you, and the watch needs it immediately!
+    You: Officer Lightoller sent me. Second Officer Blair left the equipment cupboard key with you, and the watch needs it immediately!
     Sailor Jack: Lightoller sent you himself? Blimey, then it really is serious...
     -> give_key_permission
 
@@ -47,9 +43,9 @@ Sailor Jack: <color=\#D8A47F>(snarls)</color> Keep your hands to yourself! That 
     -> END
 
 === give_key_permission ===
-Sailor Jack: <color=\#D8A47F>(sighs)</color> Blast it all... you're right. Blair shoved that heavy brass key into my hands right before he left. Told me to guard it under my bolster until someone from the bridge asks for it.
-Sailor Jack: Go on then, take it! It's right there under the pillow. Get it to the Mailroom before the Captain runs us into a berg!
+Sailor Jack: <color=\#D8A47F>(sighs)</color> Blast it all... you're right. Blair shoved that brass key into my hands right before he left. Told me to guard it under my bolster until someone from the bridge asks for it.
+Sailor Jack: Go on then, take it! It's right there under the pillow. Get it to the Mailroom cupboard before the Captain runs us into a berg!
 # set:can_interact_cupboard_key:true
 # complete_quest:find_key
-# add_quest:pickup_cupboard_key:Take the locker key from under Jack's pillow
+# add_quest:pickup_cupboard_key:Take the cupboard key from under Jack's pillow
 -> END

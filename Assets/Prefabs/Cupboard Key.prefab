@@ -131,14 +131,14 @@ MonoBehaviour:
   UniqueInteractionLabel: 
   objectName: cupboard_key
   displayName: Key
+  dialogue:
+    inkJSON: {fileID: 4900000, guid: db3a199f55ec8994baaf82cef10a716c, type: 3}
+    dialogueState: 
+    startPath: 
   DialogeIfCannotInteract:
     inkJSON: {fileID: 4900000, guid: d14a19f7036ae974eb977ab6c8aadf86, type: 3}
     dialogueState: 
     startPath: caught_stealing
-  dialogueAfterPickup:
-    inkJSON: {fileID: 4900000, guid: db3a199f55ec8994baaf82cef10a716c, type: 3}
-    dialogueState: 
-    startPath: 
 --- !u!1 &2170276611637411966
 GameObject:
   m_ObjectHideFlags: 0

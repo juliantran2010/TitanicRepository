@@ -835,10 +835,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 309861824425975461, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
@@ -1488,6 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   uniqueID: b5515b12-a095-4388-ac15-04e4ded58c1d
+  UniqueInteractionLabel: 
   objectName: door_mail_staircase
   displayName: Grand Staircase
   targetSceneName: StaircaseScene
@@ -3312,7 +3309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6243148100993037890, guid: 56bacc03cd6a55b48910464d346d279c, type: 3}
       propertyPath: uniqueID
-      value: 159798e1-1f82-4555-abb5-77103cf7087a
+      value: ca918b7d-ec0d-485b-9fc2-97e533633eba
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8180,11 +8177,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cupboard
   uniqueID: c3fb9dbf-a3df-4540-8f94-f602b812c091
+  UniqueInteractionLabel: 
   objectName: Cupboard
   displayName: 
   dialogue:
-    inkJSON: {fileID: 4900000, guid: b470d4b681e6c46428362e5a81c232e4, type: 3}
+    inkJSON: {fileID: 4900000, guid: 9c3675e4f79b0f649be699e7c1fdab95, type: 3}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
 --- !u!23 &9118682884488268419
 MeshRenderer:
   m_ObjectHideFlags: 0

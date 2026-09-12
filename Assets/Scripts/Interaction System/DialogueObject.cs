@@ -5,6 +5,8 @@ using UnityEngine;
 public class DialogueObject : InteractableObject
 {
     [SerializeField] protected Dialogue dialogue;
+    [SerializeField] protected Dialogue DialogeIfCannotInteract;
+    protected bool CanInteract => !(DialogeIfCannotInteract.inkJSON != null && (!QuestManager.Instance.TryGetVariable("can_interact_" + ObjectName, out object canInteract) || !(bool)canInteract));
     public override InteractionType Type => (dialogue != null && dialogue.inkJSON != null) ? InteractionType.Dialogue : InteractionType.None;
 
     protected DialogueManager dialogueManger;
@@ -17,29 +19,22 @@ public class DialogueObject : InteractableObject
     protected override void OnInteract()
     {
         if (dialogueManger == null) return;
-        if (dialogue != null && dialogue.inkJSON != null)
+        Dialogue currentDialogue = CanInteract ? dialogue : DialogeIfCannotInteract;
+        if (currentDialogue != null && currentDialogue.inkJSON != null)
         {
-            dialogueManger.OnDialogueCompleted += OnDialogueEnd;
-            dialogueManger.OnTriggerFound += OnInkTrigger;
-            dialogueManger.StartDialogue(dialogue);
+            dialogueManger.StartDialogue(
+                currentDialogue, 
+                (story) => {
+                    currentDialogue.dialogueState = story.state.ToJson();
+                    SetPersistentStateValue("dialogue_state", currentDialogue.dialogueState);
+                    OnDialogueEnd(currentDialogue, story);
+                }, 
+                OnInkTrigger
+            );
         }
     }
 
-    protected virtual void OnDestroy()
-    {
-        if (dialogueManger == null) return;
-        dialogueManger.OnDialogueCompleted -= OnDialogueEnd;
-        dialogueManger.OnTriggerFound -= OnInkTrigger;
-    }
-
-    protected virtual void OnDialogueEnd(Dialogue _dialogue, Story _story)
-    {
-        if (dialogue != _dialogue) return;
-        dialogue.dialogueState = _story.state.ToJson();
-        SetPersistentStateValue("dialogue_state", dialogue.dialogueState);
-        dialogueManger.OnDialogueCompleted -= OnDialogueEnd;
-        dialogueManger.OnTriggerFound -= OnInkTrigger;
-    }
+    protected virtual void OnDialogueEnd(Dialogue dialogue, Story story) { }
 
     protected override void OnStateRestored()
     {

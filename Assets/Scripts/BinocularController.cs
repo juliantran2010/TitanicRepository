@@ -22,6 +22,7 @@ public class BinocularController : MonoBehaviour
     private bool isUsingBinoculars = false;
     private float lookTimer = 0f;
     private bool icebergFound = false;
+    [SerializeField] private Dialogue dialogueAfterIcebergFound;
 
     private void Start()
     {
@@ -199,10 +200,12 @@ public class BinocularController : MonoBehaviour
     private void OnIcebergDiscovered(GameObject iceberg)
     {
         icebergFound = true;
-        Debug.Log("Iceberg discovered!");
-        LowerBinoculars(() =>
+        DialogueManager.Instance.StartDialogue(dialogueAfterIcebergFound, (story) =>
         {
-            GameSceneManager.Instance.ChangeScene("TitanicScene", "titanic_deck");
+            LowerBinoculars(() =>
+            {
+                GameSceneManager.Instance.ChangeScene("TitanicScene", "titanic_deck");
+            });
         });
     }
 }

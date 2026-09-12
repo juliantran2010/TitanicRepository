@@ -14,5 +14,6 @@ public class Door : InteractableObject
             SpawnManager.Instance.SetNextSpawnPoint(targetSpawnPointID);
         if (targetSceneName != "")
             GameSceneManager.Instance.ChangeScene(targetSceneName, targetSpawnPointID);
+        QuestManager.Instance.CompleteQuest("reach_" + targetSpawnPointID);
     }
 }

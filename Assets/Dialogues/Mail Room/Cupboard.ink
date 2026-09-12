@@ -1,22 +1,20 @@
 VAR has_cupboard_key = false
 
-// Gedankengang des Spielers vor dem Schrank
-I'm looking at the locked cupboard. 
-I probably need a key to open it and reach the binoculars inside.
+The sturdy wooden cupboard stands against the bulkhead, secured by a heavy brass padlock. A plaque reads: 'OFFICERS STORES - AUTHORIZED ACCESS ONLY'.
 
-{ has_cupboard_key:
-    // Fall 1: Schlüssel ist vorhanden -> Interaktive Auswahl
-    + [Use key to open the cupboard]
-        You unlock the cupboard with a quiet click and retrieve the binoculars.
-        # trigger: open_cupboard
-        -> END
-
-    + [Leave it for now]
-        You decide to keep the key in your pocket and step back.
-        -> END
-
-- else:
-    // Fall 2: Kein Schlüssel im Inventar
-    Without the key, there's no way to open this right now. I should look around for it.
++ {has_cupboard_key} [Unlock the cupboard]
+    You insert David Blair's brass key and turn the lock.
+    # trigger:open_cupboard
+    The lock gives way and the heavy doors swing open! Inside on the shelf, you see a leather case with naval binoculars.
+    # complete_quest:unlock_cupboard
+    # add_quest:pickup_binoculars:Take the naval binoculars from the cupboard
     -> END
-}
+
++ [Examine the padlock]
+    You rattle the latch, but it won't budge.
+    You: <color=\#F4D06F>(thinking)</color> Firmly locked. I need David Blair's cupboard key from the crew berths.
+    -> END
+
++ [Step away and leave it for now]
+    You decide to leave the cupboard alone for a moment.
+    -> END
