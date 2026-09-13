@@ -448,6 +448,135 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &151924096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 151924097}
+  - component: {fileID: 151924100}
+  - component: {fileID: 151924099}
+  - component: {fileID: 151924098}
+  - component: {fileID: 151924101}
+  m_Layer: 0
+  m_Name: Lookout Bell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &151924097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151924096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.055, y: 9.47, z: 0.164}
+  m_LocalScale: {x: 0.1392, y: 5.202, z: 0.073879875}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1236544584}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &151924098
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151924096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &151924099
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151924096}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &151924100
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151924096}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &151924101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151924096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57027f41276f67a4facdbd8de9615ca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LookoutBell
+  uniqueID: 7b4275cc-f769-47b9-a202-1d3046212cef
+  UniqueInteractionLabel: Ring Bell
+  objectName: lookout_bell
+  displayName: Lookout Bell
 --- !u!1 &163526164
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   uniqueID: 6f3eab36-a6b1-45d8-acb8-7a2c77f46b32
+  UniqueInteractionLabel: 
   objectName: door_titanic_staircase
   displayName: Grand Staircase
   targetSceneName: StaircaseScene
@@ -3224,6 +3354,7 @@ Transform:
   - {fileID: 702494725}
   - {fileID: 992561952}
   - {fileID: 2048452535}
+  - {fileID: 151924097}
   m_Father: {fileID: 779806467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1236544585
@@ -5311,10 +5442,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 309861824425975461, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
@@ -176177,13 +176304,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: bbf8afe5-a910-4b30-a212-a58579867bd0
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2
@@ -176261,13 +176396,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: d1043e36-b07d-4a8e-97c5-811c6e305ee9
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2
@@ -182087,7 +182230,7 @@ GameObject:
   - component: {fileID: 6566688578793084602}
   - component: {fileID: 6566688578793084601}
   m_Layer: 0
-  m_Name: Vic_Working_Man_Base
+  m_Name: Sailor Hogg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187416,13 +187559,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 4e51ae3d-06e9-417e-8959-348790158778
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2
@@ -202076,13 +202227,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: f7db5ce8-b6f1-4301-be70-5e7bf9c632db
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2
@@ -205574,13 +205733,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: cd6c7ff4-12c3-4019-bba9-fb1691d56c46
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2
@@ -206278,13 +206445,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 949ee477-63f9-494b-ab7f-876edfeae0dd
-  objectName: Worker
-  displayName: 
+  UniqueInteractionLabel: 
+  objectName: sailor_hogg
+  displayName: Sailor Hogg
   dialogue:
-    inkJSON: {fileID: 4900000, guid: 9ab066023a8350f41b4013d9eb139dd2, type: 3}
+    inkJSON: {fileID: 4900000, guid: 076871b1a0bb1fc439e60a744a62789c, type: 3}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 0
   wanderRadius: 2
@@ -234139,13 +234314,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 847998c0-85bc-41b5-be5e-1c7a259f3f13
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2
@@ -273698,13 +273881,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 12d0a2bb-a7fc-4815-806f-fbddc013632d
+  UniqueInteractionLabel: 
   objectName: 
   displayName: 
   dialogue:
     inkJSON: {fileID: 0}
     dialogueState: 
+    startPath: 
+  DialogeIfCannotInteract:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   turnDuration: 0.5
+  animatorSpeed: 1
   currentLookWeight: 0
+  shouldLookAtPlayer: 1
   startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 1
   wanderRadius: 2

@@ -1,50 +1,54 @@
+VAR convinced_lightoller = false
+VAR convinced_iceberg = false
+
 The sailor lies in the narrow bunk, staring wearily at the low ceiling. A glint of brass is visible beneath his rough pillow.
-Sailor Jack: <color=\#D8A47F>(frowns)</color> A passenger? Down in the crew berths at this hour? What in bloody blazes are you sneaking around here for?
+Sailor_Jack: <color=\#D8A47F>(frowns)</color> A passenger down in the crew berths? What in bloody blazes are you doing here?
 
-+ [State your business directly]
-    You: I am looking for Second Officer David Blair's belongings.
-    Sailor Jack: Blair packed his kit days ago and caught the tender to the Olympic. Nothing of his left here for you, mate.
-    -> berth_options
-
-+ [Ask who he is]
-    You: Good evening. Are you alright?
-    Sailor Jack: Just came off an eight-hour deck watch. My bones are frozen solid. You shouldn't be down here.
-    -> berth_options
-
-+ [Excuse yourself and leave]
-    You: My apologies, I took a wrong turn. Rest well.
-    Sailor Jack: Aye, mind the hatch on your way out.
-    -> END
+-> dialogue_hub
 
 === caught_stealing ===
 As you reach your hand toward the pillow, Jack's arm shoots out, slapping your wrist away!
-Sailor Jack: <color=\#D8A47F>(snarls)</color> Keep your hands to yourself! That belongs to me, you bloody thief! What do you think you're doing?
--> berth_options
+Sailor_Jack: <color=\#D9534F>(snarls)</color> Keep your hands to yourself! That belongs in my custody, you bloody thief! What do you think you're doing? Explain yourself!
+-> dialogue_hub
 
-=== berth_options ===
-+ [Demand the key on Lightoller's authority]
-    You: Officer Lightoller sent me. Second Officer Blair left the equipment cupboard key with you, and the watch needs it immediately!
-    Sailor Jack: Lightoller sent you himself? Blimey, then it really is serious...
-    -> give_key_permission
+=== dialogue_hub ===
++ {!convinced_lightoller} [Claim Officer Lightoller sent you]
+    You: Officer Lightoller personally sent me down here. Blair left the cupboard key in your custody, and the bridge needs it!
+    Sailor_Jack: <color=\#D8A47F>(frowns)</color> Lightoller? An officer sending a passenger instead of a crew boy? Sounds fishy to me. Why would the bridge need that key right this second?
+    ~ convinced_lightoller = true
+    -> check_progress
 
-+ [Warn him about the pack ice and full speed]
-    You: We are steaming full speed into reported ice fields without binoculars! If we strike a berg, this compartment will flood before anyone else even notices!
-    Sailor Jack: Pack ice at 22 knots?! God's truth, that's suicide!
-    -> give_key_permission
++ {!convinced_iceberg} [Warn him about the speed and ice field]
+    You: We are steaming at 22 knots directly into reported ice fields without binoculars! If we hit an iceberg, this berth is right at the waterline!
+    Sailor_Jack: <color=\#D8A47F>(shifts uneasily)</color> Ice fields at 22 knots? That's mad! But Blair told me to guard that key under my bolster until the bridge officially asks for it.
+    ~ convinced_iceberg = true
+    -> check_progress
 
-+ [Ask innocently about the key]
-    You: What is that brass key under your pillow anyway?
-    Sailor Jack: None of your business, mate! I don't hand over things entrusted to me to just any stranger.
-    -> berth_options
++ [Bluntly demand: "Give me the key under your pillow!"]
+    You: Stop talking and just hand over the brass key under your pillow!
+    Sailor_Jack: <color=\#D9534F>(glares)</color> Not a chance! I don't take orders from passengers. Give me a proper reason or get lost.
+    -> dialogue_hub
 
-+ [Apologize and step back]
-    You: I apologize. I will leave you to rest.
-    Sailor Jack: Aye, back to the passenger cabins with you. Keep your hands off my gear.
++ [Try to grab the key by force]
+    -> caught_stealing
+
++ [Step back and leave for now]
+    You: I will come back in a moment.
+    Sailor_Jack: Aye, mind the bulkhead.
     -> END
 
+=== check_progress ===
+{
+    - convinced_lightoller and convinced_iceberg:
+        -> give_key_permission
+    - else:
+        -> dialogue_hub
+}
+
 === give_key_permission ===
-Sailor Jack: <color=\#D8A47F>(sighs)</color> Blast it all... you're right. Blair shoved that brass key into my hands right before he left. Told me to guard it under my bolster until someone from the bridge asks for it.
-Sailor Jack: Go on then, take it! It's right there under the pillow. Get it to the Mailroom cupboard before the Captain runs us into a berg!
+Sailor_Jack: <color=\#D8A47F>(eyes widen, sitting upright)</color> Wait... Lightoller sent you because the lookouts are blind in an ice field?!
+Sailor_Jack: Sweet mother of God... that explains why the watch is straining up there! Blair shoved that heavy brass key into my hand before he left, told me to guard it for the bridge.
+Sailor_Jack: Go on, take it! It's right there under my bolster. Run it to the Mailroom cupboard before we end up at the bottom of the Atlantic!
 # set:can_interact_cupboard_key:true
 # complete_quest:find_key
 # add_quest:pickup_cupboard_key:Take the cupboard key from under Jack's pillow

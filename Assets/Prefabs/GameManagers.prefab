@@ -924,6 +924,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   requiredLookDuration: 1.5
+  dialogueAfterIcebergFound:
+    inkJSON: {fileID: 4900000, guid: 3909923fd58ab414ca237d51a9f67611, type: 3}
+    dialogueState: 
+    startPath: 
 --- !u!114 &2599536739403416728
 MonoBehaviour:
   m_ObjectHideFlags: 0

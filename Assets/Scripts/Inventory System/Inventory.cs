@@ -19,6 +19,14 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        foreach (var item in items)
+        {
+            QuestManager.Instance.SetVariable("has_" + item.ObjectName, true);
+        }
+    }
+
     public bool AddItem(PickupObject item)
     {
         items.Add(item);

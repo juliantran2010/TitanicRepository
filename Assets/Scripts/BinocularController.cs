@@ -200,12 +200,9 @@ public class BinocularController : MonoBehaviour
     private void OnIcebergDiscovered(GameObject iceberg)
     {
         icebergFound = true;
-        DialogueManager.Instance.StartDialogue(dialogueAfterIcebergFound, (story) =>
+        LowerBinoculars(() =>
         {
-            LowerBinoculars(() =>
-            {
-                GameSceneManager.Instance.ChangeScene("TitanicScene", "titanic_deck");
-            });
+            DialogueManager.Instance.StartDialogue(dialogueAfterIcebergFound);
         });
     }
 }

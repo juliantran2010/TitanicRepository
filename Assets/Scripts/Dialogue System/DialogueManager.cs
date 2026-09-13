@@ -79,6 +79,20 @@ public class DialogueManager : MonoBehaviour
         ContinueDialogue();
     }
 
+    public void ShowText(string text, string speakerName = "")
+    {
+        previousGameState = GameStateManager.Instance.CurrentState;
+        GameStateManager.Instance.SetState(GameState.Dialogue);
+        DialogueBox.SetActive(true);
+        nameText.text = speakerName;
+        dialogueText.text = text;
+        continueButtonText.gameObject.SetActive(true);
+        foreach (Button choice in choices)
+        {
+            choice.gameObject.SetActive(false);
+        }
+    }
+
     private void ContinueDialogue()
     {
         if (currentStory.canContinue)
@@ -89,7 +103,7 @@ public class DialogueManager : MonoBehaviour
 
             if (parts.Length == 2 && !parts[0].Contains(" ")) // Check if no spaces in the name part, to avoid splitting on colons in dialogue text
             {
-                nameText.text = parts[0].Trim();
+                nameText.text = parts[0].Replace('_', ' ').Trim();
                 nameText.color = nameText.text.ToLower() == "you" ? new Color32(92, 245, 155, 255) : new Color32(80, 120, 225, 255);
                 dialogueText.text = parts[1].Trim();
             }

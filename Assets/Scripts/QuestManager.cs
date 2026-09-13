@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +88,7 @@ public class QuestManager : MonoBehaviour
     /// <summary>
     /// Markiert eine Quest als erledigt (streicht sie durch oder blendet sie aus).
     /// </summary>
-    public void CompleteQuest(string questId, bool removeImmediately = false)
+    public void CompleteQuest(string questId)
     {
         if (!activeQuests.TryGetValue(questId, out Quest quest)) return;
 
@@ -101,31 +102,19 @@ public class QuestManager : MonoBehaviour
             textComponent.text = $"<s>{textComponent.text}</s>";
         }
 
-        if (removeImmediately)
-        {
-            RemoveQuest(questId);
-        }
-        else
-        {
-            // Nach 2 Sekunden weich ausblenden und zerstören
-            entry.transform.DOScale(Vector3.zero, 0.4f)
-                .SetDelay(2.5f)
-                .SetEase(Ease.InBack)
-                .OnComplete(() => RemoveQuest(questId));
-        }
-    }
-
-    private void RemoveQuest(string questId)
-    {
-        if (activeQuests.TryGetValue(questId, out Quest quest))
-        {
-            activeQuests.Remove(questId);
-            Destroy(quest.questEntryObject);
-            completedQuests.Add(questId);
-            OnQuestCompleted?.Invoke(questId);
-
+        activeQuests.Remove(questId);
+        completedQuests.Add(questId);
+        OnQuestCompleted?.Invoke(questId);
+        if (quest.nextQuest != null)
             AddQuest(quest.nextQuest); // Nächste Quest hinzufügen, falls vorhanden
-        }
+
+        // Nach 2 Sekunden weich ausblenden und zerstören
+        entry.transform.DOScale(Vector3.zero, 0.4f)
+            .SetDelay(2.5f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() => {
+                Destroy(quest.questEntryObject);
+            });
     }
 
     public void SetVariable(string varName, object value)
@@ -147,5 +136,17 @@ public class QuestManager : MonoBehaviour
             SetVariable(name, intVal);
         else
             SetVariable(name, valStr);
+    }
+
+    public bool IsQuestCompleted(string questId)
+    {
+        return completedQuests.Contains(questId);
+    }
+
+    public Quest GetOldestActiveQuest()
+    {
+        if (activeQuests.Count == 0) return null;
+        // Die erste hinzugefügte Quest zurückgeben
+        return activeQuests.Values.First();
     }
 }
