@@ -200,9 +200,15 @@ public class BinocularController : MonoBehaviour
     private void OnIcebergDiscovered(GameObject iceberg)
     {
         icebergFound = true;
-        LowerBinoculars(() =>
+
+
+        ObjectHighlighter highlighter = iceberg.GetComponent<ObjectHighlighter>();
+        if (highlighter != null)
         {
-            DialogueManager.Instance.StartDialogue(dialogueAfterIcebergFound);
-        });
+            highlighter.HighlightOn();
+            // Oder später: highlighter.HighlightOff();
+        }
+
+        DialogueManager.Instance.StartDialogue(dialogueAfterIcebergFound, (story) => LowerBinoculars());
     }
 }

@@ -757,6 +757,7 @@ MonoBehaviour:
   displayName: Grand Staircase
   targetSceneName: StaircaseScene
   targetSpawnPointID: staircase_elevator_up
+  neccessaryQuestID: 
 --- !u!65 &186086504
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2888,6 +2889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1125348222}
   - component: {fileID: 1125348221}
+  - component: {fileID: 1125348223}
   m_Layer: 7
   m_Name: Iceberg
   m_TagString: Untagged
@@ -2937,6 +2939,23 @@ Transform:
   - {fileID: 944829751}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1125348223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125348220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f04eea604b6bc42a2486c857304188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectHighlighter
+  highlightColor: {r: 0.5, g: 1.75, b: 2.5, a: 2.5}
+  mode: 1
+  transitionDuration: 0.8
+  pulseMinMultiplier: 0.4
+  includeChildren: 1
 --- !u!1 &1168348923
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,6 +5464,10 @@ PrefabInstance:
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604460440314314274, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
