@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum GameState
 {
-    Intro, Gameplay, Inspect, Dialogue, PauseMenu
+    Intro, Gameplay, Inspect, Dialogue, PauseMenu, Loading
 }
 public class GameStateManager : MonoBehaviour
 {
@@ -56,5 +56,6 @@ public class GameStateManager : MonoBehaviour
         GameState oldState = CurrentState;
         CurrentState = newState;
         OnStateChanged?.Invoke(oldState, newState);
+        //Debug.Log($"[GameStateManager] State changed from {oldState} to {newState}");
     }
 }

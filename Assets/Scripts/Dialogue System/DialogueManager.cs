@@ -202,7 +202,10 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         DialogueBox.SetActive(false);
-        GameStateManager.Instance.SetState(previousGameState);
+        if (GameStateManager.Instance.CurrentState == GameState.Dialogue)
+        {
+            GameStateManager.Instance.SetState(previousGameState);
+        }
         callbackOnDialogueEnd?.Invoke(currentStory);
     }
 
@@ -219,7 +222,7 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i < Math.Min(currentChoices.Count, choices.Length); i++)
         {
             choices[i].gameObject.SetActive(true);
-            choicesText[i].text = currentChoices[i].text;
+            choicesText[i].text = "[" + currentChoices[i].text + "]";
 
             // Prüfen, wie oft das Ziel dieser Wahl in Ink bereits besucht wurde
             string pathString = currentChoices[i].pathStringOnChoice;

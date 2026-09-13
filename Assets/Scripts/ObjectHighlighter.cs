@@ -137,6 +137,22 @@ public class ObjectHighlighter : MonoBehaviour
     private void OnDisable()
     {
         HighlightOff(true);
+
+        // Setzt das Shader-Keyword auf den Projekt-Assets wieder zurück
+        if (targetRenderers != null)
+        {
+            foreach (Renderer rend in targetRenderers)
+            {
+                if (rend == null) continue;
+                foreach (Material mat in rend.sharedMaterials)
+                {
+                    if (mat != null)
+                    {
+                        mat.DisableKeyword("_EMISSION");
+                    }
+                }
+            }
+        }
     }
 
     private void OnDestroy()

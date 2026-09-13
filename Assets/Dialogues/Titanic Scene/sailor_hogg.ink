@@ -39,7 +39,7 @@ Sailor_Hogg: <color=\#D8A47F>(rushes toward you, eyes wide)</color> Was that you
     You: Yes! A massive iceberg dead ahead! The bridge heard the bell and Murdoch is already turning the helm!
     Sailor_Hogg: God Almighty... you can feel the hull groaning! The rudder is hard over, but she turns slow!
     Sailor_Hogg: If we brush that ice, we'll need every ship in this sector steaming to us!
-    Sailor_Hogg: Run directly to the Marconi Room behind the bridge! Jack_Phillips must send an emergency ice dispatch before other ships shut their wireless down for the night!
+    Sailor_Hogg: Run directly to the Marconi Room behind the bridge! Jack Phillips must send an emergency ice dispatch before other ships shut their wireless down for the night!
     # add_quest:warn_marconi:Run to the Marconi Room and send an emergency ice alert
     -> END
 

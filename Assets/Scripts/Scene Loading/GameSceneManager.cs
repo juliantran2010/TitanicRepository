@@ -23,6 +23,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void ChangeScene(string sceneName, string spawnPointID)
     {
+        GameStateManager.Instance.SetState(GameState.Loading);
         StartCoroutine(TransitionRoutine(sceneName, spawnPointID));
     }
 
@@ -60,5 +61,11 @@ public class GameSceneManager : MonoBehaviour
         }
 
         fadeCanvasGroup.alpha = targetAlpha;
+
+        if (targetAlpha == 0f)
+        {
+            // Nach dem Fade-In den Spielzustand auf Gameplay setzen
+            GameStateManager.Instance.SetState(GameState.Gameplay);
+        }
     }
 }

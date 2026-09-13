@@ -50,8 +50,6 @@ public class InteractionManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        mainCamera = Camera.main;
         crosshairRectTransform = crosshairImage.GetComponent<RectTransform>();
     }
 
@@ -61,6 +59,7 @@ public class InteractionManager : MonoBehaviour
         {
             GameStateManager.Instance.OnStateChanged += HandleStateChanged;
         }
+        mainCamera = Camera.main;
     }
     private void OnDestroy()
     {
@@ -73,6 +72,10 @@ public class InteractionManager : MonoBehaviour
     private void HandleStateChanged(GameState oldState, GameState newState)
     {
         canInteract = newState == GameState.Gameplay;
+        if (!canInteract)
+        {
+            SetCrosshairIcon(null);
+        }
         crosshairImage.gameObject.SetActive(canInteract);
     }
 
