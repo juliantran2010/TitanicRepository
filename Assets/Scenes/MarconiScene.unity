@@ -646,6 +646,7 @@ MonoBehaviour:
   displayName: Grand Staircase
   targetSceneName: StaircaseScene
   targetSpawnPointID: staircase_elevator_up
+  neccessaryQuestID: 
 --- !u!65 &869603309
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3445,7 +3446,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3099579338050300236}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 0.2

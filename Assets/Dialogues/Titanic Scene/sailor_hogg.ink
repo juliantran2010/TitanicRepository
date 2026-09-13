@@ -8,6 +8,7 @@ VAR rung_bell = false
 }
 
 === before_bell ===
+# complete_quest:explore_deck
 The icy Atlantic wind howls across the open deck. A sailor stands by the foremast ladder, shivering violently in his heavy watch coat.
 Sailor_Hogg: Halt there! Passengers are not permitted near the foremast ladders! It is freezing out here!
 

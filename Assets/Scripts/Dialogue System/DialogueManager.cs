@@ -20,8 +20,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI continueButtonText;
 
     [Header("Choices UI")]
-    [SerializeField] private Button[] choices;
-    private TextMeshProUGUI[] choicesText;
+    [SerializeField] private Transform choicesContainer;
+    [SerializeField] private GameObject choiceButtonPrefab;    // Dein Button-Prefab
+    [SerializeField] private ScrollRect choicesScrollRect;       // Die ScrollView selbst
+    private readonly List<GameObject> activeChoiceButtons = new List<GameObject>();
 
     [Header("State")]
     public static DialogueManager Instance { get; private set; }
@@ -47,14 +49,6 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueBox.SetActive(false);
         continueButton.onClick.AddListener(ContinueDialogue);
-        choicesText = new TextMeshProUGUI[choices.Length];
-        for (int i = 0; i < choices.Length; i++)
-        {
-            choicesText[i] = choices[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
-            int choiceIndex = i; // Capture the current value of i
-            choices[i].onClick.AddListener(() => MakeChoice(choiceIndex));
-            choices[i].gameObject.SetActive(false); // Hide choices initially
-        }
     }
 
     public void StartDialogue(Dialogue dialogue, Action<Story> callbackDialogueEnd = null, Action<string> callbackInkTrigger = null)
@@ -87,10 +81,7 @@ public class DialogueManager : MonoBehaviour
         nameText.text = speakerName;
         dialogueText.text = text;
         continueButtonText.gameObject.SetActive(true);
-        foreach (Button choice in choices)
-        {
-            choice.gameObject.SetActive(false);
-        }
+        ClearChoices();
     }
 
     private void ContinueDialogue()
@@ -201,6 +192,7 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        ClearChoices();
         DialogueBox.SetActive(false);
         if (GameStateManager.Instance.CurrentState == GameState.Dialogue)
         {
@@ -211,39 +203,56 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayChoices()
     {
+        ClearChoices();
+
         List<Choice> currentChoices = currentStory.currentChoices;
         dialogueText.text = "";
         continueButtonText.gameObject.SetActive(false);
-        if (currentChoices.Count > choices.Length)
-        {
-            Debug.LogError("More choices than UI can support. Number of choices given: " + currentChoices.Count);
-        }
 
-        for (int i = 0; i < Math.Min(currentChoices.Count, choices.Length); i++)
+        for (int i = 0; i < currentChoices.Count; i++)
         {
-            choices[i].gameObject.SetActive(true);
-            choicesText[i].text = "[" + currentChoices[i].text + "]";
+            int choiceIndex = i;
+            Choice choice = currentChoices[i];
 
-            // Prüfen, wie oft das Ziel dieser Wahl in Ink bereits besucht wurde
-            string pathString = currentChoices[i].pathStringOnChoice;
-            int visits = currentStory.state.VisitCountAtPathString(pathString);
-            choicesText[i].color = visits > 0 ? new Color(0.6f, 0.6f, 0.6f, 0.7f) : Color.white;
+            GameObject btnObj = Instantiate(choiceButtonPrefab, choicesContainer);
+            activeChoiceButtons.Add(btnObj);
+
+            Button btn = btnObj.GetComponent<Button>();
+            TextMeshProUGUI btnText = btnObj.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (btnText != null)
+            {
+                btnText.text = "[" + choice.text + "]";
+                string pathString = choice.pathStringOnChoice;
+                int visits = currentStory.state.VisitCountAtPathString(pathString);
+                btnText.color = visits > 0 ? new Color(0.6f, 0.6f, 0.6f, 0.7f) : Color.white;
+            }
+
+            btn.onClick.AddListener(() => MakeChoice(choiceIndex));
         }
-        for (int i = currentChoices.Count; i < choices.Length; i++)
+        if (choicesScrollRect != null)
         {
-            choices[i].gameObject.SetActive(false);
+            Canvas.ForceUpdateCanvases();
+            choicesScrollRect.verticalNormalizedPosition = 1f;
         }
     }
 
     private void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
-        foreach (Button choice in choices)
-        {
-            choice.gameObject.SetActive(false);
-        }
+        ClearChoices();
         continueButtonText.gameObject.SetActive(true);
         ContinueDialogue();
+    }
+
+    private void ClearChoices()
+    {
+        for (int i = 0; i < activeChoiceButtons.Count; i++)
+        {
+            if (activeChoiceButtons[i] != null)
+                Destroy(activeChoiceButtons[i]);
+        }
+        activeChoiceButtons.Clear();
     }
 
     private void SyncVariablesWithInk(Story story)

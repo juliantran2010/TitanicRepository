@@ -28,6 +28,7 @@ public class NPC : DialogueObject
         startPosition = transform.position;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        agent.enabled = shouldWander;
     }
 
     protected override void Start()
