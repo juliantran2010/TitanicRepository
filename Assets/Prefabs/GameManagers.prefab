@@ -1029,6 +1029,9 @@ MonoBehaviour:
   choicesContainer: {fileID: 8131496056336757726}
   choiceButtonPrefab: {fileID: 7648149739211646591, guid: 70550b6687695aa4db63f8ff5f41063d, type: 3}
   choicesScrollRect: {fileID: 9222466092371971815}
+  typingSpeed: 0.025
+  commaPause: 0.12
+  punctuationPause: 0.35
 --- !u!114 &7395153134687208322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1781,7 +1784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 115}
+  m_AnchoredPosition: {x: 0, y: -5.26001}
   m_SizeDelta: {x: 2534.9292, y: 804.2}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5786781817845911470
@@ -1805,7 +1808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.77254903}
+  m_Color: {r: 0.21568628, g: 0.19607843, b: 0.17254902, a: 0.3137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

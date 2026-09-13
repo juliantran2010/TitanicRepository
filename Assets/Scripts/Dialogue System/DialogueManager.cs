@@ -25,6 +25,13 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ScrollRect choicesScrollRect;       // Die ScrollView selbst
     private readonly List<GameObject> activeChoiceButtons = new List<GameObject>();
 
+    [Header("Typewriter Settings")]
+    [SerializeField] private float typingSpeed = 0.025f;
+    [SerializeField] private float commaPause = 0.12f;
+    [SerializeField] private float punctuationPause = 0.35f;
+    private Coroutine typewriterCoroutine;
+    private bool isTyping = false;
+
     [Header("State")]
     public static DialogueManager Instance { get; private set; }
     private Story currentStory;
@@ -79,36 +86,56 @@ public class DialogueManager : MonoBehaviour
         GameStateManager.Instance.SetState(GameState.Dialogue);
         DialogueBox.SetActive(true);
         nameText.text = speakerName;
-        dialogueText.text = text;
         continueButtonText.gameObject.SetActive(true);
         ClearChoices();
+        PlayTypewriterText(text.Trim());
     }
 
     private void ContinueDialogue()
     {
+        if (isTyping)
+        {
+            CompleteTypewriterText();
+            return;
+        }
+        if (!DialogueBox.activeSelf) return;
+
         if (currentStory.canContinue)
         {
             string line = currentStory.Continue();
             CheckForTags();
-            string[] parts = line.Split(new char[] { ':' });
+            if (!DialogueBox.activeSelf) return;
 
+            string[] parts = line.Split(new char[] { ':' });
+            string textToDisplay = "";
             if (parts.Length == 2 && !parts[0].Contains(" ")) // Check if no spaces in the name part, to avoid splitting on colons in dialogue text
             {
                 nameText.text = parts[0].Replace('_', ' ').Trim();
                 nameText.color = nameText.text.ToLower() == "you" ? new Color32(92, 245, 155, 255) : new Color32(80, 120, 225, 255);
-                dialogueText.text = parts[1].Trim();
+                textToDisplay = parts[1].Trim();
             }
             else
             {
                 nameText.text = "";
-                dialogueText.text = line.Trim();
+                textToDisplay = line.Trim();
             }
 
             //Leere Zeilen überspringen (z.B. wenn in einer Zeile nur ein # trigger steht)
-            if (dialogueText.text == "")
+            if (string.IsNullOrWhiteSpace(textToDisplay))
             {
-                ContinueDialogue();
+                // Wenn noch Text oder Choices kommen -> weiter, sonst sofort sauber beenden!
+                if (currentStory.canContinue || currentStory.currentChoices.Count > 0)
+                {
+                    ContinueDialogue();
+                }
+                else
+                {
+                    EndDialogue();
+                }
+                return;
             }
+
+            PlayTypewriterText(textToDisplay);
 
         }
         else if (currentStory.currentChoices.Count > 0)
@@ -192,6 +219,8 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
+        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+        isTyping = false;
         ClearChoices();
         DialogueBox.SetActive(false);
         if (GameStateManager.Instance.CurrentState == GameState.Dialogue)
@@ -222,7 +251,8 @@ public class DialogueManager : MonoBehaviour
 
             if (btnText != null)
             {
-                btnText.text = "[" + choice.text + "]";
+                string prefix = $"<color=#D4AF37>{i + 1}. </color> ";
+                btnText.text = prefix + choice.text;
                 string pathString = choice.pathStringOnChoice;
                 int visits = currentStory.state.VisitCountAtPathString(pathString);
                 btnText.color = visits > 0 ? new Color(0.6f, 0.6f, 0.6f, 0.7f) : Color.white;
@@ -273,5 +303,52 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void PlayTypewriterText(string text)
+    {
+        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+
+        dialogueText.text = text;
+        dialogueText.maxVisibleCharacters = 0;
+        dialogueText.ForceMeshUpdate();
+
+        typewriterCoroutine = StartCoroutine(TypewriterRoutine());
+    }
+
+    private IEnumerator TypewriterRoutine()
+    {
+        isTyping = true;
+        int totalChars = dialogueText.textInfo.characterCount;
+
+        for (int i = 0; i < totalChars; i++)
+        {
+            dialogueText.maxVisibleCharacters = i + 1;
+            char c = dialogueText.textInfo.characterInfo[i].character;
+            bool hasNextChar = (i + 1 < totalChars);
+            char nextC = hasNextChar ? dialogueText.textInfo.characterInfo[i + 1].character : '\0';
+
+            if ((c == '.' || c == '!' || c == '?') && nextC != c)
+            {
+                yield return new WaitForSeconds(punctuationPause);
+            }
+            else if ((c == ',' || c == ';' || c == ':' || c == '—') && nextC != c)
+            {
+                yield return new WaitForSeconds(commaPause);
+            }
+            else
+            {
+                yield return new WaitForSeconds(typingSpeed);
+            }
+        }
+
+        isTyping = false;
+    }
+
+    private void CompleteTypewriterText()
+    {
+        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+        dialogueText.maxVisibleCharacters = dialogueText.textInfo.characterCount;
+        isTyping = false;
     }
 }
