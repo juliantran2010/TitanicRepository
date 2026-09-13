@@ -85,6 +85,7 @@ public class NPC : DialogueObject
 
     protected override void OnDialogueEnd(Dialogue dialogue, Story story)
     {
+        base.OnDialogueEnd(dialogue, story);
         DOTween.To(() => currentLookWeight, x => currentLookWeight = x, 0f, turnDuration)
             .OnComplete(() =>
             {

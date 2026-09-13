@@ -28,6 +28,7 @@ public class DialogueObject : InteractableObject
                     currentDialogue.dialogueState = story.state.ToJson();
                     SetPersistentStateValue("dialogue_state", currentDialogue.dialogueState);
                     OnDialogueEnd(currentDialogue, story);
+                    lastInteractionTime = Time.time;
                 }, 
                 OnInkTrigger
             );

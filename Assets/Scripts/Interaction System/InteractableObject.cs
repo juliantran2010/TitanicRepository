@@ -11,6 +11,9 @@ public abstract class InteractableObject : MonoBehaviour
     public string UniqueID => uniqueID;
 
     public string UniqueInteractionLabel = "";
+    [SerializeField] protected float interactionCooldown = 1f;
+    protected float lastInteractionTime = -Mathf.Infinity;
+    public bool CanInteract => Time.time >= lastInteractionTime + interactionCooldown;
     protected void OnValidate()
     {
         #if UNITY_EDITOR
@@ -50,6 +53,9 @@ public abstract class InteractableObject : MonoBehaviour
     }
     public void Interact()
     {
+        if (!CanInteract) return;
+        lastInteractionTime = Time.time;
+
         SetPersistentStateValue("has_interacted", true);
         OnInteract();
     }

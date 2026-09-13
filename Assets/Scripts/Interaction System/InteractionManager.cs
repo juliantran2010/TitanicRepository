@@ -95,7 +95,7 @@ public class InteractionManager : MonoBehaviour
             {
                 SetCrosshairIcon(interactable);
 
-                if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && interactable.CanInteract)
                 {
                     interactable.Interact();
                     OnInteracted?.Invoke(interactable);
