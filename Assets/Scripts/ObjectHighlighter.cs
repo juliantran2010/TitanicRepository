@@ -60,7 +60,6 @@ public class ObjectHighlighter : MonoBehaviour
         ApplyColor(Color.black);
     }
 
-    [ContextMenu("Highlight On")]
     public void HighlightOn()
     {
         currentSequence?.Kill();
@@ -76,15 +75,22 @@ public class ObjectHighlighter : MonoBehaviour
                 break;
 
             case HighlightMode.Pulse:
+                // 1. Sanftes Einblenden auf volle Helligkeit
                 currentSequence.Append(
                     DOTween.To(() => currentColor, ApplyColor, highlightColor, transitionDuration)
                            .SetEase(Ease.InQuad)
                 );
-                currentSequence.Append(
-                    DOTween.To(() => currentColor, ApplyColor, highlightColor * pulseMinMultiplier, transitionDuration * 1.2f)
-                           .SetEase(Ease.InOutSine)
-                           .SetLoops(-1, LoopType.Yoyo)
-                );
+                // 2. Sobald eingeblendet: Unendliches Pulsieren als eigene Sequenz starten
+                currentSequence.OnComplete(() =>
+                {
+                    currentSequence = DOTween.Sequence();
+                    currentSequence.Append(
+                        DOTween.To(() => currentColor, ApplyColor, highlightColor * pulseMinMultiplier, transitionDuration * 1.2f)
+                               .SetEase(Ease.InOutSine)
+                    );
+                    currentSequence.SetLoops(-1, LoopType.Yoyo);
+                    currentSequence.SetTarget(gameObject);
+                });
                 break;
 
             case HighlightMode.FlashOnce:
@@ -102,7 +108,6 @@ public class ObjectHighlighter : MonoBehaviour
         currentSequence.SetTarget(gameObject);
     }
 
-    [ContextMenu("Highlight Off")]
     public void HighlightOff(bool instant = false)
     {
         currentSequence?.Kill();

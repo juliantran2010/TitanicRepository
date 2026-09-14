@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 87300686}
   - component: {fileID: 87300688}
   - component: {fileID: 87300687}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,6 +575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LookoutBell
   uniqueID: 7b4275cc-f769-47b9-a202-1d3046212cef
   UniqueInteractionLabel: Ring Bell
+  interactionCooldown: 1
   objectName: lookout_bell
   displayName: Lookout Bell
 --- !u!1 &163526164
@@ -753,6 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   uniqueID: 6f3eab36-a6b1-45d8-acb8-7a2c77f46b32
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: door_titanic_staircase
   displayName: Grand Staircase
   targetSceneName: StaircaseScene
@@ -2417,7 +2419,7 @@ GameObject:
   - component: {fileID: 944829751}
   - component: {fileID: 944829753}
   - component: {fileID: 944829752}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2800,7 +2802,7 @@ GameObject:
   - component: {fileID: 1113202021}
   - component: {fileID: 1113202023}
   - component: {fileID: 1113202022}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2892,7 +2894,7 @@ GameObject:
   - component: {fileID: 1125348223}
   m_Layer: 7
   m_Name: Iceberg
-  m_TagString: Untagged
+  m_TagString: Iceberg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4049,7 +4051,7 @@ GameObject:
   - component: {fileID: 1566834949}
   - component: {fileID: 1566834951}
   - component: {fileID: 1566834950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4296,7 +4298,7 @@ GameObject:
   - component: {fileID: 1654826716}
   - component: {fileID: 1654826718}
   - component: {fileID: 1654826717}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4955,7 +4957,7 @@ GameObject:
   - component: {fileID: 1879127767}
   - component: {fileID: 1879127769}
   - component: {fileID: 1879127768}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5461,13 +5463,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 902013437718340008, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Size
+      value: 0.9999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 902013437718340008, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604460440314314274, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5507,6 +5513,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -176328,6 +176354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: bbf8afe5-a910-4b30-a212-a58579867bd0
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:
@@ -176420,6 +176447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: d1043e36-b07d-4a8e-97c5-811c6e305ee9
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:
@@ -187583,6 +187611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 4e51ae3d-06e9-417e-8959-348790158778
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:
@@ -202251,6 +202280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: f7db5ce8-b6f1-4301-be70-5e7bf9c632db
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:
@@ -205757,6 +205787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: cd6c7ff4-12c3-4019-bba9-fb1691d56c46
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:
@@ -206469,6 +206500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 949ee477-63f9-494b-ab7f-876edfeae0dd
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: sailor_hogg
   displayName: Sailor Hogg
   dialogue:
@@ -234338,6 +234370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 847998c0-85bc-41b5-be5e-1c7a259f3f13
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:
@@ -273905,6 +273938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: 12d0a2bb-a7fc-4815-806f-fbddc013632d
   UniqueInteractionLabel: 
+  interactionCooldown: 1
   objectName: 
   displayName: 
   dialogue:

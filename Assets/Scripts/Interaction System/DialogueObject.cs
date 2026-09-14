@@ -6,7 +6,7 @@ public class DialogueObject : InteractableObject
 {
     [SerializeField] protected Dialogue dialogue;
     [SerializeField] protected Dialogue DialogeIfCannotInteract;
-    protected bool CanInteract => !(DialogeIfCannotInteract.inkJSON != null && (!QuestManager.Instance.TryGetVariable("can_interact_" + ObjectName, out object canInteract) || !(bool)canInteract));
+    protected new bool CanInteract => !(DialogeIfCannotInteract.inkJSON != null && (!QuestManager.Instance.TryGetVariable("can_interact_" + ObjectName, out object canInteract) || !(bool)canInteract));
     public override InteractionType Type => (dialogue != null && dialogue.inkJSON != null) ? InteractionType.Dialogue : InteractionType.None;
 
     protected DialogueManager dialogueManger;

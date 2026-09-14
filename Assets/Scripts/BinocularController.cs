@@ -57,11 +57,11 @@ public class BinocularController : MonoBehaviour
         }
     }
 
-    private Tween RaiseBinoculars()
+    private void RaiseBinoculars()
     {
         PickupObject binoculars = Inventory.Instance.GetItem("binoculars");
         Sequence seq = DOTween.Sequence();
-        if (binoculars == null) return seq;
+        if (binoculars == null) return;
 
         // 1. Folge-Skript und vorherige Tweens beenden
         if (binoculars.TryGetComponent<AttachToCameraField>(out var attachScript))
@@ -122,9 +122,8 @@ public class BinocularController : MonoBehaviour
             SetBinocularVisibility(binoculars.gameObject, false);
             isUsingBinoculars = true;
             if (overlayCanvas != null) overlayCanvas.SetActive(true);
+            Camera.main.cullingMask |= icebergLayer.value;
         });
-
-        return seq;
     }
 
     private void LowerBinoculars(Action OnLowered = null)
@@ -164,6 +163,7 @@ public class BinocularController : MonoBehaviour
                 attachScript.enabled = true;
             }
             OnLowered?.Invoke();
+            Camera.main.cullingMask &= ~icebergLayer.value;
         });
     }
 
