@@ -25,19 +25,20 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _CornerRadius: 0.1
+    - _CornerRadius: 0.001
+    - _EdgeSoftness: 0.12
     - _FadeEnd: 1
-    - _FadeStart: 0.4
+    - _FadeStart: 0.321
     - _LineGlow: 2
     - _LineOffset: 0.1734
     - _LineWidth: 0.006
-    - _MaxBlur: 0.00376
+    - _MaxBlur: 0.001
     - _TopAccentBrightness: 2
     - _TopAccentOffset: 0.15
     - _TopAccentThickness: 0.006
     m_Colors:
     - _AccentColor: {r: 0.95, g: 0.8, b: 0.45, a: 1}
     - _DimColor: {r: 0.02, g: 0.03, b: 0.049999982, a: 0.8}
-    - _GoldColor: {r: 0.83, g: 0.68, b: 0.37999994, a: 0.75}
+    - _GoldColor: {r: 0.83, g: 0.68, b: 0.37999988, a: 0.39215687}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

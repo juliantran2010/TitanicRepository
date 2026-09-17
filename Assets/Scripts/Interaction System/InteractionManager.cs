@@ -1,8 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,20 +11,24 @@ public class InteractionManager : MonoBehaviour
     private Camera mainCamera;
     private bool canInteract = true;
 
-
     [Header("Einstellungen")]
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private LayerMask interactionLayerMask;
+    [SerializeField] private Vector2 screenPixelOffset = new Vector2(0f, 30f);
 
-    [Header("UI Elemente")]
-    [SerializeField] private Vector2 defaultSize = new Vector2(10f, 10f); // Kleiner Punkt
-    [SerializeField] private Vector2 interactIconSize = new Vector2(48f, 48f); // Größeres Icon für Hand, Sprechblase etc.
-    [SerializeField] private Image crosshairImage;
-    [SerializeField] private RectTransform crosshairRectTransform;
-    [SerializeField] private TextMeshProUGUI crosshairDescription;
+    [Header("Smoothing")]
+    [Tooltip("Dämpfung der 3D-Zielposition. Höhere Werte (20-30) folgen dem Objekt agil, dämpfen aber Mikrozittern ab.")]
+    [SerializeField] private float smoothSpeed = 25f;
 
-    [Header("Crosshair Icons")]
-    [SerializeField] private Sprite defaultIcon;
+    [Header("Zentrales Fadenkreuz")]
+    [SerializeField] private Image centerCrosshair;
+
+    [Header("Floating Prompt Element")]
+    [SerializeField] private RectTransform promptContainer;
+    [SerializeField] private Image promptIcon;
+    [SerializeField] private TextMeshProUGUI promptText;
+
+    [Header("Aktions-Icons")]
     [SerializeField] private Sprite talkIcon;
     [SerializeField] private Sprite pickupIcon;
     [SerializeField] private Sprite inspectIcon;
@@ -35,10 +36,11 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private Sprite readIcon;
     [SerializeField] private Sprite teleportIcon;
 
-
     public Action<InteractableObject> OnInteracted;
+    private InteractableObject currentInteractable;
 
-
+    private Vector3 smoothedWorldPos;
+    private bool isFirstFrameActive = true;
 
     private void Awake()
     {
@@ -50,20 +52,25 @@ public class InteractionManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        crosshairRectTransform = crosshairImage.GetComponent<RectTransform>();
+
+        if (promptContainer != null)
+        {
+            promptContainer.gameObject.SetActive(false);
+        }
     }
 
     private void Start()
     {
-        if (GameStateManager.Instance is not null)
+        if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.OnStateChanged += HandleStateChanged;
         }
         mainCamera = Camera.main;
     }
+
     private void OnDestroy()
     {
-        if (GameStateManager.Instance is not null)
+        if (GameStateManager.Instance != null)
         {
             GameStateManager.Instance.OnStateChanged -= HandleStateChanged;
         }
@@ -74,9 +81,13 @@ public class InteractionManager : MonoBehaviour
         canInteract = newState == GameState.Gameplay;
         if (!canInteract)
         {
-            SetCrosshairIcon(null);
+            SetInteractionTarget(null);
         }
-        crosshairImage.gameObject.SetActive(canInteract);
+
+        if (centerCrosshair != null)
+        {
+            centerCrosshair.gameObject.SetActive(canInteract);
+        }
     }
 
     private void Update()
@@ -85,77 +96,157 @@ public class InteractionManager : MonoBehaviour
         CheckForInteractable();
     }
 
+    private void LateUpdate()
+    {
+        UpdatePromptPosition();
+    }
+
     private void CheckForInteractable()
     {
-        SetCrosshairIcon(null);
+        if (mainCamera == null) mainCamera = Camera.main;
+        if (mainCamera == null) return;
+
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactionLayerMask))
         {
             if (hit.collider.TryGetComponent<InteractableObject>(out InteractableObject interactable))
             {
-                SetCrosshairIcon(interactable);
+                currentInteractable = interactable;
+                SetInteractionTarget(interactable);
 
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && interactable.CanInteract)
                 {
                     interactable.Interact();
                     OnInteracted?.Invoke(interactable);
                 }
+                return;
+            }
+        }
+
+        currentInteractable = null;
+        SetInteractionTarget(null);
+    }
+
+    private void UpdatePromptPosition()
+    {
+        if (currentInteractable == null || promptContainer == null || !promptContainer.gameObject.activeSelf)
+        {
+            isFirstFrameActive = true;
+            return;
+        }
+
+        if (mainCamera == null) mainCamera = Camera.main;
+        if (mainCamera == null) return;
+
+        // 1. Reale Zielposition im 3D-Raum bestimmen
+        Vector3 rawTargetPos;
+        if (currentInteractable.TryGetComponent<Collider>(out Collider col))
+        {
+            float clampedY = Mathf.Clamp(mainCamera.transform.position.y, col.bounds.min.y, col.bounds.max.y);
+            rawTargetPos = new Vector3(col.bounds.center.x, clampedY, col.bounds.center.z);
+        }
+        else
+        {
+            rawTargetPos = currentInteractable.transform.position;
+        }
+
+        // 2. Nur die 3D-Weltposition glätten (verhindert Jitter durch NPC-Animationen)
+        if (isFirstFrameActive)
+        {
+            smoothedWorldPos = rawTargetPos;
+            isFirstFrameActive = false;
+        }
+        else
+        {
+            smoothedWorldPos = Vector3.Lerp(smoothedWorldPos, rawTargetPos, Time.deltaTime * smoothSpeed);
+        }
+
+        // 3. Sofortige Projektion auf den Screen (Kameradrehungen greifen ohne jeden Verzug!)
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(smoothedWorldPos);
+
+        if (screenPos.z > 0)
+        {
+            screenPos.z = 0f;
+
+            RectTransform parentRect = promptContainer.parent as RectTransform;
+            Canvas rootCanvas = promptContainer.GetComponentInParent<Canvas>();
+
+            if (parentRect != null && rootCanvas != null)
+            {
+                Camera uiCamera = rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : rootCanvas.worldCamera;
+
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPos, uiCamera, out Vector2 localPoint))
+                {
+                    promptContainer.localPosition = localPoint + screenPixelOffset;
+                }
             }
         }
     }
 
-    private void SetCrosshairIcon(InteractableObject interactable)
+    private void SetInteractionTarget(InteractableObject interactable)
     {
         if (interactable == null || interactable.Type == InteractionType.None)
         {
-            crosshairImage.sprite = defaultIcon;
-            crosshairDescription.text = "";
-            crosshairRectTransform.sizeDelta = defaultSize;
+            if (promptContainer != null) promptContainer.gameObject.SetActive(false);
+            isFirstFrameActive = true;
             return;
         }
-        crosshairRectTransform.sizeDelta = interactIconSize;
 
-        string objectName = interactable.DisplayName == "" ? interactable.ObjectName : interactable.DisplayName;
+        if (promptContainer != null && !promptContainer.gameObject.activeSelf)
+        {
+            isFirstFrameActive = true;
+            promptContainer.gameObject.SetActive(true);
+        }
+
+        string objectName = string.IsNullOrEmpty(interactable.DisplayName) ? interactable.ObjectName : interactable.DisplayName;
         if (string.IsNullOrEmpty(objectName))
         {
             objectName = interactable.gameObject.name;
         }
+
+        Sprite iconSprite = null;
+        string actionPrefix = "";
+
         switch (interactable.Type)
         {
             case InteractionType.Dialogue:
-                crosshairImage.sprite = talkIcon;
-                crosshairDescription.text = "Talk to " + objectName;
+                iconSprite = talkIcon;
+                actionPrefix = "Talk to ";
                 break;
             case InteractionType.Pickup:
-                crosshairImage.sprite = pickupIcon;
-                crosshairDescription.text = "Pick up " + objectName;
+                iconSprite = pickupIcon;
+                actionPrefix = "Pick up ";
                 break;
             case InteractionType.Inspect:
-                crosshairImage.sprite = inspectIcon;
-                crosshairDescription.text = "Inspect " + objectName;
+                iconSprite = inspectIcon;
+                actionPrefix = "Inspect ";
                 break;
             case InteractionType.Use:
-                crosshairImage.sprite = useIcon;
-                crosshairDescription.text = "Use " + objectName;
+                iconSprite = useIcon;
+                actionPrefix = "Use ";
                 break;
             case InteractionType.Teleport:
-                crosshairImage.sprite = teleportIcon;
-                crosshairDescription.text = "Go to " + objectName;
+                iconSprite = teleportIcon;
+                actionPrefix = "Go to ";
                 break;
             case InteractionType.Read:
-                crosshairImage.sprite = readIcon;
-                crosshairDescription.text = "Read " + objectName;
-                break;
-            default:
-                crosshairImage.sprite = defaultIcon;
-                crosshairDescription.text = "";
+                iconSprite = readIcon;
+                actionPrefix = "Read ";
                 break;
         }
-        if (interactable.UniqueInteractionLabel != "")
+
+        if (promptIcon != null)
         {
-            crosshairDescription.text = interactable.UniqueInteractionLabel;
-            return;
+            promptIcon.sprite = iconSprite;
+            promptIcon.gameObject.SetActive(iconSprite != null);
+        }
+
+        if (promptText != null)
+        {
+            promptText.text = !string.IsNullOrEmpty(interactable.UniqueInteractionLabel)
+                ? interactable.UniqueInteractionLabel
+                : actionPrefix + objectName;
         }
     }
-
 }

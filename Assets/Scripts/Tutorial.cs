@@ -1,7 +1,5 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public class Tutorial : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private float requiredWalkDuration = 1.2f;
     private float currentWalkTime = 0f;
     private bool isTrackingMovement = true;
-    private readonly bool[] keysPressed = new bool[4];
 
     void Start()
     {
@@ -57,31 +54,25 @@ public class Tutorial : MonoBehaviour
         var keyboard = Keyboard.current;
         if (keyboard == null) return;
 
-        KeyControl[] keys = { keyboard.wKey, keyboard.aKey, keyboard.sKey, keyboard.dKey };
-
-        bool isMoving = false;
-
-        for (int i = 0; i < keys.Length; i++)
-        {
-            if (keys[i].isPressed)
-            {
-                keysPressed[i] = true;
-                isMoving = true;
-            }
-        }
+        // Prüft, ob mindestens eine der vier Tasten gedrückt gehalten wird
+        bool isMoving = keyboard.wKey.isPressed ||
+                        keyboard.aKey.isPressed ||
+                        keyboard.sKey.isPressed ||
+                        keyboard.dKey.isPressed;
 
         if (isMoving)
         {
             currentWalkTime += Time.deltaTime;
-        }
 
-        // Fertig, wenn alle 4 Indizes true sind und die Zeit reicht
-        if (currentWalkTime >= requiredWalkDuration && keysPressed.All(pressed => pressed))
-        {
-            QuestManager.Instance.CompleteQuest(MoveQuestId);
-            isTrackingMovement = false;
+            // Fertig, sobald die benötigte Zeit mit einer beliebigen Taste erreicht ist
+            if (currentWalkTime >= requiredWalkDuration)
+            {
+                QuestManager.Instance.CompleteQuest(MoveQuestId);
+                isTrackingMovement = false;
+            }
         }
     }
+
     private void HandleQuestCompleted(string questId)
     {
         switch (questId)
