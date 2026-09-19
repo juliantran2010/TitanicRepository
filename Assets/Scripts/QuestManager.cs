@@ -10,9 +10,19 @@ public class Quest
 {
     public string id;
     public string description;
-    public Quest nextQuest = null;
+    public int targetProgress = -1;
+    public int currentProgress = 0;
 
+    public Quest nextQuest = null;
     public GameObject questEntryObject = null; // Referenz auf das zugehörige UI-Element
+
+    public bool HasProgressTracker => targetProgress > 0;
+    public bool IsCompleted => HasProgressTracker && currentProgress >= targetProgress;
+    public string GetFormattedText()
+    {
+        if (!HasProgressTracker) return description;
+        return $"{description} ({currentProgress}/{targetProgress})";
+    }
 }
 public class QuestManager : MonoBehaviour
 {
@@ -69,7 +79,7 @@ public class QuestManager : MonoBehaviour
         // Text setzen
         if (newEntry.TryGetComponent<TMP_Text>(out var textComponent))
         {
-            textComponent.text = $"<color=#FFCC00><b>(!)</b></color> {quest.description}";
+            textComponent.text = $"<color=#FFCC00><b>(!)</b></color> {quest.GetFormattedText()}";
             textComponent.ForceMeshUpdate(); // Erzwingt ein Update, um die Größe korrekt zu berechnen
         }
 
@@ -148,5 +158,35 @@ public class QuestManager : MonoBehaviour
         if (activeQuests.Count == 0) return null;
         // Die erste hinzugefügte Quest zurückgeben
         return activeQuests.Values.First();
+    }
+
+    public void AddProgress(string questId, int amount = 1)
+    {
+        if (activeQuests.TryGetValue(questId, out Quest quest))
+        {
+            if (quest != null && quest.HasProgressTracker)
+            {
+                quest.currentProgress = Mathf.Min(quest.currentProgress + amount, quest.targetProgress);
+                UpdateQuestUI(questId);
+
+                // Wenn das Ziel erreicht ist, automatisch abschließen und ggf. nächste Ketten-Quest starten
+                if (quest.IsCompleted)
+                {
+                    CompleteQuest(quest.id);
+                }
+            }
+        }
+    }
+
+    private void UpdateQuestUI(string questID)
+    {
+        Quest quest = activeQuests[questID];
+        if (quest == null) return;
+        // Text setzen
+        if (quest.questEntryObject.TryGetComponent<TMP_Text>(out var textComponent))
+        {
+            textComponent.text = $"<color=#FFCC00><b>(!)</b></color> {quest.GetFormattedText()}";
+            textComponent.ForceMeshUpdate(); // Erzwingt ein Update, um die Größe korrekt zu berechnen
+        }
     }
 }

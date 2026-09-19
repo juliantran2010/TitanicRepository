@@ -282,11 +282,14 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  showLabelIfCannotInteract: 1
+  progessQuestId: 
   objectName: door_cabin_staircase
   displayName: Grand Staircase
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
   targetSceneName: StaircaseScene
   targetSpawnPointID: staircase_cabins_left
 --- !u!65 &149716996
@@ -1388,41 +1391,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
-      objectReference: {fileID: 0}
-    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1470,14 +1441,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5396872278347916451, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5396872278347916451, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
@@ -4124,6 +4087,8 @@ GameObject:
   - component: {fileID: 6645823805830138529}
   - component: {fileID: 5366159435169949909}
   - component: {fileID: 7202271455675000399}
+  - component: {fileID: 7202271455675000401}
+  - component: {fileID: 7202271455675000400}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -4917,13 +4882,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7178114113989139896}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7040519, y: -0.06565756, z: 0.06565756, w: 0.7040519}
+  m_LocalRotation: {x: -0.70710194, y: 0.0026190153, z: -0.002619018, w: 0.70710194}
   m_LocalPosition: {x: 2.16355, y: 3.4174657, z: -0.26521602}
   m_LocalScale: {x: 31.293905, y: 31.293905, z: 31.293905}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543450652243490683}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.424, y: -90, z: 90}
 --- !u!4 &4454253380004451571
 Transform:
   m_ObjectHideFlags: 0
@@ -6797,11 +6762,14 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  showLabelIfCannotInteract: 1
+  progessQuestId: 
   objectName: bunkmate_jack
   displayName: Bunkmate Jack
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
   dialogue:
     inkJSON: {fileID: 4900000, guid: d14a19f7036ae974eb977ab6c8aadf86, type: 3}
     dialogueState: 
@@ -6997,6 +6965,8 @@ GameObject:
   - component: {fileID: 3924232458950680986}
   - component: {fileID: 3763447768342516524}
   - component: {fileID: 3280927519807583630}
+  - component: {fileID: 6919683764925299914}
+  - component: {fileID: 6919683764925299913}
   m_Layer: 0
   m_Name: Cylinder.009
   m_TagString: Untagged
@@ -7004,6 +6974,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6919683764925299913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6919683764925299912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: db0e0073-7502-484a-998a-39cc24947034
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: cabin_objects
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: washbasin
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &6919683764925299914
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6919683764925299912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3525479140033381557, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!23 &6944656105019675320
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7287,6 +7307,8 @@ GameObject:
   - component: {fileID: 4418473097420244432}
   - component: {fileID: 215592837526754415}
   - component: {fileID: 1558643247765248957}
+  - component: {fileID: 7178114113989139898}
+  - component: {fileID: 7178114113989139897}
   m_Layer: 0
   m_Name: Cube.009
   m_TagString: Untagged
@@ -7294,6 +7316,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &7178114113989139897
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178114113989139896}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2477511411847689622, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
+--- !u!114 &7178114113989139898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178114113989139896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: 8839091a-45a9-4cd5-9a19-9d398859e42a
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: mirror
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!23 &7202271455675000399
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7344,6 +7416,56 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7202271455675000400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655000509445250704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: 56f9d6be-8eb1-4d7b-8b39-97034ce492a8
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: lamp
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &7202271455675000401
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655000509445250704}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!4 &7212070142640762820
 Transform:
   m_ObjectHideFlags: 0
@@ -7559,6 +7681,8 @@ GameObject:
   - component: {fileID: 4005393331454498247}
   - component: {fileID: 8436024265970042331}
   - component: {fileID: 6955233918721010141}
+  - component: {fileID: 8436024265970042333}
+  - component: {fileID: 8436024265970042332}
   m_Layer: 0
   m_Name: Plane.007
   m_TagString: Untagged
@@ -7700,6 +7824,8 @@ GameObject:
   - component: {fileID: 4306643201857535457}
   - component: {fileID: 8401952776356577746}
   - component: {fileID: 7416691523053852963}
+  - component: {fileID: 8401952776356577748}
+  - component: {fileID: 8401952776356577747}
   m_Layer: 0
   m_Name: Cube.005
   m_TagString: Untagged
@@ -8296,6 +8422,8 @@ GameObject:
   - component: {fileID: 8616562854275103492}
   - component: {fileID: 763392350381990823}
   - component: {fileID: 8981784598399252176}
+  - component: {fileID: 8981784598399252178}
+  - component: {fileID: 8981784598399252177}
   m_Layer: 0
   m_Name: Plane.005
   m_TagString: Untagged
@@ -8448,6 +8576,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7623545439601654895}
   m_Mesh: {fileID: 2212009239438826721, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
+--- !u!114 &8401952776356577747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623545439601654895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: bfb9b0f5-ca13-4ab6-abbe-a269fb462195
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: tap
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &8401952776356577748
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623545439601654895}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2212009239438826721, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!1 &8416272007234244981
 GameObject:
   m_ObjectHideFlags: 0
@@ -8538,6 +8716,56 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7366062188471877220}
+  m_Mesh: {fileID: 6349497404779363362, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
+--- !u!114 &8436024265970042332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366062188471877220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: 00ab4c62-afe7-4391-a69e-06a9a391f5ca
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: pillow
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &8436024265970042333
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366062188471877220}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 6349497404779363362, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!23 &8443713292781185564
 MeshRenderer:
@@ -9194,6 +9422,8 @@ GameObject:
   - component: {fileID: 495739581192640211}
   - component: {fileID: 143050720383116071}
   - component: {fileID: 8773529580520767840}
+  - component: {fileID: 8872167517106911400}
+  - component: {fileID: 8872167517106911399}
   m_Layer: 0
   m_Name: 3-1_3-1_0.001
   m_TagString: Untagged
@@ -9201,6 +9431,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8872167517106911399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872167517106911398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: 511e0c44-fd03-495e-8c6f-49ac7fb6504c
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: towel
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &8872167517106911400
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872167517106911398}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1903164729318148253, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!33 &8894691111907471250
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9297,6 +9577,56 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8981784598399252177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160168806905428684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: 1d506adb-d533-4dba-90d6-a9ee72456c40
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: blanket
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &8981784598399252178
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160168806905428684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8302102485596996044, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!1 &8992688109828547228
 GameObject:
   m_ObjectHideFlags: 0
@@ -9324,6 +9654,8 @@ GameObject:
   - component: {fileID: 5949365509740809085}
   - component: {fileID: 1703912660169103993}
   - component: {fileID: 8102382927214006059}
+  - component: {fileID: 9014776603777938181}
+  - component: {fileID: 9014776603777938180}
   m_Layer: 0
   m_Name: Cube.007
   m_TagString: Untagged
@@ -9331,6 +9663,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &9014776603777938180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014776603777938179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc2f508ec76b5441af6605159f1747f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentifiableObject
+  uniqueID: e0928b90-77c6-4460-9658-a59123d2dd0e
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
+  objectName: 
+  displayName: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 1
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  correctWord: bed
+  alternativeWords: []
+  questId: cabin_objects
+  wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
+--- !u!64 &9014776603777938181
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014776603777938179}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!4 &9020375486393185171
 Transform:
   m_ObjectHideFlags: 0

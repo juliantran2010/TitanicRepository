@@ -47,24 +47,27 @@ public abstract class InteractableObject : MonoBehaviour
     public bool InteractionIsOnCooldown => Time.time < lastInteractionTime + interactionCooldown;
     [SerializeField] protected string neccessaryQuestIdFinished;
     [SerializeField] protected VariablesEntry[] neccessaryVariablesSet;
-    [SerializeField] protected bool showLabelIfCannotInteract = true;
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
     public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
+    [SerializeField] protected string progessQuestId;
 
     [Header("Interaction UI")]
-    [SerializeField] private string objectName;
+    [SerializeField] protected string objectName;
     public virtual string ObjectName => objectName;
-    [SerializeField] private string displayName;
+    [SerializeField] protected string displayName;
     public virtual string DisplayName => displayName;
     public string UniqueInteractionLabel = "";
     public InteractionType UniqueInteractionType = InteractionType.Undefined;
     public abstract InteractionType Type { get; }
+    [SerializeField] protected bool showLabelIfCannotInteract = true;
+    [SerializeField] protected bool isNotInteractable = false;
 
     [Header("Optional: Camera Focus")]
     [SerializeField] protected Transform cameraFocusTarget;
 
     public bool CanInteract()
     {
+        if (isNotInteractable) return false;
         QuestManager questManager = QuestManager.Instance;
         if (!string.IsNullOrWhiteSpace(neccessaryQuestIdFinished) && !questManager.IsQuestCompleted(neccessaryQuestIdFinished.Trim()))
             return false;
@@ -152,6 +155,7 @@ public abstract class InteractableObject : MonoBehaviour
         if (savedState != null)
         {
             _localState = new Dictionary<string, object>(savedState);
+            isNotInteractable = GetPersistentStateValue<bool>("is_not_interactable");
             OnStateRestored();
         }
     }

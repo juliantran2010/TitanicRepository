@@ -183,43 +183,46 @@ public class DialogueManager : MonoBehaviour
                     callbackOnInkTrigger?.Invoke(triggerName);
                     break;
                 case "add_quest" when parts.Length >= 3:
-                    //quests can be chained with '>' to indicate a sequence of quests
+                    // Quests können mit '>' verkettet werden
                     string[] allQuests = tag.Split('>');
-                    string[] firstQuestParts = allQuests[0].Split(':', 3);
-                    string rootId = firstQuestParts[1].Trim();
-                    string rootDescription = firstQuestParts.Length >= 3 ? firstQuestParts[2].Trim() : "";
-                    Quest rootQuest = new Quest
-                    {
-                        id = rootId,
-                        description = rootDescription
-                    };
 
-                    if (allQuests.Length > 1)
+                    // 1. Root-Quest parsen (enthält noch "add_quest" am Anfang)
+                    Quest rootQuest = ParseQuestSegment(allQuests[0].Trim(), isFirstQuest: true);
+
+                    // 2. Kette durchlaufen
+                    if (allQuests.Length > 1 && rootQuest != null)
                     {
                         Quest currentPointer = rootQuest;
                         for (int i = 1; i < allQuests.Length; i++)
                         {
-                            string questString = allQuests[i].Trim();
-                            string[] questParts = questString.Split(':', 2);
-                            if (questParts.Length >= 2)
+                            Quest nextQuest = ParseQuestSegment(allQuests[i].Trim(), isFirstQuest: false);
+                            if (nextQuest != null)
                             {
-                                Quest nextQuest = new Quest
-                                {
-                                    id = questParts[0].Trim(),
-                                    description = questParts[1].Trim()
-                                };
-
-                                // Kette anhängen und Pointer weiterbewegen
                                 currentPointer.nextQuest = nextQuest;
                                 currentPointer = nextQuest;
                             }
                         }
                     }
-                    QuestManager.Instance.AddQuest(rootQuest);
+
+                    if (rootQuest != null)
+                    {
+                        QuestManager.Instance.AddQuest(rootQuest);
+                    }
                     break;
                 case "complete_quest" when parts.Length >= 2:
                     string completeId = parts[1].Trim();
                     QuestManager.Instance.CompleteQuest(completeId);
+                    break;
+                case "progress_quest" when parts.Length >= 2:
+                    // Syntax: # progress_quest:quest_id:1
+                    string targetQuestId = parts[1].Trim();
+                    int amount = 1;
+
+                    if (parts.Length >= 3)
+                    {
+                        int.TryParse(parts[2].Trim(), out amount);
+                    }
+                    QuestManager.Instance.AddProgress(targetQuestId, amount);
                     break;
                 case "teleport" when parts.Length >= 3:
                     string sceneName = parts[1].Trim();
@@ -231,6 +234,38 @@ public class DialogueManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private Quest ParseQuestSegment(string segmentString, bool isFirstQuest)
+    {
+        // Erstes Segment: "add_quest:id:desc[:target]" -> bis zu 4 Teile
+        // Folge-Segmente: "id:desc[:target]"           -> bis zu 3 Teile
+        int maxSplits = isFirstQuest ? 4 : 3;
+        string[] segments = segmentString.Split(':', maxSplits);
+
+        int idIndex = isFirstQuest ? 1 : 0;
+        int descIndex = isFirstQuest ? 2 : 1;
+        int targetIndex = isFirstQuest ? 3 : 2;
+
+        if (segments.Length <= descIndex) return null;
+
+        string id = segments[idIndex].Trim();
+        string desc = segments[descIndex].Trim();
+        int target = -1;
+
+        // Wurde ein Zähler mitgegeben?
+        if (segments.Length > targetIndex)
+        {
+            int.TryParse(segments[targetIndex].Trim(), out target);
+        }
+
+        return new Quest
+        {
+            id = id,
+            description = desc,
+            currentProgress = 0,
+            targetProgress = target
+        };
     }
 
     private void EndDialogue()

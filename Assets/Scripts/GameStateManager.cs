@@ -9,6 +9,7 @@ public enum GameState
 }
 public class GameStateManager : MonoBehaviour
 {
+    public bool IsTest = false;
     public static GameStateManager Instance { get; private set; }
 
     public GameState CurrentState { get; private set; }
@@ -16,6 +17,7 @@ public class GameStateManager : MonoBehaviour
     public Action<GameState, GameState> OnStateChanged;
 
     [SerializeField] private Dialogue introDialogue;
+    [SerializeField] private Dialogue cabinDialogue;
 
     private void Awake()
     {
@@ -32,7 +34,15 @@ public class GameStateManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return null; // Warten, bis alle Start-Methoden aufgerufen wurden
-        StartIntro();
+        if (IsTest)
+        {
+            SetState(GameState.Gameplay);
+            DialogueManager.Instance.StartDialogue(cabinDialogue);
+        }
+        else
+        {
+            StartIntro();
+        }
     }
 
     private void StartIntro()
@@ -43,7 +53,19 @@ public class GameStateManager : MonoBehaviour
             return;
         }
         SetState(GameState.Intro);
-        DialogueManager.Instance.StartDialogue(introDialogue, (story) => SetState(GameState.Gameplay));
+        DialogueManager.Instance.StartDialogue(introDialogue, (story) =>
+        {
+            SetState(GameState.Gameplay);
+        });
+        GameSceneManager.Instance.OnSceneChanged += HandleSceneChanged;
+    }
+
+    private void HandleSceneChanged(string sceneName)
+    {
+        if (sceneName != "CabinScene") return;
+
+        DialogueManager.Instance.StartDialogue(cabinDialogue);
+        GameSceneManager.Instance.OnSceneChanged -= HandleSceneChanged;
     }
 
 
