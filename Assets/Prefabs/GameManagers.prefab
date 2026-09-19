@@ -636,7 +636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4846902337761318100
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 3
+  m_ScrollSensitivity: 5
   m_Viewport: {fileID: 788594081208245292}
   m_HorizontalScrollbar: {fileID: 902013437718340008}
   m_VerticalScrollbar: {fileID: 1236622592160586116}
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
   introDialogue:
-    inkJSON: {fileID: 4900000, guid: 6b99a2007c5a97d44809e35aa72b50b9, type: 3}
+    inkJSON: {fileID: 4900000, guid: 8e9f4ff14eeecc6498221df57f796ce0, type: 3}
     dialogueState: 
     startPath: 
 --- !u!114 &4506080811275305254
@@ -1214,7 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c663b3aa728aa4ea097733a9d7ba4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tutorial
-  requiredWalkDuration: 1.2
+  MoveQuestId: tut_move
+  requiredWalkDuration: 0
 --- !u!1 &4912708668480374670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1524,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6666501473815844304}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999996
+  m_Size: 0.9999995
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1648,7 +1649,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -4.1244, y: 54.7935}
+  m_AnchoredPosition: {x: -4.1244, y: 54.793457}
   m_SizeDelta: {x: 2518.4316, y: 684.093}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5786781817845911470
@@ -2005,8 +2006,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7457285725650891643}
   m_HandleRect: {fileID: 4571470458655544586}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

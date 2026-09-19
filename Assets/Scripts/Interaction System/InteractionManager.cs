@@ -112,10 +112,11 @@ public class InteractionManager : MonoBehaviour
         {
             if (hit.collider.TryGetComponent<InteractableObject>(out InteractableObject interactable))
             {
+                if (!interactable.CanInteract()) return;
                 currentInteractable = interactable;
                 SetInteractionTarget(interactable);
 
-                if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && interactable.CanInteract)
+                if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     interactable.Interact();
                     OnInteracted?.Invoke(interactable);
@@ -207,8 +208,8 @@ public class InteractionManager : MonoBehaviour
 
         Sprite iconSprite = null;
         string actionPrefix = "";
-
-        switch (interactable.Type)
+        InteractionType type = interactable.UniqueInteractionType == InteractionType.Undefined ? interactable.Type : interactable.UniqueInteractionType;
+        switch (type)
         {
             case InteractionType.Dialogue:
                 iconSprite = talkIcon;

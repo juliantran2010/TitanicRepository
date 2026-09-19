@@ -13,10 +13,6 @@ public class GameStateManager : MonoBehaviour
 
     public GameState CurrentState { get; private set; }
 
-    //// Events, auf die andere Skripte hören können
-    //public delegate void OnStateChangedDelegate(GameState newState);
-    //public event OnStateChangedDelegate OnStateChanged;
-
     public Action<GameState, GameState> OnStateChanged;
 
     [SerializeField] private Dialogue introDialogue;

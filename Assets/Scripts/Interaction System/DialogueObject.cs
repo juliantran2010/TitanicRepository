@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DialogueObject : InteractableObject
 {
+    [Header("Dialogue Options")]
     [SerializeField] protected Dialogue dialogue;
     [SerializeField] protected Dialogue DialogeIfCannotInteract;
-    protected new bool CanInteract => !(DialogeIfCannotInteract.inkJSON != null && (!QuestManager.Instance.TryGetVariable("can_interact_" + ObjectName, out object canInteract) || !(bool)canInteract));
-    public override InteractionType Type => (dialogue != null && dialogue.inkJSON != null) ? InteractionType.Dialogue : InteractionType.None;
+    public override InteractionType Type => dialogue.IsEmpty() ? InteractionType.None : InteractionType.Dialogue;
 
     protected DialogueManager dialogueManger;
 
@@ -18,24 +18,33 @@ public class DialogueObject : InteractableObject
     }
     protected override void OnInteract()
     {
-        if (dialogueManger == null) return;
-        Dialogue currentDialogue = CanInteract ? dialogue : DialogeIfCannotInteract;
-        if (currentDialogue != null && currentDialogue.inkJSON != null)
-        {
-            dialogueManger.StartDialogue(
-                currentDialogue, 
-                (story) => {
-                    currentDialogue.dialogueState = story.state.ToJson();
-                    SetPersistentStateValue("dialogue_state", currentDialogue.dialogueState);
-                    OnDialogueEnd(currentDialogue, story);
-                    lastInteractionTime = Time.time;
-                }, 
-                OnInkTrigger
-            );
-        }
+        StartDialogue(dialogue);   
     }
 
-    protected virtual void OnDialogueEnd(Dialogue dialogue, Story story) { }
+    protected override void OnCannotInteract()
+    {
+        StartDialogue(DialogeIfCannotInteract);
+    }
+
+    private void StartDialogue(Dialogue currentDialogue)
+    {
+        if (dialogueManger == null) return;
+        dialogueManger.StartDialogue(
+            currentDialogue,
+            (story) => {
+                currentDialogue.dialogueState = story.state.ToJson();
+                SetPersistentStateValue("dialogue_state", currentDialogue.dialogueState);
+                OnDialogueEnd(currentDialogue, story);
+                lastInteractionTime = Time.time;
+            },
+            OnInkTrigger
+        );
+    }
+
+    protected virtual void OnDialogueEnd(Dialogue dialogue, Story story) 
+    {
+        ZoomOut();
+    }
 
     protected override void OnStateRestored()
     {

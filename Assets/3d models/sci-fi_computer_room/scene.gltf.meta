@@ -1,0 +1,98 @@
+fileFormatVersion: 2
+guid: 366af45b4e3b2d543abc8f0c6da6cb07
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 715df9372183c47e389bb6e19fbc3b52, type: 3}
+  editorImportSettings:
+    generateSecondaryUVSet: 0
+  importSettings:
+    nodeNameMethod: 1
+    animationMethod: 2
+    generateMipMaps: 1
+    texturesReadable: 0
+    defaultMinFilterMode: 9729
+    defaultMagFilterMode: 9729
+    anisotropicFilterLevel: 1
+  instantiationSettings:
+    mask: -1
+    layer: 0
+    skinUpdateWhenOffscreen: 1
+    lightIntensityFactor: 1
+    sceneObjectCreation: 2
+  assetDependencies:
+  - type: 0
+    originalUri: Assets\3d models\sci-fi_computer_room\scene.bin
+    assetPath: Assets\3d models\sci-fi_computer_room\scene.bin
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Carpet_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Carpet_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Carpet_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Carpet_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Desk_1_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Desk_1_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Desk_1_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Desk_1_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Desk_1_normal.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Desk_1_normal.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Foam_Acoustic_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Foam_Acoustic_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Foam_Acoustic_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Foam_Acoustic_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Foam_Acoustic_normal.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Foam_Acoustic_normal.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Keyboard_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Keyboard_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Keyboard_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Keyboard_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Keyboard_emissive.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Keyboard_emissive.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Keyboard_normal.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Keyboard_normal.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_emissive.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_emissive.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_normal.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Monitor_Single_normal.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Posters_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Posters_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Posters_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Posters_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Trim_Sheet_Wall_baseColor.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Trim_Sheet_Wall_baseColor.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Trim_Sheet_Wall_metallicRoughness.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Trim_Sheet_Wall_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\3d models\sci-fi_computer_room\textures\Trim_Sheet_Wall_normal.png
+    assetPath: Assets\3d models\sci-fi_computer_room\textures\Trim_Sheet_Wall_normal.png
+  reportItems:
+  - type: 2
+    code: 20
+    messages:
+    - KHR_materials_emissive_strength

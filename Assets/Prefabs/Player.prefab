@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 4077078785978609222}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -291,9 +291,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2
-  m_Height: 2.4
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: -0.28529936, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5495153916286684049
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 5495153916286684049}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.375, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 9092876939289797286}
   - component: {fileID: 468802938421942844}
   - component: {fileID: 1989182289361751943}
+  - component: {fileID: 1695371638177689189}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -390,7 +391,7 @@ CharacterController:
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6620238835570894617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +421,7 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 5495153916286684049}
   TopClamp: 89
   BottomClamp: -89
+  InitialCameraPitch: 20
 --- !u!114 &5099938626559630659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,3 +581,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
   items: []
+--- !u!114 &1695371638177689189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471750930743251387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 064d7d2e1848702449616dd0323e0f7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFocusMover
+  playerCamera: {fileID: 4553014245879822885}
+  movementScript: {fileID: 6620238835570894617}
+  mouseLookScript: {fileID: 6620238835570894617}
+  travelDuration: 0.8
+  travelEase: 10

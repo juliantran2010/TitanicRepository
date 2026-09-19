@@ -50,9 +50,11 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+		[Tooltip("Starting vertical pith in degrees (positive = look down, negative = look up")]
+        public float InitialCameraPitch = 20.0f;
 
-		// cinemachine
-		private float _cinemachineTargetPitch;
+        // cinemachine
+        private float _cinemachineTargetPitch;
 
 		// player
 		private float _speed;
@@ -96,21 +98,28 @@ namespace StarterAssets
 		}
 
         private void Start()
-		{
-			_controller = GetComponent<CharacterController>();
-			_input = GetComponent<StarterAssetsInputs>();
+        {
+            _controller = GetComponent<CharacterController>();
+            _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
-			_playerInput = GetComponent<PlayerInput>();
+            _playerInput = GetComponent<PlayerInput>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
-			// reset our timeouts on start
-			_jumpTimeoutDelta = JumpTimeout;
-			_fallTimeoutDelta = FallTimeout;
-		}
+            // reset our timeouts on start
+            _jumpTimeoutDelta = JumpTimeout;
+            _fallTimeoutDelta = FallTimeout;
 
-		private void Update()
+            // START-NEIGUNG INITIALISIEREN:
+            _cinemachineTargetPitch = ClampAngle(InitialCameraPitch, BottomClamp, TopClamp);
+            if (CinemachineCameraTarget != null)
+            {
+                CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+            }
+        }
+
+        private void Update()
 		{
 			JumpAndGravity();
 			GroundedCheck();

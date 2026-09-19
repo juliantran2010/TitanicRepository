@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Tutorial : MonoBehaviour
 {
-    private const string MoveQuestId = "tut_move";
+    [SerializeField] private string MoveQuestId = "tut_move";
     [SerializeField] private float requiredWalkDuration = 1.2f;
     private float currentWalkTime = 0f;
     private bool isTrackingMovement = true;
@@ -75,15 +75,14 @@ public class Tutorial : MonoBehaviour
 
     private void HandleQuestCompleted(string questId)
     {
-        switch (questId)
+        if (questId == MoveQuestId)
         {
-            case MoveQuestId:
-                QuestManager.Instance.AddQuest("tut_interact", "Interact with people/objects using [Left Click]");
+                QuestManager.Instance.AddQuest("tut_interact", "Click on the computer using [Left Click]");
                 InteractionManager.Instance.OnInteracted += HandleInteracted;
-                break;
-            case "binoculars":
+        }
+        else if (questId == "binoculars")
+        {
                 QuestManager.Instance.AddQuest("tut_binoculars", "Use the binoculars with [Right Click]");
-                break;
         }
     }
 

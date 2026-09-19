@@ -60,6 +60,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue, Action<Story> callbackDialogueEnd = null, Action<string> callbackInkTrigger = null)
     {
+        if (dialogue.IsEmpty()) return;
         previousGameState = GameStateManager.Instance.CurrentState;
         currentDialogue = dialogue;
         currentStory = new Story(dialogue.inkJSON.text);
@@ -106,13 +107,28 @@ public class DialogueManager : MonoBehaviour
             CheckForTags();
             if (!DialogueBox.activeSelf) return;
 
-            string[] parts = line.Split(new char[] { ':' });
+            int colonIndex = line.IndexOf(':');
             string textToDisplay = "";
-            if (parts.Length == 2 && !parts[0].Contains(" ")) // Check if no spaces in the name part, to avoid splitting on colons in dialogue text
+
+            if (colonIndex > 0)
             {
-                nameText.text = parts[0].Replace('_', ' ').Trim();
-                nameText.color = nameText.text.ToLower() == "you" ? new Color32(92, 245, 155, 255) : new Color32(80, 120, 225, 255);
-                textToDisplay = parts[1].Trim();
+                string potentialSpeaker = line.Substring(0, colonIndex).Trim();
+
+                // Sprecher-Namen haben normalerweise keine Leerzeichen (z. B. "Companion", "Old_Man")
+                if (!potentialSpeaker.Contains(" "))
+                {
+                    nameText.text = potentialSpeaker.Replace('_', ' ');
+                    nameText.color = nameText.text.ToLower() == "you" || nameText.text.ToLower() == "player"
+                        ? new Color32(92, 245, 155, 255)
+                        : new Color32(80, 120, 225, 255);
+
+                    textToDisplay = line.Substring(colonIndex + 1).Trim();
+                }
+                else
+                {
+                    nameText.text = "";
+                    textToDisplay = line.Trim();
+                }
             }
             else
             {

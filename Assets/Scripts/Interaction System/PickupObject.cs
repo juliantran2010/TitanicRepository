@@ -8,7 +8,6 @@ public class PickupObject : DialogueObject
     protected override void OnInteract()
     {
         base.OnInteract();
-        if (!CanInteract) return;
         bool wasAdded = Inventory.Instance.AddItem(this);
         if (wasAdded)
         {

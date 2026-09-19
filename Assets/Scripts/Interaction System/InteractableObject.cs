@@ -1,22 +1,23 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public enum InteractionType
 {
-    Dialogue, Pickup, Inspect, Use, Teleport, Read, None
+    Dialogue, Pickup, Inspect, Use, Teleport, Read, None, Undefined
 }
 public abstract class InteractableObject : MonoBehaviour
 {
-    [SerializeField] private string uniqueID;
-    public string UniqueID => uniqueID;
-
-    public string UniqueInteractionLabel = "";
-    [SerializeField] protected float interactionCooldown = 1f;
-    protected float lastInteractionTime = -Mathf.Infinity;
-    public bool CanInteract => Time.time >= lastInteractionTime + interactionCooldown;
+    [Serializable]
+    public class VariablesEntry
+    {
+        public string name;
+        public bool value;
+    }
     protected void OnValidate()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         // 1. Wenn es das Prefab-Asset im Projektordner ist -> ID IMMER LÖSCHEN/LEER HALTEN!
         if (!gameObject.scene.IsValid())
         {
@@ -35,17 +36,47 @@ public abstract class InteractableObject : MonoBehaviour
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
         }
-        #endif
+#endif
     }
 
+    [Header("Interaction State")]
+    [SerializeField] private string uniqueID;
+    public string UniqueID => uniqueID;
+    [SerializeField] protected float interactionCooldown = 0.5f;
+    protected float lastInteractionTime = -Mathf.Infinity;
+    public bool InteractionIsOnCooldown => Time.time < lastInteractionTime + interactionCooldown;
+    [SerializeField] protected string neccessaryQuestIdFinished;
+    [SerializeField] protected VariablesEntry[] neccessaryVariablesSet;
+    [SerializeField] protected bool showLabelIfCannotInteract = true;
+    private Dictionary<string, object> _localState = new Dictionary<string, object>();
+    public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
 
-    public abstract InteractionType Type { get; }
+    [Header("Interaction UI")]
     [SerializeField] private string objectName;
     public virtual string ObjectName => objectName;
     [SerializeField] private string displayName;
     public virtual string DisplayName => displayName;
-    private Dictionary<string, object> _localState = new Dictionary<string, object>();
-    public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
+    public string UniqueInteractionLabel = "";
+    public InteractionType UniqueInteractionType = InteractionType.Undefined;
+    public abstract InteractionType Type { get; }
+
+    [Header("Optional: Camera Focus")]
+    [SerializeField] protected Transform cameraFocusTarget;
+
+    public bool CanInteract()
+    {
+        QuestManager questManager = QuestManager.Instance;
+        if (!string.IsNullOrWhiteSpace(neccessaryQuestIdFinished) && !questManager.IsQuestCompleted(neccessaryQuestIdFinished.Trim()))
+            return false;
+        if (InteractionIsOnCooldown) return false;
+        foreach (VariablesEntry entry in neccessaryVariablesSet)
+        {
+            if (!QuestManager.Instance.TryGetVariable(entry.name, out object val) || (bool)val != entry.value)
+                return false;
+        }
+        return true;
+    }
+
 
     protected virtual void Start()
     {
@@ -53,12 +84,42 @@ public abstract class InteractableObject : MonoBehaviour
     }
     public void Interact()
     {
-        if (!CanInteract) return;
-        lastInteractionTime = Time.time;
+        if (InteractionIsOnCooldown) return;
+        if (!CanInteract())
+        {
+            OnCannotInteract();
+            return;
+        }
 
+        lastInteractionTime = Time.time;
         SetPersistentStateValue("has_interacted", true);
+
+        ZoomIn();
         OnInteract();
     }
+    protected void ZoomIn()
+    {
+        if (cameraFocusTarget != null)
+        {
+            CameraFocusMover mover = CameraFocusMover.Instance;
+            if (mover != null)
+            {
+                mover.ZoomIn(cameraFocusTarget);
+            }
+        }
+    }
+    protected void ZoomOut()
+    {
+        if (cameraFocusTarget != null)
+        {
+            CameraFocusMover mover = CameraFocusMover.Instance;
+            if (mover != null)
+            {
+                mover.ZoomOut();
+            }
+        }
+    }
+    protected virtual void OnCannotInteract(){}
 
     protected abstract void OnInteract();
     protected void SetPersistentStateValue<T>(string key, T value)
