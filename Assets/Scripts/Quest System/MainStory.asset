@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd49855126ca6844b8bd7632edd3e67, type: 3}
+  m_Name: MainStory
+  m_EditorClassIdentifier: Assembly-CSharp::StoryScript
+  beats:
+  - beatName: Intro
+    waitForSceneName: 
+    waitForQuestId: 
+    customEventName: 
+    dialogueToPlay:
+      inkJSON: {fileID: 4900000, guid: 8e9f4ff14eeecc6498221df57f796ce0, type: 3}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 0
+    questToAssign:
+      id: 
+      description: 
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
+  - beatName: Cabin
+    waitForSceneName: CabinScene
+    waitForQuestId: 
+    customEventName: 
+    dialogueToPlay:
+      inkJSON: {fileID: 4900000, guid: 3e5ededf9d3755540a0e130125b9b97a, type: 3}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: 
+      description: 
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}

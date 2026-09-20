@@ -110,11 +110,13 @@ public class InteractionManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactionLayerMask))
         {
-            if (hit.collider.TryGetComponent<InteractableObject>(out InteractableObject interactable))
+            if (hit.collider.TryGetComponent(out InteractableObject interactable))
             {
-                if (!interactable.CanInteract()) return;
-                currentInteractable = interactable;
-                SetInteractionTarget(interactable);
+                if (interactable.CanInteract() || interactable.showLabelIfCannotInteract)
+                {
+                    currentInteractable = interactable;
+                    SetInteractionTarget(interactable);
+                }
 
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {

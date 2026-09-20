@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.03137255, b: 0.14901961, a: 1}
+  m_Color: {r: 0.09803922, g: 0.1254902, b: 0.22745098, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -543,8 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.032014884, b: 0.1509434, a: 1}
+  m_Material: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
+  m_Color: {r: 0.09803922, g: 0.1254902, b: 0.22745098, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1682,6 +1682,7 @@ GameObject:
   - component: {fileID: 7234680643877256501}
   - component: {fileID: 2599536739403416728}
   - component: {fileID: 8110802278284289392}
+  - component: {fileID: 2079228998441771803}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -1796,15 +1797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1066d6def80a06a49bf8f821d621a773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
-  IsTest: 1
-  introDialogue:
-    inkJSON: {fileID: 4900000, guid: 8e9f4ff14eeecc6498221df57f796ce0, type: 3}
-    dialogueState: 
-    startPath: 
-  cabinDialogue:
-    inkJSON: {fileID: 4900000, guid: 3e5ededf9d3755540a0e130125b9b97a, type: 3}
-    dialogueState: 
-    startPath: 
 --- !u!114 &4506080811275305254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1870,6 +1862,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tutorial
   MoveQuestId: tut_move
   requiredWalkDuration: 0
+--- !u!114 &2079228998441771803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447482488667911103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2911cd34c3ebafe43b3ac19b7af0646e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryDirector
+  activeScript: {fileID: 11400000, guid: 6fa70067fcb7f9442a3b3f6f33c6d59f, type: 2}
+  startAtIndex: 0
 --- !u!1 &4225922119076354777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,6 +2687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827927415472028752}
   - component: {fileID: 6357639801090845053}
+  - component: {fileID: 7153345315365870979}
   m_Layer: 5
   m_Name: IdentifyOverlay
   m_TagString: Untagged
@@ -2722,6 +2729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdentifyOverlay
   inputPanel: {fileID: 7018406418259142131}
+  inputPanelCanvasGroup: {fileID: 0}
   inputField: {fileID: 3078105345024408968}
   submitButton: {fileID: 1120836315816645240}
   overlayCloseButton: {fileID: 4454173086977804335}
@@ -2729,11 +2737,26 @@ MonoBehaviour:
   correctBadge: {fileID: 108518328389838018}
   needHintButton: {fileID: 3458247977315777579}
   hintModal: {fileID: 1326242225822068645}
+  hintModalCanvasGroup: {fileID: 0}
   hintCloseButton: {fileID: 1047171949566598821}
   hintTitle: {fileID: 173391891718515155}
   wordGridParent: {fileID: 6255810312235822957}
   wordGridLayout: {fileID: 6083695853470461184}
   wordButtonPrefab: {fileID: 295523267274389646, guid: 68c309a30fefdb4419b5d40607d26676, type: 3}
+  animDuration: 0.25
+  inputPanelFadedAlpha: 0
+--- !u!225 &7153345315365870979
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445713728559991204}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5567437791418441444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,7 +2878,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6666501473815844304}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999996
+  m_Size: 0.9999995
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3558,8 +3581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.032014884, b: 0.1509434, a: 1}
+  m_Material: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
+  m_Color: {r: 0.0993236, g: 0.12376429, b: 0.2264151, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

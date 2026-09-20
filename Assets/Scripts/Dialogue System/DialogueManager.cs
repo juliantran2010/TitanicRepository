@@ -181,6 +181,7 @@ public class DialogueManager : MonoBehaviour
                 case "trigger" when parts.Length >= 2:
                     string triggerName = parts[1].Trim();
                     callbackOnInkTrigger?.Invoke(triggerName);
+                    StoryDirector.Instance.OnStoryEventTriggered?.Invoke(triggerName);
                     break;
                 case "add_quest" when parts.Length >= 3:
                     // Quests können mit '>' verkettet werden

@@ -59,7 +59,7 @@ public abstract class InteractableObject : MonoBehaviour
     public string UniqueInteractionLabel = "";
     public InteractionType UniqueInteractionType = InteractionType.Undefined;
     public abstract InteractionType Type { get; }
-    [SerializeField] protected bool showLabelIfCannotInteract = true;
+    [SerializeField] public bool showLabelIfCannotInteract = false;
     [SerializeField] protected bool isNotInteractable = false;
 
     [Header("Optional: Camera Focus")]

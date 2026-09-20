@@ -280,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Door
   uniqueID: 68be72ca-a7f2-4e28-b342-6a69504f61e4
   interactionCooldown: 0.5
-  neccessaryQuestIdFinished: 
+  neccessaryQuestIdFinished: cabin_objects
   neccessaryVariablesSet: []
   progessQuestId: 
   objectName: door_cabin_staircase
@@ -1393,107 +1393,91 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
-    - target: {fileID: 959328065404066883, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
     - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 162
       objectReference: {fileID: 0}
     - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 2747885811684483984, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2747885811684483984, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 3106675696405013786, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3106675696405013786, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.a
-      value: 0.8235294
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.b
-      value: 0.22745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.g
-      value: 0.1254902
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.r
-      value: 0.09803922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
       objectReference: {fileID: 0}
+    - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 256.8
       objectReference: {fileID: 0}
     - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1537,76 +1521,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5396872278347916451, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 262
       objectReference: {fileID: 0}
     - target: {fileID: 5396872278347916451, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 6357639801090845053, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: inputPanelFadedAlpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.a
-      value: 0.8235294
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.b
-      value: 0.22745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.g
-      value: 0.1254902
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.r
-      value: 0.09803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
     - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.0000004172325
       objectReference: {fileID: 0}
-    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.a
-      value: 0.8235294
-      objectReference: {fileID: 0}
-    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.b
-      value: 0.2264151
-      objectReference: {fileID: 0}
-    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.g
-      value: 0.12376429
-      objectReference: {fileID: 0}
-    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Color.r
-      value: 0.0993236
-      objectReference: {fileID: 0}
-    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7147,7 +7087,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: washbasin
@@ -7510,7 +7450,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: mirror
@@ -7587,7 +7527,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: lamp
@@ -8746,7 +8686,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: tap
@@ -8886,7 +8826,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: pillow
@@ -9599,7 +9539,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: towel
@@ -9744,7 +9684,7 @@ MonoBehaviour:
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
+  showLabelIfCannotInteract: 0
   isNotInteractable: 0
   cameraFocusTarget: {fileID: 0}
   correctWord: blanket

@@ -6,18 +6,28 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Quest
+[Serializable]
+public class Quest : ISerializationCallbackReceiver
 {
     public string id;
     public string description;
     public int targetProgress = -1;
     public int currentProgress = 0;
-
     public Quest nextQuest = null;
-    public GameObject questEntryObject = null; // Referenz auf das zugehörige UI-Element
+    [HideInInspector] public GameObject questEntryObject = null;
+    public void OnBeforeSerialize() { }
+
+    public void OnAfterDeserialize()
+    {
+        if (targetProgress == 0 && string.IsNullOrEmpty(id))
+        {
+            targetProgress = -1;
+        }
+    }
 
     public bool HasProgressTracker => targetProgress > 0;
     public bool IsCompleted => HasProgressTracker && currentProgress >= targetProgress;
+
     public string GetFormattedText()
     {
         if (!HasProgressTracker) return description;
