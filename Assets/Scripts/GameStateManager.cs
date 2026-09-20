@@ -5,13 +5,14 @@ using UnityEngine;
 
 public enum GameState
 {
-    Intro, Gameplay, Inspect, Dialogue, PauseMenu, Loading
+    Intro, Gameplay, Inspect, Dialogue, PauseMenu, Loading, Minigame
 }
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
 
-    public GameState CurrentState { get; private set; }
+    [SerializeField] private GameState currentState;
+    public GameState CurrentState => currentState;
     public Action<GameState, GameState> OnStateChanged;
 
     private void Awake()
@@ -31,7 +32,7 @@ public class GameStateManager : MonoBehaviour
         if (CurrentState == newState) return;
 
         GameState oldState = CurrentState;
-        CurrentState = newState;
+        currentState = newState;
         OnStateChanged?.Invoke(oldState, newState);
     }
 }

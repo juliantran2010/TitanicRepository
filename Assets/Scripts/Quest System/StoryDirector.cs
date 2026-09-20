@@ -47,6 +47,12 @@ public class StoryDirector : MonoBehaviour
         }
     }
 
+    public void TriggerEvent(string eventName)
+    {
+        Debug.Log($"[StoryDirector] TriggerEvent: '{eventName}'");
+        OnStoryEventTriggered?.Invoke(eventName);
+    }
+
     private void ExecuteCurrentBeat(bool bypassConditions = false)
     {
         if (activeScript == null || currentIndex >= activeScript.beats.Count)

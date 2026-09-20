@@ -83,7 +83,7 @@ MonoBehaviour:
       startPath: 
     stateDuringDialogue: 3
     questToAssign:
-      id: talk_lightoller
+      id: convince_lightoller
       description: Convince Second Officer Lightoller and give a clear warning.
       targetProgress: -1
       currentProgress: 0

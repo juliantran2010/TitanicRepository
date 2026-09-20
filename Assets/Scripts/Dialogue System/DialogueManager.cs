@@ -39,6 +39,7 @@ public class DialogueManager : MonoBehaviour
     private GameState previousGameState;
     private Action<Story> callbackOnDialogueEnd;
     private Action<string> callbackOnInkTrigger;
+    public Action<string> OnInkTriggerFound;
 
     private void Awake()
     {
@@ -181,7 +182,7 @@ public class DialogueManager : MonoBehaviour
                 case "trigger" when parts.Length >= 2:
                     string triggerName = parts[1].Trim();
                     callbackOnInkTrigger?.Invoke(triggerName);
-                    StoryDirector.Instance.OnStoryEventTriggered?.Invoke(triggerName);
+                    StoryDirector.Instance.TriggerEvent(triggerName);
                     break;
                 case "add_quest" when parts.Length >= 3:
                     // Quests können mit '>' verkettet werden

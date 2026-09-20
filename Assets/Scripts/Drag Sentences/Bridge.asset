@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8acff48d616c99f4caa5a2de28cacf1d, type: 3}
+  m_Name: Bridge
+  m_EditorClassIdentifier: Assembly-CSharp::SentenceOrderingData
+  completedQuestId: convince_lightoller
+  slots:
+  - headerTitle: 'First: What is the danger?'
+    options:
+    - sentenceText: The ship is traveling very fast.
+      isCorrect: 0
+    - sentenceText: The sea is extremely calm tonight.
+      isCorrect: 0
+    - sentenceText: There are dangerous icebergs ahead of the ship.
+      isCorrect: 1
+    - sentenceText: The passengers do not know what is happening.
+      isCorrect: 0
+  - headerTitle: 'Next: What is Titanic doing?'
+    options:
+    - sentenceText: The officers have received several messages tonight.
+      isCorrect: 0
+    - sentenceText: Titanic is heading towards an area with large icebergs.
+      isCorrect: 1
+    - sentenceText: The lookouts are watching the sea carefully.
+      isCorrect: 0
+    - sentenceText: Titanic is continuing its journey to New York.
+      isCorrect: 0
+  - headerTitle: 'Last: What needs to be done?'
+    options:
+    - sentenceText: The passengers should be told about the danger
+      isCorrect: 0
+    - sentenceText: Someone should speak to the captain.
+      isCorrect: 0
+    - sentenceText: The lookouts should continue watching the sea.
+      isCorrect: 0
+    - sentenceText: You need to change course before it's too late.
+      isCorrect: 1
