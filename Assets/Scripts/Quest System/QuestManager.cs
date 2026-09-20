@@ -62,11 +62,55 @@ public class QuestManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnVariableChanged(string varName, object value)
+    private void Start()
     {
-        if (varName.StartsWith("has_") && value is bool hasValue && hasValue)
+        if (Inventory.Instance != null)
         {
-            CompleteQuest("pickup_" + varName.Substring(4));
+            Inventory.Instance.OnItemAdded += HandleItemAdded;
+            Inventory.Instance.OnItemAdded += HandleItemRemoved;
+        }
+        if (GameSceneManager.Instance != null)
+        {
+            GameSceneManager.Instance.OnSceneChanged += HandleSceneChanged;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Inventory.Instance != null)
+        {
+            Inventory.Instance.OnItemAdded -= HandleItemAdded;
+            Inventory.Instance.OnItemRemoved -= HandleItemRemoved;
+        }
+        if (GameSceneManager.Instance != null)
+        {
+            GameSceneManager.Instance.OnSceneChanged -= HandleSceneChanged;
+        }
+    }
+
+    private void HandleItemAdded(string itemName)
+    {
+        //finish pickup Quest
+        string questName = "pickup_" + itemName;
+        if (activeQuests.ContainsKey(questName))
+        {
+            CompleteQuest(questName);
+        }
+        //set variable
+        SetVariable("has_" + itemName, true);
+    }
+    private void HandleItemRemoved(string itemName)
+    {
+        //set variable
+        SetVariable("has_" + itemName, false);
+    }
+    private void HandleSceneChanged(string sceneName, string spawnPointId)
+    {
+        //finish goto Quest
+        string questName = $"goto_{sceneName}_{spawnPointId}";
+        if (activeQuests.ContainsKey(questName))
+        {
+            CompleteQuest(questName);
         }
     }
 
@@ -140,7 +184,6 @@ public class QuestManager : MonoBehaviour
     public void SetVariable(string varName, object value)
     {
         globalVariables[varName] = value;
-        OnVariableChanged(varName, value);
     }
 
     public bool TryGetVariable(string varName, out object value)

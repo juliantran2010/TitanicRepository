@@ -13,6 +13,10 @@ public class StoryDirector : MonoBehaviour
     [SerializeField] private StoryScript activeScript;
     [SerializeField] private int startAtIndex = 0;
 
+    [Header("Testing & Debug")]
+    [Tooltip("Wenn aktiv, werden fuer den 'startAtIndex'-Beat alle Warte-Bedingungen (Szene/Quest/Event) ignoriert und er startet sofort.")]
+    [SerializeField] private bool ignoreConditionsOnStart = false;
+
     private int currentIndex = 0;
     private bool isInitialized = false;
 
@@ -39,11 +43,11 @@ public class StoryDirector : MonoBehaviour
         {
             isInitialized = true;
             currentIndex = startAtIndex;
-            ExecuteCurrentBeat();
+            ExecuteCurrentBeat(ignoreConditionsOnStart);
         }
     }
 
-    private void ExecuteCurrentBeat()
+    private void ExecuteCurrentBeat(bool bypassConditions = false)
     {
         if (activeScript == null || currentIndex >= activeScript.beats.Count)
         {
@@ -53,9 +57,14 @@ public class StoryDirector : MonoBehaviour
         }
 
         StoryBeat beat = activeScript.beats[currentIndex];
-        Debug.Log($"[StoryDirector] Starte Beat [{currentIndex}]: '{beat.beatName}'");
+        Debug.Log($"[StoryDirector] Starte Beat [{currentIndex}]: '{beat.beatName}' (Bypass: {bypassConditions})");
 
-        GameStateManager.Instance?.SetState(GameState.Gameplay);
+        // Wenn Bedingungen erzwungenermassen uebersprungen werden sollen (z.B. beim Test-Start)
+        if (bypassConditions)
+        {
+            StartCoroutine(FireBeatRoutine(beat));
+            return;
+        }
 
         // Zaehlen, welche Bedingungen ausgefuellt sind
         bool hasSceneReq = !string.IsNullOrEmpty(beat.waitForSceneName);
@@ -67,34 +76,32 @@ public class StoryDirector : MonoBehaviour
         bool questDone = !hasQuestReq;
         bool customDone = !hasCustomReq;
 
-        // Falls bereits in der geforderten Szene
         if (hasSceneReq && SceneManager.GetActiveScene().name == beat.waitForSceneName)
         {
             sceneDone = true;
         }
 
-        // Lokale Hilfsmethode: Prueft, ob jetzt alles erfuellt ist
         void CheckAllConditions()
         {
             if (sceneDone && questDone && customDone)
             {
-                OnTriggerFired(beat);
+                StartCoroutine(FireBeatRoutine(beat));
             }
         }
 
-        // Wenn von vornherein gar nichts eingetragen ist (oder Szene schon passt):
+        // Falls von vornherein erfuellt
         if (sceneDone && questDone && customDone)
         {
-            OnTriggerFired(beat);
+            StartCoroutine(FireBeatRoutine(beat));
             return;
         }
 
         // --- Listener fuer Szene registrieren ---
         if (!sceneDone)
         {
-            void SceneHandler(string loadedScene)
+            void SceneHandler(string sceneName, string spawnPointId)
             {
-                if (loadedScene == beat.waitForSceneName)
+                if (sceneName == beat.waitForSceneName)
                 {
                     GameSceneManager.Instance.OnSceneChanged -= SceneHandler;
                     StartCoroutine(WaitSceneAndMarkDone(() =>
@@ -145,11 +152,18 @@ public class StoryDirector : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    private void OnTriggerFired(StoryBeat beat)
+    private IEnumerator FireBeatRoutine(StoryBeat beat)
     {
-        Debug.Log($"[StoryDirector] Alle Bedingungen erfuellt fuer Beat: '{beat.beatName}'");
+        while (GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Inspect)
+        {
+            yield return null;
+        }
 
-        if (beat.dialogueToPlay != null)
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log($"[StoryDirector] Alle Bedingungen erfuellt. Starte Aktionen fuer Beat: '{beat.beatName}'");
+
+        if (!beat.dialogueToPlay.IsEmpty() )
         {
             GameStateManager.Instance?.SetState(beat.stateDuringDialogue);
 
@@ -158,11 +172,12 @@ public class StoryDirector : MonoBehaviour
                 Debug.LogError("[StoryDirector] DialogueManager.Instance ist NULL!");
                 AssignQuestIfAny(beat);
                 AdvanceBeat();
-                return;
+                yield break;
             }
 
             DialogueManager.Instance.StartDialogue(beat.dialogueToPlay, (story) =>
             {
+                Debug.Log($"[StoryDirector] Dialog beendet fuer Beat: '{beat.beatName}'. Schalte zurueck auf Gameplay.");
                 GameStateManager.Instance?.SetState(GameState.Gameplay);
                 AssignQuestIfAny(beat);
                 AdvanceBeat();
@@ -187,6 +202,30 @@ public class StoryDirector : MonoBehaviour
     private void AdvanceBeat()
     {
         currentIndex++;
-        ExecuteCurrentBeat();
+        ExecuteCurrentBeat(false);
+    }
+
+    // --- Kontext-Menue Buttons im Editor Inspector ---
+
+    [ContextMenu("Debug: Force Trigger Current Beat")]
+    public void DebugForceTriggerCurrentBeat()
+    {
+        if (!Application.isPlaying || activeScript == null || currentIndex >= activeScript.beats.Count)
+        {
+            Debug.LogWarning("[StoryDirector] Erzwingen nur im PlayMode mit gueltigem Beat moeglich.");
+            return;
+        }
+
+        Debug.Log($"[StoryDirector] Manuelles Ausloesen erzwungen fuer Beat Index: {currentIndex}");
+        StopAllCoroutines();
+        StartCoroutine(FireBeatRoutine(activeScript.beats[currentIndex]));
+    }
+
+    [ContextMenu("Debug: Skip To Next Beat")]
+    public void DebugSkipToNextBeat()
+    {
+        if (!Application.isPlaying) return;
+        Debug.Log("[StoryDirector] Ueberspringe zum naechsten Beat.");
+        AdvanceBeat();
     }
 }

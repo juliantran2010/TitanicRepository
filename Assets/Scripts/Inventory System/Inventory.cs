@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance { get; private set; }
 
     public event Action OnInventoryChanged;
+    public event Action<string> OnItemAdded;
+    public event Action<string> OnItemRemoved;
     [SerializeField] private List<PickupObject> items = new List<PickupObject>();
     public IReadOnlyList<PickupObject> Items => items;
 
@@ -19,19 +21,11 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        foreach (var item in items)
-        {
-            QuestManager.Instance.SetVariable("has_" + item.ObjectName, true);
-        }
-    }
-
     public bool AddItem(PickupObject item)
     {
         items.Add(item);
         OnInventoryChanged?.Invoke(); // UI aktualisieren
-        QuestManager.Instance.SetVariable("has_" + item.ObjectName, true); // Quest-Variable setzen
+        OnItemAdded?.Invoke(item.ObjectName);
         return true;
     }
 
@@ -40,19 +34,16 @@ public class Inventory : MonoBehaviour
         var itemToRemove = items.FirstOrDefault(i => i.ObjectName == itemName);
         if (itemToRemove != null)
         {
-            items.Remove(itemToRemove);
-            Destroy(itemToRemove.gameObject);
-            OnInventoryChanged?.Invoke(); // UI aktualisieren
-            QuestManager.Instance.SetVariable("has_" + itemToRemove.ObjectName, false); // Quest-Variable setzen
+            RemoveItem(itemToRemove);
         }
     }
     public void RemoveItem(PickupObject item)
     {
         if (items.Remove(item))
         {
+            OnItemRemoved?.Invoke(item.ObjectName);
             Destroy(item.gameObject);
             OnInventoryChanged?.Invoke(); // UI aktualisieren
-            QuestManager.Instance.SetVariable("has_" + item.ObjectName, false); // Quest-Variable setzen
         }
     }
 

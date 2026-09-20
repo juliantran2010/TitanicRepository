@@ -43,3 +43,48 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+  - beatName: Objects Found
+    waitForSceneName: 
+    waitForQuestId: cabin_objects
+    customEventName: 
+    dialogueToPlay:
+      inkJSON: {fileID: 4900000, guid: c40252414d29fe24e900d26e5cd6b05d, type: 3}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: 
+      description: 
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
+  - beatName: Go to bridge
+    waitForSceneName: 
+    waitForQuestId: staircase_officer
+    customEventName: 
+    dialogueToPlay:
+      inkJSON: {fileID: 0}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: goto_TitanicScene_bridge
+      description: Go to the bridge
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
+  - beatName: Convince Lightoller
+    waitForSceneName: 
+    waitForQuestId: goto_TitanicScene_bridge
+    customEventName: 
+    dialogueToPlay:
+      inkJSON: {fileID: 0}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: talk_lightoller
+      description: Convince Second Officer Lightoller and give a clear warning.
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}

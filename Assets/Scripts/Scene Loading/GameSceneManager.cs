@@ -10,7 +10,7 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private CanvasGroup fadeCanvasGroup; // Optional: für Fade-In/Out Effekte
     [SerializeField] private float fadeDuration = 0.5f;
 
-    public Action<string> OnSceneChanged;
+    public Action<string, string> OnSceneChanged;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class GameSceneManager : MonoBehaviour
 
         // 4. Optional: Bild wieder sichtbar machen (Fade In)
         yield return StartCoroutine(Fade(0f));
-        OnSceneChanged?.Invoke(sceneName);
+        OnSceneChanged?.Invoke(sceneName, spawnPointID);
     }
 
     private IEnumerator Fade(float targetAlpha)

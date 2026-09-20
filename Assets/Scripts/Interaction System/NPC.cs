@@ -15,8 +15,8 @@ public class NPC : DialogueObject
     [SerializeField] private bool shouldLookAtPlayer = true;
 
     [Header("Wander")]
-    [SerializeField] private Vector3 startPosition;
     [SerializeField] private bool shouldWander = true;   // Sollte der NPC zufällig rumlaufen?
+    [SerializeField] private Vector3 startPosition;
     [SerializeField] private float wanderRadius = 2f;   // Wie weit sich der NPC vom Startpunkt/Standort entfernt
     [SerializeField] private float minWaitTime = 2f;    // Mindestwartezeit an einem Punkt (Sekunden)
     [SerializeField] private float maxWaitTime = 6f;    // Maximale Wartezeit an einem Punkt (Sekunden)

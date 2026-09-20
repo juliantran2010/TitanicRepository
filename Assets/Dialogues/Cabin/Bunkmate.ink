@@ -1,0 +1,9 @@
+You: Hey, are you awake?
+
+Bunkmate: ...
+
+Bunkmate: Zzzzz...
+
+Bunkmate: (snort) ...zzzz...
+
+-> END

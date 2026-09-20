@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Door : InteractableObject
 {
+    [Header("Teleportation")]
     [SerializeField] private string targetSceneName;
     [SerializeField] private string targetSpawnPointID;
     public override InteractionType Type => InteractionType.Teleport;

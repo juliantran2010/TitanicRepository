@@ -13,14 +13,14 @@ public class PickupObject : DialogueObject
         {
             transform.SetParent(Inventory.Instance.transform);
             AttachToCameraField attachScript = gameObject.AddComponent<AttachToCameraField>();
-            SetPersistentStateValue("HasPickedUp", true);
+            SetPersistentStateValue("IsPickedUp", true);
         }
     }
 
     protected override void OnStateRestored()
     {
         base.OnStateRestored();
-        if (GetPersistentStateValue<bool>("HasPickedUp"))
+        if (GetPersistentStateValue<bool>("IsPickedUp"))
         {
             Destroy(gameObject);
         }

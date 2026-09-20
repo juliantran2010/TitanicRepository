@@ -13,7 +13,6 @@ public class BinocularController : MonoBehaviour
     [Header("Zoom Einstellungen")]
     [SerializeField] private float normalFOV = 60f;
     [SerializeField] private float zoomFOV = 15f;
-    [SerializeField] private float zoomSpeed = 8f;
 
     [Header("Erkennung")]
     [SerializeField] private LayerMask icebergLayer;

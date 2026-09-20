@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryDirector
   activeScript: {fileID: 11400000, guid: 6fa70067fcb7f9442a3b3f6f33c6d59f, type: 2}
-  startAtIndex: 0
+  startAtIndex: 1
 --- !u!1 &4225922119076354777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2878,7 +2878,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6666501473815844304}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999995
+  m_Size: 0.9999996
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
