@@ -68,23 +68,8 @@ MonoBehaviour:
       startPath: 
     stateDuringDialogue: 3
     questToAssign:
-      id: goto_TitanicScene_bridge
-      description: Go to the bridge
-      targetProgress: -1
-      currentProgress: 0
-      questEntryObject: {fileID: 0}
-  - beatName: Convince Lightoller
-    waitForSceneName: 
-    waitForQuestId: goto_TitanicScene_bridge
-    customEventName: 
-    dialogueToPlay:
-      inkJSON: {fileID: 0}
-      dialogueState: 
-      startPath: 
-    stateDuringDialogue: 3
-    questToAssign:
-      id: convince_lightoller
-      description: Convince Second Officer Lightoller and give a clear warning.
+      id: bridge_find_officer
+      description: Go to the bridge to find an officer
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}

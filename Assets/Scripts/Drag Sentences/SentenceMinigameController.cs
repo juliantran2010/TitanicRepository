@@ -77,6 +77,10 @@ public class SentenceMinigameController : MonoBehaviour
             Debug.Log("starting minigame");
             OpenMinigame(null, () =>
             {
+                if (DialogueManager.Instance != null)
+                {
+                    DialogueManager.Instance.ResumeDialogue();
+                }
                 Debug.Log("Minigame won");
             });
         }

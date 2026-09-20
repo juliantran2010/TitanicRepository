@@ -40,6 +40,10 @@ public class DialogueManager : MonoBehaviour
     private Action<Story> callbackOnDialogueEnd;
     private Action<string> callbackOnInkTrigger;
     public Action<string> OnInkTriggerFound;
+    private bool isPaused = false;
+    public bool IsPaused => isPaused;
+    private string pendingLine = null;
+    private readonly Queue<string> pendingTags = new Queue<string>();
 
     private void Awake()
     {
@@ -95,64 +99,29 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueDialogue()
     {
+        if (isPaused) return;
         if (isTyping)
         {
             CompleteTypewriterText();
             return;
         }
+
         if (!DialogueBox.activeSelf) return;
 
         if (currentStory.canContinue)
         {
             string line = currentStory.Continue();
             CheckForTags();
-            if (!DialogueBox.activeSelf) return;
 
-            int colonIndex = line.IndexOf(':');
-            string textToDisplay = "";
-
-            if (colonIndex > 0)
+            if (isPaused)
             {
-                string potentialSpeaker = line.Substring(0, colonIndex).Trim();
-
-                // Sprecher-Namen haben normalerweise keine Leerzeichen (z. B. "Companion", "Old_Man")
-                if (!potentialSpeaker.Contains(" "))
-                {
-                    nameText.text = potentialSpeaker.Replace('_', ' ');
-                    nameText.color = nameText.text.ToLower() == "you" || nameText.text.ToLower() == "player"
-                        ? new Color32(92, 245, 155, 255)
-                        : new Color32(80, 120, 225, 255);
-
-                    textToDisplay = line.Substring(colonIndex + 1).Trim();
-                }
-                else
-                {
-                    nameText.text = "";
-                    textToDisplay = line.Trim();
-                }
-            }
-            else
-            {
-                nameText.text = "";
-                textToDisplay = line.Trim();
-            }
-
-            //Leere Zeilen überspringen (z.B. wenn in einer Zeile nur ein # trigger steht)
-            if (string.IsNullOrWhiteSpace(textToDisplay))
-            {
-                // Wenn noch Text oder Choices kommen -> weiter, sonst sofort sauber beenden!
-                if (currentStory.canContinue || currentStory.currentChoices.Count > 0)
-                {
-                    ContinueDialogue();
-                }
-                else
-                {
-                    EndDialogue();
-                }
+                pendingLine = line;
                 return;
             }
 
-            PlayTypewriterText(textToDisplay);
+            if (!DialogueBox.activeSelf) return;
+
+            ProcessAndDisplayLine(line);
 
         }
         else if (currentStory.currentChoices.Count > 0)
@@ -165,76 +134,155 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void ProcessAndDisplayLine(string line)
+    {
+        int colonIndex = line.IndexOf(':');
+        string textToDisplay = "";
+
+        if (colonIndex > 0)
+        {
+            string potentialSpeaker = line.Substring(0, colonIndex).Trim();
+
+            // Sprecher-Namen haben normalerweise keine Leerzeichen (z. B. "Companion", "Old_Man")
+            if (!potentialSpeaker.Contains(" "))
+            {
+                nameText.text = potentialSpeaker.Replace('_', ' ');
+                nameText.color = nameText.text.ToLower() == "you" || nameText.text.ToLower() == "player"
+                    ? new Color32(92, 245, 155, 255)
+                    : new Color32(80, 120, 225, 255);
+
+                textToDisplay = line.Substring(colonIndex + 1).Trim();
+            }
+            else
+            {
+                nameText.text = "";
+                textToDisplay = line.Trim();
+            }
+        }
+        else
+        {
+            nameText.text = "";
+            textToDisplay = line.Trim();
+        }
+
+        //Leere Zeilen überspringen (z.B. wenn in einer Zeile nur ein # trigger steht)
+        if (string.IsNullOrWhiteSpace(textToDisplay))
+        {
+            // Wenn noch Text oder Choices kommen -> weiter, sonst sofort sauber beenden!
+            if (currentStory.canContinue || currentStory.currentChoices.Count > 0)
+            {
+                ContinueDialogue();
+            }
+            else
+            {
+                EndDialogue();
+            }
+            return;
+        }
+
+        PlayTypewriterText(textToDisplay);
+    }
+
     private void CheckForTags()
     {
-        foreach (string tag in currentStory.currentTags)
+        var tags = currentStory.currentTags;
+
+        for (int i = 0; i < tags.Count; i++)
         {
-            string[] parts = tag.Split(':', 3);
-            string command = parts[0].Trim().ToLower();
+            ProcessSingleTag(tags[i]);
 
-            switch (command)
+            // Sobald DIESER Tag pausiert hat:
+            if (isPaused)
             {
-                case "set" when parts.Length >= 3:
-                    string variableName = parts[1].Trim();
-                    string value = parts[2].Trim().ToLower();
-                    QuestManager.Instance.HandleVariableTag(variableName, value);
-                    break;
-                case "trigger" when parts.Length >= 2:
-                    string triggerName = parts[1].Trim();
-                    callbackOnInkTrigger?.Invoke(triggerName);
-                    StoryDirector.Instance.TriggerEvent(triggerName);
-                    break;
-                case "add_quest" when parts.Length >= 3:
-                    // Quests können mit '>' verkettet werden
-                    string[] allQuests = tag.Split('>');
+                // Alle NACHFOLGENDEN Tags für nach dem Minigame merken
+                pendingTags.Clear();
+                for (int j = i + 1; j < tags.Count; j++)
+                {
+                    pendingTags.Enqueue(tags[j]);
+                }
+                break; // Schleife SOFORT beenden!
+            }
+        }
+    }
 
-                    // 1. Root-Quest parsen (enthält noch "add_quest" am Anfang)
-                    Quest rootQuest = ParseQuestSegment(allQuests[0].Trim(), isFirstQuest: true);
+    private void ProcessSingleTag(string tag)
+    {
+        string[] parts = tag.Split(':', 3);
+        string command = parts[0].Trim().ToLower();
 
-                    // 2. Kette durchlaufen
-                    if (allQuests.Length > 1 && rootQuest != null)
+        switch (command)
+        {
+            case "set" when parts.Length >= 3:
+                string variableName = parts[1].Trim();
+                string value = parts[2].Trim().ToLower();
+                QuestManager.Instance.HandleVariableTag(variableName, value);
+                break;
+
+            case "trigger" when parts.Length >= 2:
+                string triggerName = parts[1].Trim();
+                Debug.Log($"[DialogueManager] Trigger erkannt: {triggerName}");
+                callbackOnInkTrigger?.Invoke(triggerName);
+                StoryDirector.Instance?.TriggerEvent(triggerName);
+
+                if (parts.Length >= 3 && parts[2].Trim().ToLower() == "pause")
+                {
+                    Debug.Log("[DialogueManager] Sofortige Pause angefordert.");
+                    PauseDialogue();
+                }
+                break;
+
+            case "pause":
+                PauseDialogue();
+                break;
+
+            case "add_quest" when parts.Length >= 3:
+                string[] allQuests = tag.Split('>');
+                Quest rootQuest = ParseQuestSegment(allQuests[0].Trim(), isFirstQuest: true);
+
+                if (allQuests.Length > 1 && rootQuest != null)
+                {
+                    Quest currentPointer = rootQuest;
+                    for (int i = 1; i < allQuests.Length; i++)
                     {
-                        Quest currentPointer = rootQuest;
-                        for (int i = 1; i < allQuests.Length; i++)
+                        Quest nextQuest = ParseQuestSegment(allQuests[i].Trim(), isFirstQuest: false);
+                        if (nextQuest != null)
                         {
-                            Quest nextQuest = ParseQuestSegment(allQuests[i].Trim(), isFirstQuest: false);
-                            if (nextQuest != null)
-                            {
-                                currentPointer.nextQuest = nextQuest;
-                                currentPointer = nextQuest;
-                            }
+                            currentPointer.nextQuest = nextQuest;
+                            currentPointer = nextQuest;
                         }
                     }
+                }
 
-                    if (rootQuest != null)
-                    {
-                        QuestManager.Instance.AddQuest(rootQuest);
-                    }
-                    break;
-                case "complete_quest" when parts.Length >= 2:
-                    string completeId = parts[1].Trim();
-                    QuestManager.Instance.CompleteQuest(completeId);
-                    break;
-                case "progress_quest" when parts.Length >= 2:
-                    // Syntax: # progress_quest:quest_id:1
-                    string targetQuestId = parts[1].Trim();
-                    int amount = 1;
+                if (rootQuest != null)
+                {
+                    QuestManager.Instance.AddQuest(rootQuest);
+                }
+                break;
 
-                    if (parts.Length >= 3)
-                    {
-                        int.TryParse(parts[2].Trim(), out amount);
-                    }
-                    QuestManager.Instance.AddProgress(targetQuestId, amount);
-                    break;
-                case "teleport" when parts.Length >= 3:
-                    string sceneName = parts[1].Trim();
-                    string spawnPointID = parts[2].Trim();
-                    GameSceneManager.Instance.ChangeScene(sceneName, spawnPointID);
-                    break;
-                default:
-                    Debug.LogWarning($"Unbekannter Tag-Befehl: {command}");
-                    break;
-            }
+            case "complete_quest" when parts.Length >= 2:
+                string completeId = parts[1].Trim();
+                QuestManager.Instance.CompleteQuest(completeId);
+                break;
+
+            case "progress_quest" when parts.Length >= 2:
+                string targetQuestId = parts[1].Trim();
+                int amount = 1;
+                if (parts.Length >= 3)
+                {
+                    int.TryParse(parts[2].Trim(), out amount);
+                }
+                QuestManager.Instance.AddProgress(targetQuestId, amount);
+                break;
+
+            case "teleport" when parts.Length >= 3:
+                string sceneName = parts[1].Trim();
+                string spawnPointID = parts[2].Trim();
+                GameSceneManager.Instance.ChangeScene(sceneName, spawnPointID);
+                break;
+
+            default:
+                Debug.LogWarning($"Unbekannter Tag-Befehl: {command}");
+                break;
         }
     }
 
@@ -281,6 +329,43 @@ public class DialogueManager : MonoBehaviour
             GameStateManager.Instance.SetState(previousGameState);
         }
         callbackOnDialogueEnd?.Invoke(currentStory);
+    }
+
+    public void PauseDialogue()
+    {
+        Debug.Log("[DialogueManager] PauseDialogue aufgerufen -> Box wird deaktiviert.");
+        isPaused = true;
+        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+        isTyping = false;
+        DialogueBox.SetActive(false);
+    }
+
+    public void ResumeDialogue()
+    {
+        Debug.Log("[DialogueManager] ResumeDialogue aufgerufen -> Box wird reaktiviert.");
+        isPaused = false;
+        DialogueBox.SetActive(true);
+        GameStateManager.Instance?.SetState(GameState.Dialogue);
+
+        // 1. Zuerst die aufgeschobenen Tags ausführen (z. B. complete_quest)
+        while (pendingTags.Count > 0)
+        {
+            string nextTag = pendingTags.Dequeue();
+            ProcessSingleTag(nextTag);
+            if (isPaused) return; // Falls direkt wieder pausiert wird
+        }
+
+        // 2. Jetzt die wartende Textzeile ohne Extraklick anzeigen
+        if (!string.IsNullOrEmpty(pendingLine))
+        {
+            string lineToPlay = pendingLine;
+            pendingLine = null;
+            ProcessAndDisplayLine(lineToPlay);
+        }
+        else
+        {
+            ContinueDialogue();
+        }
     }
 
     private void DisplayChoices()
