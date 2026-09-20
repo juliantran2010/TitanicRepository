@@ -5,49 +5,113 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class IdentifyOverlay : MonoBehaviour
 {
     public static IdentifyOverlay Instance { get; private set; }
 
     [Header("Input Panel")]
     [SerializeField] private GameObject inputPanel;
+    [SerializeField] private CanvasGroup inputPanelCanvasGroup;
     [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private GameObject incorrectBadge; // Rotes X
-    [SerializeField] private GameObject correctBadge;   // Grüner Haken
+    [SerializeField] private Button submitButton;
+    [SerializeField] private Button overlayCloseButton;
+    [SerializeField] private GameObject incorrectBadge;
+    [SerializeField] private GameObject correctBadge;
 
     [Header("Hint Trigger Button")]
-    [SerializeField] private Button needHintButton;     // Button "? Need a hint?"
+    [SerializeField] private Button needHintButton;
 
     [Header("Hint Window / Modal")]
-    [SerializeField] private GameObject hintModal;      // Das Pop-up-Fenster
-    [SerializeField] private TextMeshProUGUI hintTitle; // Überschrift
-    [SerializeField] private Transform wordGridParent;  // Container für die Buttons
-    [SerializeField] private GridLayoutGroup wordGridLayout; // Das Grid-Layout auf wordGridParent
+    [SerializeField] private GameObject hintModal;
+    [SerializeField] private CanvasGroup hintModalCanvasGroup;
+    [SerializeField] private Button hintCloseButton;
+    [SerializeField] private TextMeshProUGUI hintTitle;
+    [SerializeField] private Transform wordGridParent;
+    [SerializeField] private GridLayoutGroup wordGridLayout;
     [SerializeField] private GameObject wordButtonPrefab;
+
+    [Header("Animation Settings")]
+    [SerializeField] private float animDuration = 0.25f;
+    [SerializeField] private float inputPanelFadedAlpha = 0.15f; // Transparenz, wenn Hint offen ist
+
+    private CanvasGroup mainCanvasGroup;
+    private RectTransform overlayRect;
+    private RectTransform hintModalRect;
 
     private IdentifiableObject currentTarget;
     private int currentHintStage = 0;
+    private Tween delayedCloseTween;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+
+        mainCanvasGroup = GetComponent<CanvasGroup>();
+        overlayRect = GetComponent<RectTransform>();
+
+        if (inputPanel != null && inputPanelCanvasGroup == null)
+        {
+            inputPanelCanvasGroup = inputPanel.GetComponent<CanvasGroup>();
+            if (inputPanelCanvasGroup == null) inputPanelCanvasGroup = inputPanel.AddComponent<CanvasGroup>();
+        }
+
+        if (hintModal != null)
+        {
+            hintModalRect = hintModal.GetComponent<RectTransform>();
+            if (hintModalCanvasGroup == null)
+            {
+                hintModalCanvasGroup = hintModal.GetComponent<CanvasGroup>();
+                if (hintModalCanvasGroup == null) hintModalCanvasGroup = hintModal.AddComponent<CanvasGroup>();
+            }
+        }
 
         if (wordGridLayout == null && wordGridParent != null)
         {
             wordGridLayout = wordGridParent.GetComponent<GridLayoutGroup>();
         }
 
+        // Listener
         inputField.onSubmit.AddListener(SubmitAnswer);
+        if (submitButton != null)
+        {
+            submitButton.onClick.AddListener(() => SubmitAnswer(inputField.text));
+        }
+
+        if (overlayCloseButton != null)
+        {
+            overlayCloseButton.onClick.AddListener(Close);
+        }
+
+        if (hintCloseButton != null)
+        {
+            hintCloseButton.onClick.AddListener(CloseHintModal);
+        }
+
         needHintButton.onClick.AddListener(OnNeedHintClicked);
 
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+
+        KillAllTweens();
     }
 
     private void Update()
     {
         if (!gameObject.activeSelf) return;
 
-        // Neues Input System: Tastaturabfrage für Escape
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (hintModal != null && hintModal.activeSelf)
@@ -63,12 +127,18 @@ public class IdentifyOverlay : MonoBehaviour
 
     public void Open(IdentifiableObject target)
     {
+        KillAllTweens();
+
         GameStateManager.Instance.SetState(GameState.Inspect);
         currentTarget = target;
         currentHintStage = 0;
 
         gameObject.SetActive(true);
         inputPanel.SetActive(true);
+
+        // Input Panel voll sichtbar & interaktiv schalten
+        SetInputPanelDimmed(false, instant: true);
+
         if (hintModal != null) hintModal.SetActive(false);
 
         incorrectBadge.SetActive(false);
@@ -77,10 +147,19 @@ public class IdentifyOverlay : MonoBehaviour
 
         inputField.text = "";
         inputField.interactable = true;
+        if (submitButton != null) submitButton.interactable = true;
+
         inputField.ActivateInputField();
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        // Einblend-Animation
+        mainCanvasGroup.alpha = 0f;
+        mainCanvasGroup.DOFade(1f, animDuration).SetEase(Ease.OutQuad);
+
+        overlayRect.localScale = Vector3.one * 0.9f;
+        overlayRect.DOScale(1f, animDuration).SetEase(Ease.OutBack);
     }
 
     public void SubmitAnswer(string input)
@@ -91,16 +170,28 @@ public class IdentifyOverlay : MonoBehaviour
         {
             incorrectBadge.SetActive(false);
             correctBadge.SetActive(true);
+            correctBadge.transform.DOPunchScale(Vector3.one * 0.3f, 0.4f, 10, 1);
+
             needHintButton.gameObject.SetActive(false);
             inputField.interactable = false;
+            if (submitButton != null) submitButton.interactable = false;
 
             currentTarget.MarkAsCompleted();
-            DOVirtual.DelayedCall(1.2f, Close);
+
+            delayedCloseTween?.Kill();
+            delayedCloseTween = DOVirtual.DelayedCall(1.2f, Close);
         }
         else
         {
             incorrectBadge.SetActive(true);
+            incorrectBadge.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
+
+            // Shakt das Eingabefeld horizontal hin und her
+            inputField.transform.DOComplete();
+            inputField.transform.DOShakePosition(0.35f, strength: new Vector3(12f, 0f, 0f), vibrato: 18);
+
             needHintButton.gameObject.SetActive(true);
+            needHintButton.transform.DOComplete();
             needHintButton.transform.DOPunchScale(Vector3.one * 0.15f, 0.3f);
         }
     }
@@ -108,11 +199,27 @@ public class IdentifyOverlay : MonoBehaviour
     private void OnNeedHintClicked()
     {
         currentHintStage++;
-        hintModal.SetActive(true);
 
-        // Vorherige Buttons löschen
-        foreach (Transform child in wordGridParent)
+        // Input-Panel im Hintergrund ausblenden / transparent machen
+        SetInputPanelDimmed(true);
+
+        hintModal.SetActive(true);
+        if (hintModalCanvasGroup != null)
         {
+            hintModalCanvasGroup.alpha = 0f;
+            hintModalCanvasGroup.DOFade(1f, animDuration);
+        }
+        if (hintModalRect != null)
+        {
+            hintModalRect.localScale = Vector3.one * 0.85f;
+            hintModalRect.DOScale(1f, animDuration).SetEase(Ease.OutBack);
+        }
+
+        // Alte Buttons entfernen
+        for (int i = wordGridParent.childCount - 1; i >= 0; i--)
+        {
+            Transform child = wordGridParent.GetChild(i);
+            child.SetParent(null);
             Destroy(child.gameObject);
         }
 
@@ -120,29 +227,26 @@ public class IdentifyOverlay : MonoBehaviour
 
         if (currentHintStage == 1)
         {
-            // Hint 1: Der komplette Wort-Pool
             hintTitle.text = "Choose a word from the list:";
-            if (currentTarget.WordBank != null)
+            if (currentTarget.WordBank != null && currentTarget.WordBank.Words != null)
             {
                 options.AddRange(currentTarget.WordBank.Words);
             }
         }
         else if (currentHintStage == 2)
         {
-            // Hint 2: Weniger Optionen (Richtige Antwort + 5 zufällige Ablenker = 6 Optionen)
             hintTitle.text = "Choose a word:";
             options.Add(currentTarget.CorrectWord);
             options.AddRange(GetRandomDistractors(5));
         }
         else
         {
-            // Hint 3: Multiple Choice (Richtige Antwort + 2 zufällige Ablenker = 3 Optionen)
             hintTitle.text = "Which word is correct?";
             options.Add(currentTarget.CorrectWord);
             options.AddRange(GetRandomDistractors(2));
         }
 
-        // Liste durchmischen (Fisher-Yates Shuffle)
+        // Shuffle
         for (int i = 0; i < options.Count; i++)
         {
             string temp = options[i];
@@ -151,16 +255,15 @@ public class IdentifyOverlay : MonoBehaviour
             options[rnd] = temp;
         }
 
-        // --- DYNAMISCHES GRID-LAYOUT ---
+        // Dynamisches Grid-Layout
         if (wordGridLayout != null)
         {
             Canvas.ForceUpdateCanvases();
             RectTransform gridRect = wordGridParent as RectTransform;
-            float totalWidth = gridRect.rect.width;
+            float totalWidth = gridRect != null ? gridRect.rect.width : 500f;
 
             if (options.Count <= 3)
             {
-                // Bei 3 oder weniger Elementen: 1 Spalte (rein vertikal)
                 wordGridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
                 wordGridLayout.constraintCount = 1;
 
@@ -170,7 +273,6 @@ public class IdentifyOverlay : MonoBehaviour
             }
             else
             {
-                // Bei mehr Elementen: 2 Spalten (oder 3 bei > 6 Optionen)
                 int columns = options.Count > 6 ? 3 : 2;
 
                 wordGridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
@@ -184,11 +286,12 @@ public class IdentifyOverlay : MonoBehaviour
             }
         }
 
-        // Buttons instanziieren
+        // Buttons generieren
         foreach (string word in options)
         {
             GameObject btn = Instantiate(wordButtonPrefab, wordGridParent);
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = word;
+            TextMeshProUGUI btnText = btn.GetComponentInChildren<TextMeshProUGUI>();
+            if (btnText != null) btnText.text = word;
 
             string chosen = word;
             btn.GetComponent<Button>().onClick.AddListener(() =>
@@ -200,7 +303,25 @@ public class IdentifyOverlay : MonoBehaviour
         }
     }
 
-    // Zieht 'count' zufällige Begriffe aus der WordBank, die NICHT das Lösungswort sind
+    private void SetInputPanelDimmed(bool dimmed, bool instant = false)
+    {
+        if (inputPanelCanvasGroup == null) return;
+
+        float targetAlpha = dimmed ? inputPanelFadedAlpha : 1f;
+        inputPanelCanvasGroup.blocksRaycasts = !dimmed;
+        inputPanelCanvasGroup.interactable = !dimmed;
+
+        inputPanelCanvasGroup.DOKill();
+        if (instant)
+        {
+            inputPanelCanvasGroup.alpha = targetAlpha;
+        }
+        else
+        {
+            inputPanelCanvasGroup.DOFade(targetAlpha, animDuration).SetEase(Ease.InOutQuad);
+        }
+    }
+
     private List<string> GetRandomDistractors(int count)
     {
         List<string> distractors = new List<string>();
@@ -208,17 +329,15 @@ public class IdentifyOverlay : MonoBehaviour
         if (currentTarget.WordBank == null || currentTarget.WordBank.Words == null)
             return distractors;
 
-        // Alle Wörter holen außer das korrekte Wort
         List<string> pool = new List<string>();
         foreach (string w in currentTarget.WordBank.Words)
         {
-            if (w.Trim().ToLowerInvariant() != currentTarget.CorrectWord.Trim().ToLowerInvariant())
+            if (!string.Equals(w.Trim(), currentTarget.CorrectWord.Trim(), System.StringComparison.OrdinalIgnoreCase))
             {
                 pool.Add(w);
             }
         }
 
-        // Zufällig durchmischen
         for (int i = 0; i < pool.Count; i++)
         {
             string temp = pool[i];
@@ -227,7 +346,6 @@ public class IdentifyOverlay : MonoBehaviour
             pool[rnd] = temp;
         }
 
-        // Gewünschte Anzahl entnehmen
         for (int i = 0; i < count && i < pool.Count; i++)
         {
             distractors.Add(pool[i]);
@@ -238,16 +356,51 @@ public class IdentifyOverlay : MonoBehaviour
 
     private void CloseHintModal()
     {
-        if (hintModal != null) hintModal.SetActive(false);
-        inputField.ActivateInputField();
+        // Hintergrundfeld wieder voll einblenden
+        SetInputPanelDimmed(false);
+
+        if (hintModalCanvasGroup != null)
+        {
+            hintModalCanvasGroup.DOKill();
+            hintModalRect.DOKill();
+
+            hintModalCanvasGroup.DOFade(0f, animDuration * 0.8f);
+            hintModalRect.DOScale(0.9f, animDuration * 0.8f).OnComplete(() =>
+            {
+                if (hintModal != null) hintModal.SetActive(false);
+                inputField.ActivateInputField();
+            });
+        }
+        else
+        {
+            if (hintModal != null) hintModal.SetActive(false);
+            inputField.ActivateInputField();
+        }
     }
 
     public void Close()
     {
-        gameObject.SetActive(false);
-        currentTarget = null;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        GameStateManager.Instance.SetState(GameState.Gameplay);
+        KillAllTweens();
+
+        // Sanft ausfaden und skalieren, dann deaktivieren
+        mainCanvasGroup.DOFade(0f, animDuration * 0.8f).SetEase(Ease.InQuad);
+        overlayRect.DOScale(0.9f, animDuration * 0.8f).SetEase(Ease.InQuad).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+            currentTarget = null;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            GameStateManager.Instance.SetState(GameState.Gameplay);
+        });
+    }
+
+    private void KillAllTweens()
+    {
+        delayedCloseTween?.Kill();
+        if (mainCanvasGroup != null) mainCanvasGroup.DOKill();
+        if (overlayRect != null) overlayRect.DOKill();
+        if (inputPanelCanvasGroup != null) inputPanelCanvasGroup.DOKill();
+        if (hintModalCanvasGroup != null) hintModalCanvasGroup.DOKill();
+        if (hintModalRect != null) hintModalRect.DOKill();
     }
 }

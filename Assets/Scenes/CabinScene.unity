@@ -1391,9 +1391,109 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788594081208245292, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959328065404066883, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
+    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956937575136937112, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747885811684483984, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747885811684483984, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106675696405013786, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106675696405013786, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.b
+      value: 0.22745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149334853776205540, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.r
+      value: 0.09803922
+      objectReference: {fileID: 0}
     - target: {fileID: 3447482488667911103, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_Name
       value: GameManagers
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382488971499047453, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1443,6 +1543,38 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5396872278347916451, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5396872278347916451, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357639801090845053, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: inputPanelFadedAlpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.b
+      value: 0.22745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.r
+      value: 0.09803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509721674640552740, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
     - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1455,6 +1587,26 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.g
+      value: 0.12376429
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Color.r
+      value: 0.0993236
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645764187911003545, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 060c56ed0c7cf6548bda37b2db4568e1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7000,7 +7152,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: washbasin
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &6919683764925299914
 MeshCollider:
@@ -7017,11 +7168,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3525479140033381557, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!23 &6944656105019675320
@@ -7331,11 +7482,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2477511411847689622, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!114 &7178114113989139898
@@ -7354,7 +7505,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -7364,7 +7515,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: mirror
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!23 &7202271455675000399
 MeshRenderer:
@@ -7432,7 +7582,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -7442,7 +7592,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: lamp
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &7202271455675000401
 MeshCollider:
@@ -7459,11 +7608,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!4 &7212070142640762820
@@ -8592,7 +8741,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -8602,7 +8751,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: tap
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &8401952776356577748
 MeshCollider:
@@ -8619,11 +8767,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2212009239438826721, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!1 &8416272007234244981
@@ -8733,7 +8881,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -8743,7 +8891,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: pillow
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &8436024265970042333
 MeshCollider:
@@ -8760,11 +8907,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6349497404779363362, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!23 &8443713292781185564
@@ -9447,7 +9594,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -9457,7 +9604,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: towel
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &8872167517106911400
 MeshCollider:
@@ -9593,7 +9739,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -9603,7 +9749,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: blanket
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &8981784598399252178
 MeshCollider:
@@ -9620,11 +9765,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8302102485596996044, guid: 22c99613ec1c949479faffcdf918013e, type: 3}
 --- !u!1 &8992688109828547228
@@ -9679,7 +9824,7 @@ MonoBehaviour:
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
   neccessaryVariablesSet: []
-  progessQuestId: 
+  progessQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
@@ -9689,7 +9834,6 @@ MonoBehaviour:
   cameraFocusTarget: {fileID: 0}
   correctWord: bed
   alternativeWords: []
-  questId: cabin_objects
   wordBank: {fileID: 11400000, guid: 5601e25de1031e2429a2da7fe8d8f30a, type: 2}
 --- !u!64 &9014776603777938181
 MeshCollider:
