@@ -2519,7 +2519,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  raycastUpOffset: 2
+  raycastUpOffset: 0
   raycastDistance: 5
 --- !u!114 &865114603761420498
 MonoBehaviour:

@@ -548,51 +548,6 @@ Transform:
   - {fileID: 1362086698}
   m_Father: {fileID: 1707296874}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &856956934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 856956936}
-  - component: {fileID: 856956935}
-  m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &856956935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856956934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c69b2783ac2e80a4aaef5d8388b8f032, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
-  spawnPointID: marconi
---- !u!4 &856956936
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856956934}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.825, y: -1.738, z: -3.565}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1707296874}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &869603306
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,6 +561,7 @@ GameObject:
   - component: {fileID: 869603310}
   - component: {fileID: 869603309}
   - component: {fileID: 869603308}
+  - component: {fileID: 869603312}
   m_Layer: 0
   m_Name: door
   m_TagString: Untagged
@@ -621,13 +577,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869603306}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 4.1801, y: -1.015, z: -4.464}
-  m_LocalScale: {x: 1.5439062, y: 0.09239999, z: 3.3091233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.1541, y: -0.9659, z: -4.4858}
+  m_LocalScale: {x: 1.5959358, y: 3.2397523, z: 0.18892202}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1707296874}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &869603308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,12 +597,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   uniqueID: 7abcd9e5-ccf2-4530-beaf-78e979c6e361
-  UniqueInteractionLabel: 
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
   objectName: door_marconi_staircase
   displayName: Grand Staircase
-  targetSceneName: StaircaseScene
-  targetSpawnPointID: staircase_elevator_up
-  neccessaryQuestID: 
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 0
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
+  targetSceneName: TitanicScene
+  targetSpawnPointID: deck_marconi
 --- !u!65 &869603309
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -725,6 +688,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869603306}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &869603312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869603306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69b2783ac2e80a4aaef5d8388b8f032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
+  spawnPointID: marconi
+  localOffset: {x: 0, y: 0, z: 5}
+  localRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1362086697
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +874,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 0.76356405, b: 0.4575472, a: 1}
   m_Intensity: 3.9
-  m_Range: 237.41
+  m_Range: 390.4
   m_SpotAngle: 166.88234
   m_InnerSpotAngle: 17.414825
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -990,14 +968,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 543450652679386355}
   - {fileID: 1597669216}
-  - {fileID: 856956936}
   - {fileID: 869603307}
   - {fileID: 833211484}
+  - {fileID: 2326173326282634230}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1943027948
@@ -1935,8 +1913,8 @@ Transform:
   m_GameObject: {fileID: 3099579338050300236}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7029634, z: -0, w: 0.7112261}
-  m_LocalPosition: {x: 1.509, y: -0.77879405, z: -0.068}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalPosition: {x: 5.0299993, y: -2.59598, z: -0.22666666}
+  m_LocalScale: {x: 1.3333335, y: 1.3333333, z: 1.3333335}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5336159433275396576}
@@ -1946,7 +1924,7 @@ Transform:
   - {fileID: 7312147275254722847}
   - {fileID: 2849221444813586069}
   - {fileID: 3925870462277226258}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1707296874}
   m_LocalEulerAnglesHint: {x: 0, y: 89.33, z: 0}
 --- !u!4 &2397626951265837948
 Transform:
@@ -3419,9 +3397,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   uniqueID: a3c98912-c6d2-4e38-a9be-1ed7a3574869
-  UniqueInteractionLabel: 
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  neccessaryVariablesSet: []
+  progessQuestId: 
   objectName: marconi_operator
   displayName: Marconi Operator
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  showLabelIfCannotInteract: 0
+  isNotInteractable: 0
+  cameraFocusTarget: {fileID: 0}
   dialogue:
     inkJSON: {fileID: 4900000, guid: 59f29f11e83c2524eb795df7d78c5db0, type: 3}
     dialogueState: 
@@ -3434,8 +3420,8 @@ MonoBehaviour:
   animatorSpeed: 1
   currentLookWeight: 0
   shouldLookAtPlayer: 1
-  startPosition: {x: 0, y: 0, z: 0}
   shouldWander: 0
+  startPosition: {x: 0, y: 0, z: 0}
   wanderRadius: 2
   minWaitTime: 2
   maxWaitTime: 6
@@ -3735,4 +3721,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1707296874}
   - {fileID: 737924793}
-  - {fileID: 2326173326282634230}

@@ -107,6 +107,11 @@ public class DialogueManager : MonoBehaviour
         }
 
         if (!DialogueBox.activeSelf) return;
+        if (currentStory == null)
+        {
+            EndDialogue();
+            return;
+        }
 
         if (currentStory.canContinue)
         {

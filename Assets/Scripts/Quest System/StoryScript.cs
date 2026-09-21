@@ -7,23 +7,20 @@ public class StoryBeat
 {
     [Header("Uebersicht")]
     public string beatName;
+    public bool isDisabled = false;
+
+    [Header("Timing")]
+    [Tooltip("Wartet nach Erfuellung aller Bedingungen und Beendigung von Dialogen noch X Sekunden, bevor dieser Beat startet.")]
+    public float delayBeforeStart = 0f; // z. B. 2 oder 3 Sekunden Verschnaufpause
 
     [Header("Bedingungen / Trigger (alle ausgefuellten muessen zutreffen)")]
-    [Tooltip("Wenn ausgefuellt: Spieler muss sich in dieser Szene befinden/sie betreten.")]
     public string waitForSceneName;
-
-    [Tooltip("Wenn ausgefuellt: Wartet, bis diese Quest-ID abgeschlossen wurde.")]
     public string waitForQuestId;
-
-    [Tooltip("Wenn ausgefuellt: Wartet auf diesen StoryDirector.TriggerEvent(\"...\") Code.")]
     public string customEventName;
 
     [Header("Aktionen nach Erfuellung")]
-    [Tooltip("Dialog, der abgespielt wird, sobald alle Bedingungen erfuellt sind.")]
     public Dialogue dialogueToPlay;
     public GameState stateDuringDialogue = GameState.Dialogue;
-
-    [Tooltip("Neue Quest, die nach dem Dialog (oder direkt) aktiv wird.")]
     public Quest questToAssign;
 }
 

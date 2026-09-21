@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [Tooltip("Layer, die als Boden erkannt werden sollen")]
     [SerializeField] private LayerMask groundLayer = ~0; // Standard: Alles
     [Tooltip("Wie weit über dem SpawnPoint nach oben geschaut wird")]
-    [SerializeField] private float raycastUpOffset = 2.0f;
+    [SerializeField] private float raycastUpOffset = 0f;
     [Tooltip("Wie weit nach unten der Strahl sucht")]
     [SerializeField] private float raycastDistance = 5.0f;
 
@@ -65,7 +65,7 @@ public class SpawnManager : MonoBehaviour
             cc.enabled = false;
         }
 
-        Vector3 spawnPos = point.transform.position;
+        Vector3 spawnPos = point.Position;
 
         // Strahl startet etwas über dem gesetzten Punkt und feuert nach unten
         Vector3 rayStart = spawnPos + Vector3.up * raycastUpOffset;
@@ -84,7 +84,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         player.transform.position = spawnPos;
-        player.transform.rotation = point.transform.rotation;
+        player.transform.rotation = point.Rotation;
 
         if (cc != null)
         {

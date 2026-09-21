@@ -20,9 +20,11 @@ Gentleman: What would you like to know exactly?
 
 + [Ask for directions to the bridge]
     You: Could you tell me where the bridge is? I need to speak with an officer.
-    Gentleman: Just walk through that door over there.
-    Gentleman: Once you step outside, it will lead you straight to the bridge.
+    Gentleman: Take that door over there – it will lead you straight outside onto the boat deck.
+    Gentleman: Once you step outside, just follow the deck all the way forward toward the bow.
+    Gentleman: Keep walking until you reach the very end of the deck. You can't miss the bridge up there.
     # complete_quest:staircase_officer
+    # add_quest:bridge_find_officer:Go to the bridge to find an officer
     -> END
 
 + [Ask for the captain's quarters]

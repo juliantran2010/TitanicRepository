@@ -63,6 +63,15 @@ public class StoryDirector : MonoBehaviour
         }
 
         StoryBeat beat = activeScript.beats[currentIndex];
+
+        // --- Neu: Pruefen, ob der Beat temporaer deaktiviert ist ---
+        if (beat.isDisabled)
+        {
+            Debug.Log($"[StoryDirector] Beat [{currentIndex}]: '{beat.beatName}' ist DEAKTIVIERT -> wird uebersprungen.");
+            AdvanceBeat();
+            return;
+        }
+
         Debug.Log($"[StoryDirector] Starte Beat [{currentIndex}]: '{beat.beatName}' (Bypass: {bypassConditions})");
 
         // Wenn Bedingungen erzwungenermassen uebersprungen werden sollen (z.B. beim Test-Start)
@@ -160,16 +169,33 @@ public class StoryDirector : MonoBehaviour
 
     private IEnumerator FireBeatRoutine(StoryBeat beat)
     {
-        while (GameStateManager.Instance != null && GameStateManager.Instance.CurrentState == GameState.Inspect)
+        // 1. Warten, falls der Spieler noch im Inspect ODER noch im laufenden Dialog ist!
+        while (GameStateManager.Instance != null &&
+              (GameStateManager.Instance.CurrentState == GameState.Inspect ||
+               GameStateManager.Instance.CurrentState == GameState.Dialogue))
         {
             yield return null;
+        }
+
+        // 2. Die eingestellte Wartezeit (z.B. 2-3 Sekunden Pause nach Dialogende)
+        if (beat.delayBeforeStart > 0f)
+        {
+            yield return new WaitForSeconds(beat.delayBeforeStart);
+
+            // Zur Sicherheit: Hat der Spieler in den 3 Sekunden Pause erneut einen Dialog/Inspect geoeffnet?
+            while (GameStateManager.Instance != null &&
+                  (GameStateManager.Instance.CurrentState == GameState.Inspect ||
+                   GameStateManager.Instance.CurrentState == GameState.Dialogue))
+            {
+                yield return null;
+            }
         }
 
         yield return new WaitForEndOfFrame();
 
         Debug.Log($"[StoryDirector] Alle Bedingungen erfuellt. Starte Aktionen fuer Beat: '{beat.beatName}'");
 
-        if (!beat.dialogueToPlay.IsEmpty() )
+        if (!beat.dialogueToPlay.IsEmpty())
         {
             GameStateManager.Instance?.SetState(beat.stateDuringDialogue);
 

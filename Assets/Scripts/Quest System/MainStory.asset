@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryScript
   beats:
   - beatName: Intro
+    isDisabled: 0
+    delayBeforeStart: 0
     waitForSceneName: 
     waitForQuestId: 
     customEventName: 
@@ -28,7 +30,9 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
-  - beatName: Cabin
+  - beatName: Cabin Find Objects
+    isDisabled: 0
+    delayBeforeStart: 0
     waitForSceneName: CabinScene
     waitForQuestId: 
     customEventName: 
@@ -44,6 +48,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
   - beatName: Objects Found
+    isDisabled: 0
+    delayBeforeStart: 0
     waitForSceneName: 
     waitForQuestId: cabin_objects
     customEventName: 
@@ -58,18 +64,20 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
-  - beatName: Go to bridge
+  - beatName: Go to Marconi Room
+    isDisabled: 0
+    delayBeforeStart: 5
     waitForSceneName: 
-    waitForQuestId: staircase_officer
+    waitForQuestId: warn_lightoller
     customEventName: 
     dialogueToPlay:
-      inkJSON: {fileID: 0}
+      inkJSON: {fileID: 4900000, guid: 9d70fc3dc22273c468cec125381a77c1, type: 3}
       dialogueState: 
       startPath: 
     stateDuringDialogue: 3
     questToAssign:
-      id: bridge_find_officer
-      description: Go to the bridge to find an officer
+      id: 
+      description: 
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
