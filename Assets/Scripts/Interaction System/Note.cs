@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Note : InteractableObject
@@ -9,26 +10,26 @@ public class Note : InteractableObject
     public override InteractionType Type => InteractionType.Read;
 
     [SerializeField] private Dialogue dialogueAfterLooking;
-
     [SerializeField] private TextMeshProUGUI noteDisplay;
     [TextArea(5, 10)]
     [SerializeField] private string noteText;
 
     [Header("Inspect Settings")]
-    [SerializeField] private float distanceInFront = 0.5f; // Abstand vor der Linse
+    [SerializeField] private float distanceInFront = 0.5f;
     [SerializeField] private float moveDuration = 0.4f;
     [SerializeField] private ParticleSystem interactionParticles;
 
-    private InputAction escapeAction;
-    private InputAction clickAction;
-    private bool isReading = false;
-    private Vector3 originalLocalPosition;
-    private Quaternion originalLocalRotation;
-    private Transform originalParent;
-    private bool hasBeenRead = false; // zusätzlich speichern, da HasInteracted schon zu früh true ist (clues müssen noch ausgewertet werden)
+    protected InputAction escapeAction;
+    protected InputAction clickAction;
+    protected bool isReading = false;
+    protected Vector3 originalLocalPosition;
+    protected Quaternion originalLocalRotation;
+    protected Transform originalParent;
+    protected bool hasBeenRead = false;
 
+    private bool clickPending = false;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         escapeAction = new InputAction(type: InputActionType.Button, binding: "<Keyboard>/escape");
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
@@ -37,15 +38,41 @@ public class Note : InteractableObject
     protected override void Start()
     {
         base.Start();
-        noteDisplay.text = noteText;
+        if (noteDisplay != null) noteDisplay.text = noteText;
         originalLocalPosition = transform.localPosition;
         originalLocalRotation = transform.localRotation;
         originalParent = transform.parent;
     }
 
+    protected virtual void Update()
+    {
+        if (!isReading || !clickPending) return;
+        clickPending = false;
+
+        // UI-Klicks ignorieren (jetzt mit aktuellem EventSystem-Stand)
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        if (Camera.main == null) return;
+
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            // Klick auf die Notiz selbst schließt sie nicht
+            if (hit.transform == transform || hit.transform.IsChildOf(transform))
+            {
+                return;
+            }
+        }
+
+        CloseNote();
+    }
+
     protected override void OnStateRestored()
     {
-        if (HasInteracted)
+        if (HasInteracted && interactionParticles != null)
         {
             interactionParticles.Stop();
         }
@@ -56,24 +83,24 @@ public class Note : InteractableObject
     {
         if (!isReading)
         {
-            interactionParticles.Stop();
+            if (interactionParticles != null) interactionParticles.Stop();
             OpenNote();
         }
     }
 
-    private void OpenNote()
+    public virtual void OpenNote()
     {
         isReading = true;
+        clickPending = false;
         GameStateManager.Instance.SetState(GameState.Inspect);
 
         Transform camTransform = Camera.main.transform;
         transform.SetParent(camTransform, true);
 
-        // zur kamera bewegen
         transform.DOKill();
         Vector3 targetLocalPos = new Vector3(0f, 0f, distanceInFront);
         transform.DOLocalMove(targetLocalPos, moveDuration).SetEase(Ease.OutCubic);
-        transform.DOLocalRotate(Vector3.zero, moveDuration).SetEase(Ease.OutCubic);
+        transform.DOLocalRotate(Vector3.zero, moveDuration).SetEase(Ease.OutCubic).OnComplete(OnOpenComplete);
 
         escapeAction.Enable();
         escapeAction.performed += OnEscapePressed;
@@ -81,28 +108,36 @@ public class Note : InteractableObject
         clickAction.performed += OnClickPressed;
     }
 
-    private void OnEscapePressed(InputAction.CallbackContext context)
+    protected virtual void OnOpenComplete()
+    {
+        // Standard-Notiz macht hier nichts weiter
+    }
+
+    protected virtual void OnEscapePressed(InputAction.CallbackContext context)
     {
         CloseNote();
     }
 
-    private void CloseNote()
+    public virtual void CloseNote()
     {
         if (!isReading) return;
         isReading = false;
+        clickPending = false;
 
         escapeAction.performed -= OnEscapePressed;
         escapeAction.Disable();
         clickAction.performed -= OnClickPressed;
         clickAction.Disable();
 
+        OnCloseStarted();
+
         transform.DOKill();
         transform.SetParent(originalParent, true);
         transform.DOLocalMove(originalLocalPosition, moveDuration).SetEase(Ease.OutCubic);
         transform.DOLocalRotateQuaternion(originalLocalRotation, moveDuration).SetEase(Ease.OutCubic);
-        DOVirtual.DelayedCall(0f, () =>
+
+        DOVirtual.DelayedCall(moveDuration, () =>
         {
-            //Erst im nächsten Frame den State zurücksetzen, damit die Note nicht direkt wieder geöffnet wird
             GameStateManager.Instance.SetState(GameState.Gameplay);
             if (!hasBeenRead && dialogueAfterLooking != null)
             {
@@ -113,20 +148,14 @@ public class Note : InteractableObject
         });
     }
 
-    private void OnClickPressed(InputAction.CallbackContext context)
+    protected virtual void OnCloseStarted()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        // Hook für Unterklassen
+    }
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            // Wenn wir direkt auf dieses Dokument geklickt haben, NICHT schließen
-            if (hit.transform == transform)
-            {
-                return;
-            }
-        }
-
-        // Ansonsten (ins Leere geklickt oder anderes Objekt): Schließen!
-        CloseNote();
+    protected virtual void OnClickPressed(InputAction.CallbackContext context)
+    {
+        // Nur vormerken – die Auswertung erfolgt im nächsten Update-Schritt
+        clickPending = true;
     }
 }

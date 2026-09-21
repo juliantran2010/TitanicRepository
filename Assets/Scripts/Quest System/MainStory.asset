@@ -81,3 +81,20 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+  - beatName: Inform Lightoller
+    isDisabled: 0
+    delayBeforeStart: 0
+    waitForSceneName: 
+    waitForQuestId: 
+    customEventName: mesaba_solved
+    dialogueToPlay:
+      inkJSON: {fileID: 0}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: inform_lightoller
+      description: Inform lightoller about the message
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
