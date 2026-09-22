@@ -1,0 +1,1 @@
+﻿{"inkVersion":21,"root":[["#","^complete_quest:order_game","/#","^Second_Officer_Lightoller: Exactly. Get the binoculars first, then take them to the lookouts. Hurry!","\n","#","^add_quest:goto_MailScene_mail:Go to the Mail room and get spare binoculars","/#",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

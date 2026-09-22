@@ -105,13 +105,13 @@ MonoBehaviour:
     waitForQuestId: 
     customEventName: order_game_solved
     dialogueToPlay:
-      inkJSON: {fileID: 0}
+      inkJSON: {fileID: 4900000, guid: a80080621ca89ab4fa9db6e1677621c8, type: 3}
       dialogueState: 
       startPath: 
     stateDuringDialogue: 3
     questToAssign:
-      id: goto_MailScene_mail
-      description: Go to the Mail room and get spare binoculars
+      id: 
+      description: 
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}

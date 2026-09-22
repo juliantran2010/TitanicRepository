@@ -8,7 +8,7 @@ VAR mesaba_solved = false
     Second_Officer_Lightoller: (looking at you) And you. I need every pair of hands. Take care of the lookout's eyes!
     Second_Officer_Lightoller: The bridge crew is occupied with steering.
     Second_Officer_Lightoller: Here are the current station orders. Pick out the tasks meant for YOU, put them in order, and get moving!
-    # add_quest:chart_table_minigame:Go to the chart table and pick your tasks in the correct order
+    # add_quest:order_game:Go to the chart table and pick your tasks in the correct order
 
 - else:
     // Fall 2: Spieler hat die Beweise noch nicht
