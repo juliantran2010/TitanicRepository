@@ -10,6 +10,17 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance { get; private set; }
     private Camera mainCamera;
     private bool canInteract = true;
+    private bool _shouldInteract = true;
+    public bool ShouldInteract
+    {
+        get => _shouldInteract;
+        set
+        {
+            _shouldInteract = value;
+            currentInteractable = null;
+            SetInteractionTarget(null);
+        }
+    }
 
     [Header("Einstellungen")]
     [SerializeField] private float interactionDistance = 3f;
@@ -92,7 +103,7 @@ public class InteractionManager : MonoBehaviour
 
     private void Update()
     {
-        if (!canInteract) return;
+        if (!canInteract || !ShouldInteract) return;
         CheckForInteractable();
     }
 
@@ -112,7 +123,7 @@ public class InteractionManager : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out InteractableObject interactable))
             {
-                if (interactable.CanInteract() || interactable.showLabelIfCannotInteract)
+                if ((interactable.CanInteract() && interactable.showLabel) || interactable.showLabelIfCannotInteract)
                 {
                     currentInteractable = interactable;
                     SetInteractionTarget(interactable);
@@ -217,6 +228,7 @@ public class InteractionManager : MonoBehaviour
                 iconSprite = talkIcon;
                 actionPrefix = "Talk to ";
                 break;
+            case InteractionType.Move:
             case InteractionType.Pickup:
                 iconSprite = pickupIcon;
                 actionPrefix = "Pick up ";

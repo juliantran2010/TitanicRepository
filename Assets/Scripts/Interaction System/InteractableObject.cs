@@ -59,8 +59,19 @@ public abstract class InteractableObject : MonoBehaviour
     public string UniqueInteractionLabel = "";
     public InteractionType UniqueInteractionType = InteractionType.Undefined;
     public abstract InteractionType Type { get; }
+
+    [SerializeField] private bool _showLabel = true;
+    public bool showLabel
+    {
+        get => _showLabel;
+        set
+        {
+            _showLabel = value;
+            SetPersistentStateValue("show_label", value);
+        }
+    }
     [SerializeField] public bool showLabelIfCannotInteract = false;
-    [SerializeField] protected bool isNotInteractable = false;
+    [SerializeField] private bool isNotInteractable = false;
 
     [Header("Optional: Camera Focus")]
     [SerializeField] protected Transform cameraFocusTarget;
@@ -78,6 +89,11 @@ public abstract class InteractableObject : MonoBehaviour
                 return false;
         }
         return true;
+    }
+    public void SetInteractability(bool isInteractable)
+    {
+        isNotInteractable = !isInteractable;
+        SetPersistentStateValue("is_not_interactable", isNotInteractable);
     }
 
 
@@ -166,6 +182,7 @@ public abstract class InteractableObject : MonoBehaviour
         {
             _localState = new Dictionary<string, object>(savedState);
             isNotInteractable = GetPersistentStateValue<bool>("is_not_interactable");
+            showLabel = GetPersistentStateValue<bool>("show_label");
             OnStateRestored();
         }
     }

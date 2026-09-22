@@ -60,11 +60,10 @@ public class IdentifiableObject : InteractableObject
 
     public void MarkAsCompleted()
     {
-        SetPersistentStateValue("is_not_interactable", true);
+        SetInteractability(true);
         if (!string.IsNullOrWhiteSpace(progessQuestId))
         {
             QuestManager.Instance.AddProgress(progessQuestId);
         }
-        isNotInteractable = true;
     }
 }

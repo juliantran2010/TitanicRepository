@@ -23,7 +23,6 @@ public class SnapPoint : MonoBehaviour
 
     private void Reset()
     {
-        // Wird automatisch beim Hinzufügen der Komponente ausgeführt
         col = GetComponent<BoxCollider>();
         if (col != null)
         {
@@ -40,13 +39,31 @@ public class SnapPoint : MonoBehaviour
 
     public bool CanAccept(MovableObject obj)
     {
-        if (IsOccupied) return false;
+        if (obj == null) return false;
+
+        // Wenn dasselbe Objekt bereits auf dem Slot liegt, nicht erneut akzeptieren
+        if (CurrentOccupant == obj) return false;
+
+        // Kategorie-Check
         if (string.IsNullOrEmpty(acceptedCategory)) return true;
         return obj.Category == acceptedCategory;
     }
 
     public void Place(MovableObject obj)
     {
+        if (obj == null) return;
+
+        // Wenn bereits ein Objekt platziert ist: altes Objekt aufnehmen
+        if (CurrentOccupant != null && CurrentOccupant != obj)
+        {
+            var previousOccupant = CurrentOccupant;
+            CurrentOccupant = null;
+            OnObjectRemoved?.Invoke(previousOccupant);
+
+            // Bisheriges Objekt direkt aufnehmen
+            previousOccupant.PickUp();
+        }
+
         CurrentOccupant = obj;
         OnObjectPlaced?.Invoke(obj);
     }
@@ -66,18 +83,15 @@ public class SnapPoint : MonoBehaviour
         if (col == null) col = GetComponent<BoxCollider>();
         if (col == null) return;
 
-        // Position und Rotation des Objekts für das Gizmo übernehmen
         Matrix4x4 oldMatrix = Gizmos.matrix;
         Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
 
-        // Zeichnet exakt die Collider-Form (Rot = belegt, Cyan = frei)
         Gizmos.color = IsOccupied ? new Color(1f, 0f, 0f, 0.6f) : new Color(0f, 1f, 1f, 0.6f);
         Gizmos.DrawWireCube(col.center, col.size);
 
-        // Ausrichtungs-Pfeile am Snap-Ziel
-        Gizmos.color = Color.blue; // Vorwärts
+        Gizmos.color = Color.blue;
         Gizmos.DrawRay(col.center, Vector3.forward * (col.size.z * 0.5f));
-        Gizmos.color = Color.green; // Oben
+        Gizmos.color = Color.green;
         Gizmos.DrawRay(col.center, Vector3.up * 0.05f);
 
         Gizmos.matrix = oldMatrix;

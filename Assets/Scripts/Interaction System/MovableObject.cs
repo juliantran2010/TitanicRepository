@@ -49,6 +49,13 @@ public class MovableObject : InteractableObject
     [Tooltip("Easing-Kurve für das Ablegen")]
     [SerializeField] private Ease dropEase = Ease.OutQuad;
 
+    [Header("Snap Settings")]
+    [Tooltip("Darf ein SnapPoint belegt werden, wenn dort bereits ein anderes Objekt liegt (Ersetzt/Tauscht das bisherige Objekt)?")]
+    [SerializeField] private bool allowDropOnOccupied = true;
+
+    [Tooltip("Zusätzlicher Höhenversatz beim Hovern über einem BEREITS BELEGTEN Slot")]
+    [SerializeField] private float occupiedHoverHeight = 0.04f;
+
     [Tooltip("Darf das Objekt NUR an SnapPoints abgelegt werden (kein freies Ablegen auf Böden/Tischen)?")]
     [SerializeField] private bool snapPointOnly = false;
 
@@ -61,6 +68,7 @@ public class MovableObject : InteractableObject
     private Rigidbody rb;
 
     // Gespeicherte Werte beim Aufheben
+    private Quaternion originalRotation;
     private Quaternion initialRotation;
     private float dynamicHoldDistance;
     private Tween currentDropTween;
@@ -71,6 +79,7 @@ public class MovableObject : InteractableObject
         mainCam = Camera.main;
         objCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        originalRotation = transform.rotation;
     }
 
     protected override void OnInteract()
@@ -94,6 +103,14 @@ public class MovableObject : InteractableObject
         }
     }
 
+    public void SetCollider(bool active)
+    {
+        if (objCollider != null)
+        {
+            objCollider.enabled = active;
+        }
+    }
+
     public virtual void PickUp()
     {
         if (currentDropTween != null && currentDropTween.IsActive())
@@ -106,7 +123,16 @@ public class MovableObject : InteractableObject
 
         if (mainCam == null) mainCam = Camera.main;
 
-        initialRotation = transform.rotation;
+        if (CurrentSnapPoint != null)
+        {
+            initialRotation = originalRotation;
+            CurrentSnapPoint.Release();
+            CurrentSnapPoint = null;
+        }
+        else
+        {
+            initialRotation = transform.rotation;
+        }
 
         if (mainCam != null)
         {
@@ -118,14 +144,31 @@ public class MovableObject : InteractableObject
             dynamicHoldDistance = 0.7f;
         }
 
-        if (CurrentSnapPoint != null)
-        {
-            CurrentSnapPoint.Release();
-            CurrentSnapPoint = null;
-        }
-
         if (rb != null) rb.isKinematic = true;
         if (objCollider != null) objCollider.enabled = false;
+        InteractionManager.Instance.ShouldInteract = false;
+    }
+
+    private SnapPoint FindTargetSnapPoint(RaycastHit[] hits, out RaycastHit snapHit)
+    {
+        snapHit = default;
+        foreach (var hit in hits)
+        {
+            if (hit.collider.TryGetComponent<SnapPoint>(out var point))
+            {
+                if (!point.CanAccept(this)) continue;
+
+                // Falls der Slot belegt ist, aber kein Ablegen auf belegte Slots erlaubt ist -> überspringen
+                if (!allowDropOnOccupied && point.IsOccupied && point.CurrentOccupant != this)
+                {
+                    continue;
+                }
+
+                snapHit = hit;
+                return point;
+            }
+        }
+        return null;
     }
 
     private void UpdateHeldPosition()
@@ -140,20 +183,37 @@ public class MovableObject : InteractableObject
         Vector3 targetPos;
         Quaternion targetRot = initialRotation;
 
-        bool hasHit = Physics.Raycast(ray, out RaycastHit hit, maxReachDistance, placementLayerMask);
+        RaycastHit[] hits = Physics.RaycastAll(ray, maxReachDistance, placementLayerMask);
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
-        if (hasHit && hit.collider.TryGetComponent<SnapPoint>(out var point) && point.CanAccept(this))
+        SnapPoint targetSnapPoint = FindTargetSnapPoint(hits, out RaycastHit snapHit);
+
+        if (targetSnapPoint != null)
         {
-            targetPos = point.TargetPosition;
-            targetRot = point.TargetRotation;
+            targetRot = targetSnapPoint.TargetRotation;
+
+            if (targetSnapPoint.IsOccupied && targetSnapPoint.CurrentOccupant != this)
+            {
+                Vector3 toCamera = (mainCam.transform.position - targetSnapPoint.TargetPosition).normalized;
+                targetPos = targetSnapPoint.TargetPosition + (toCamera * occupiedHoverHeight);
+            }
+            else
+            {
+                targetPos = targetSnapPoint.TargetPosition;
+            }
         }
         else
         {
             float targetDistance = dynamicHoldDistance;
 
-            if (hasHit && hit.distance < dynamicHoldDistance)
+            if (hits.Length > 0)
             {
-                targetDistance = Mathf.Max(hit.distance - surfaceOffset, minCameraDistance);
+                // Erster physischer Treffer (z. B. Tisch oder Wand)
+                RaycastHit firstHit = hits[0];
+                if (firstHit.distance < dynamicHoldDistance)
+                {
+                    targetDistance = Mathf.Max(firstHit.distance - surfaceOffset, minCameraDistance);
+                }
             }
 
             targetPos = ray.origin + ray.direction * targetDistance;
@@ -170,43 +230,43 @@ public class MovableObject : InteractableObject
 
         Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        if (Physics.Raycast(ray, out RaycastHit hit, maxReachDistance, placementLayerMask))
+        RaycastHit[] hits = Physics.RaycastAll(ray, maxReachDistance, placementLayerMask);
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        SnapPoint point = FindTargetSnapPoint(hits, out _);
+
+        // 1. Priorität: SnapPoint gefunden
+        if (point != null)
         {
-            // 1. Priorität: SnapPoint
-            if (hit.collider.TryGetComponent<SnapPoint>(out var point))
+            AnimateDrop(point.TargetPosition, point.TargetRotation, () =>
             {
-                if (!point.CanAccept(this)) return;
-
-                AnimateDrop(point.TargetPosition, point.TargetRotation, () =>
-                {
-                    SnapToPoint(point);
-                    FinishDrop();
-                });
-                return;
-            }
-
-            // 2. Freie Fläche (falls erlaubt)
-            if (snapPointOnly) return;
-
-            // Gesamten Abstand zur Zielfläche ermitteln (SurfaceOffset + konfigurierbares Padding)
-            float totalPadding = surfaceOffset + dropSurfacePadding;
-
-            if (autoCalculatePaddingFromCollider && objCollider != null)
-            {
-                // Projektion der Bounding-Box-Ausdehnung auf die Flächennormale
-                Vector3 extents = objCollider.bounds.extents;
-                float colliderExtentAlongNormal = Mathf.Abs(Vector3.Dot(extents, hit.normal));
-                totalPadding += colliderExtentAlongNormal;
-            }
-
-            Vector3 surfaceTargetPos = hit.point + (hit.normal * totalPadding);
-            Quaternion surfaceTargetRot = initialRotation;
-
-            AnimateDrop(surfaceTargetPos, surfaceTargetRot, () =>
-            {
+                SnapToPoint(point);
                 FinishDrop();
             });
+            return;
         }
+
+        // 2. Freie Fläche (falls erlaubt)
+        if (snapPointOnly || hits.Length == 0) return;
+
+        RaycastHit surfaceHit = hits[0];
+
+        float totalPadding = surfaceOffset + dropSurfacePadding;
+
+        if (autoCalculatePaddingFromCollider && objCollider != null)
+        {
+            Vector3 extents = objCollider.bounds.extents;
+            float colliderExtentAlongNormal = Mathf.Abs(Vector3.Dot(extents, surfaceHit.normal));
+            totalPadding += colliderExtentAlongNormal;
+        }
+
+        Vector3 surfaceTargetPos = surfaceHit.point + (surfaceHit.normal * totalPadding);
+        Quaternion surfaceTargetRot = initialRotation;
+
+        AnimateDrop(surfaceTargetPos, surfaceTargetRot, () =>
+        {
+            FinishDrop();
+        });
     }
 
     private void AnimateDrop(Vector3 targetPos, Quaternion targetRot, System.Action onComplete)
@@ -242,13 +302,12 @@ public class MovableObject : InteractableObject
 
         if (objCollider != null) objCollider.enabled = true;
         if (rb != null) rb.isKinematic = true;
+        InteractionManager.Instance.ShouldInteract = true;
 
-        // Position speichern
         SetPersistentStateValue("pos_x", transform.position.x);
         SetPersistentStateValue("pos_y", transform.position.y);
         SetPersistentStateValue("pos_z", transform.position.z);
 
-        // Rotation speichern
         SetPersistentStateValue("rot_x", transform.rotation.x);
         SetPersistentStateValue("rot_y", transform.rotation.y);
         SetPersistentStateValue("rot_z", transform.rotation.z);

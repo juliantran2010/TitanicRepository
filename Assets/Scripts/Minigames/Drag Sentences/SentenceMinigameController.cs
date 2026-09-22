@@ -37,7 +37,14 @@ public class SentenceMinigameController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
 
         submitButton.onClick.AddListener(OnSubmitClicked);

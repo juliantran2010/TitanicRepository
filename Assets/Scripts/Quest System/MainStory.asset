@@ -98,3 +98,20 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+  - beatName: Get Binoculars
+    isDisabled: 0
+    delayBeforeStart: 0
+    waitForSceneName: 
+    waitForQuestId: 
+    customEventName: order_game_solved
+    dialogueToPlay:
+      inkJSON: {fileID: 0}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: goto_MailScene_mail
+      description: Go to the Mail room and get spare binoculars
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
