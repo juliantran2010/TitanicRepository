@@ -444,6 +444,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541058655848431503, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4552958811328636775, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.64848
@@ -758,7 +774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2625167523389720759, guid: d1f41faffd6da1c4490a05e7d52be4b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.525
       objectReference: {fileID: 0}
     - target: {fileID: 2625167523389720759, guid: d1f41faffd6da1c4490a05e7d52be4b5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11163,14 +11179,15 @@ MonoBehaviour:
   uniqueID: 906f6604-e08c-4b9a-b825-8370cf589d83
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: tut_move
-  neccessaryVariablesSet: []
-  progessQuestId: 
+  necessaryVariablesSet: []
+  progressQuestId: 
   objectName: computer
   displayName: Computer
   UniqueInteractionLabel: 
   UniqueInteractionType: 3
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 166435463}
   dialogue:
     inkJSON: {fileID: 4900000, guid: 98ba00a5f1fd98c4ab31409f29440192, type: 3}

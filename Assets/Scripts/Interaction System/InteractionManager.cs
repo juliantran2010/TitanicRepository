@@ -123,7 +123,7 @@ public class InteractionManager : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out InteractableObject interactable))
             {
-                if ((interactable.CanInteract() && interactable.showLabel) || interactable.showLabelIfCannotInteract)
+                if ((interactable.CanInteract() && interactable.ShowLabel) || interactable.ShowLabelIfCannotInteract)
                 {
                     currentInteractable = interactable;
                     SetInteractionTarget(interactable);

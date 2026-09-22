@@ -46,10 +46,10 @@ public abstract class InteractableObject : MonoBehaviour
     protected float lastInteractionTime = -Mathf.Infinity;
     public bool InteractionIsOnCooldown => Time.time < lastInteractionTime + interactionCooldown;
     [SerializeField] protected string neccessaryQuestIdFinished;
-    [SerializeField] protected VariablesEntry[] neccessaryVariablesSet;
+    [SerializeField] protected VariablesEntry[] necessaryVariablesSet;
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
     public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
-    [SerializeField] protected string progessQuestId;
+    [SerializeField] protected string progressQuestId;
 
     [Header("Interaction UI")]
     [SerializeField] protected string objectName;
@@ -61,7 +61,7 @@ public abstract class InteractableObject : MonoBehaviour
     public abstract InteractionType Type { get; }
 
     [SerializeField] private bool _showLabel = true;
-    public bool showLabel
+    public bool ShowLabel
     {
         get => _showLabel;
         set
@@ -70,30 +70,37 @@ public abstract class InteractableObject : MonoBehaviour
             SetPersistentStateValue("show_label", value);
         }
     }
-    [SerializeField] public bool showLabelIfCannotInteract = false;
-    [SerializeField] private bool isNotInteractable = false;
+    [SerializeField] public bool ShowLabelIfCannotInteract = false;
+    [SerializeField] private bool _isInteractable = true;
+    public bool IsInteractable
+    {
+        get => _isInteractable;
+        set
+        {
+            _isInteractable = value;
+            SetPersistentStateValue("is_interactable", this._isInteractable);
+        }
+    }
 
     [Header("Optional: Camera Focus")]
     [SerializeField] protected Transform cameraFocusTarget;
 
     public bool CanInteract()
     {
-        if (isNotInteractable) return false;
+        if (!IsInteractable) return false;
         QuestManager questManager = QuestManager.Instance;
         if (!string.IsNullOrWhiteSpace(neccessaryQuestIdFinished) && !questManager.IsQuestCompleted(neccessaryQuestIdFinished.Trim()))
             return false;
         if (InteractionIsOnCooldown) return false;
-        foreach (VariablesEntry entry in neccessaryVariablesSet)
+        if (necessaryVariablesSet != null)
         {
-            if (!QuestManager.Instance.TryGetVariable(entry.name, out object val) || (bool)val != entry.value)
-                return false;
+            foreach (VariablesEntry entry in necessaryVariablesSet)
+            {
+                if (!QuestManager.Instance.TryGetVariable(entry.name, out object val) || (bool)val != entry.value)
+                    return false;
+            }
         }
         return true;
-    }
-    public void SetInteractability(bool isInteractable)
-    {
-        isNotInteractable = !isInteractable;
-        SetPersistentStateValue("is_not_interactable", isNotInteractable);
     }
 
 
@@ -181,8 +188,10 @@ public abstract class InteractableObject : MonoBehaviour
         if (savedState != null)
         {
             _localState = new Dictionary<string, object>(savedState);
-            isNotInteractable = GetPersistentStateValue<bool>("is_not_interactable");
-            showLabel = GetPersistentStateValue<bool>("show_label");
+            if (ContainsPersistentState("is_interactable"))
+                _isInteractable = GetPersistentStateValue<bool>("is_interactable");
+            if (ContainsPersistentState("show_label"))
+                _showLabel = GetPersistentStateValue<bool>("show_label");
             OnStateRestored();
         }
     }

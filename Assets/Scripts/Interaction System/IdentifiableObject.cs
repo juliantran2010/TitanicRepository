@@ -17,7 +17,7 @@ public class IdentifiableObject : InteractableObject
     {
         base.Start();
         displayName = "?";
-        if (QuestManager.Instance.IsQuestCompleted(progessQuestId))
+        if (QuestManager.Instance.IsQuestCompleted(progressQuestId))
         {
             MarkAsCompleted();
         }
@@ -26,7 +26,7 @@ public class IdentifiableObject : InteractableObject
 
     private void HandleQuestCompleted(string questId)
     {
-        if (questId == progessQuestId)
+        if (questId == progressQuestId)
         {
             MarkAsCompleted();
             QuestManager.Instance.OnQuestCompleted -= HandleQuestCompleted;
@@ -60,10 +60,10 @@ public class IdentifiableObject : InteractableObject
 
     public void MarkAsCompleted()
     {
-        SetInteractability(true);
-        if (!string.IsNullOrWhiteSpace(progessQuestId))
+        IsInteractable = false;
+        if (!string.IsNullOrWhiteSpace(progressQuestId))
         {
-            QuestManager.Instance.AddProgress(progessQuestId);
+            QuestManager.Instance.AddProgress(progressQuestId);
         }
     }
 }

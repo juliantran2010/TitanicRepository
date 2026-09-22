@@ -46,6 +46,6 @@ public class MesabaNote : Note
         // Spezifische Logik beim Lösen (z.B. Quest-Event, Sound)
         StoryDirector.Instance.TriggerEvent(TriggerOnCompletion);
         QuestManager.Instance.SetVariable(TriggerOnCompletion, true);
-        SetInteractability(true);
+        IsInteractable = false;
     }
 }

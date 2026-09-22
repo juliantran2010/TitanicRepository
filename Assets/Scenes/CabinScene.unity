@@ -282,14 +282,15 @@ MonoBehaviour:
   uniqueID: 68be72ca-a7f2-4e28-b342-6a69504f61e4
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: cabin_objects
-  neccessaryVariablesSet: []
-  progessQuestId: 
+  necessaryVariablesSet: []
+  progressQuestId: 
   objectName: door_cabin_staircase
   displayName: Grand Staircase
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: StaircaseScene
   targetSpawnPointID: cabin
@@ -7012,14 +7013,15 @@ MonoBehaviour:
   uniqueID: 359494ac-7d21-4a96-9adf-bb22cb3ed9a7
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: 
+  necessaryVariablesSet: []
+  progressQuestId: 
   objectName: bunkmate
   displayName: Bunkmate
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 1
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   dialogue:
     inkJSON: {fileID: 4900000, guid: 6c2774fbcb4932e438fcd1217d2be5ad, type: 3}
@@ -7240,14 +7242,15 @@ MonoBehaviour:
   uniqueID: db0e0073-7502-484a-998a-39cc24947034
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: washbasin
   alternativeWords: []
@@ -7603,14 +7606,15 @@ MonoBehaviour:
   uniqueID: 8839091a-45a9-4cd5-9a19-9d398859e42a
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: mirror
   alternativeWords: []
@@ -7680,14 +7684,15 @@ MonoBehaviour:
   uniqueID: 56f9d6be-8eb1-4d7b-8b39-97034ce492a8
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: lamp
   alternativeWords: []
@@ -8839,14 +8844,15 @@ MonoBehaviour:
   uniqueID: bfb9b0f5-ca13-4ab6-abbe-a269fb462195
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: tap
   alternativeWords: []
@@ -8979,14 +8985,15 @@ MonoBehaviour:
   uniqueID: 00ab4c62-afe7-4391-a69e-06a9a391f5ca
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: pillow
   alternativeWords: []
@@ -9692,14 +9699,15 @@ MonoBehaviour:
   uniqueID: 511e0c44-fd03-495e-8c6f-49ac7fb6504c
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: towel
   alternativeWords: []
@@ -9837,14 +9845,15 @@ MonoBehaviour:
   uniqueID: 1d506adb-d533-4dba-90d6-a9ee72456c40
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: blanket
   alternativeWords: []
@@ -9922,14 +9931,15 @@ MonoBehaviour:
   uniqueID: e0928b90-77c6-4460-9658-a59123d2dd0e
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  neccessaryVariablesSet: []
-  progessQuestId: cabin_objects
+  necessaryVariablesSet: []
+  progressQuestId: cabin_objects
   objectName: 
   displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
-  showLabelIfCannotInteract: 0
-  isNotInteractable: 0
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   correctWord: bed
   alternativeWords: []
