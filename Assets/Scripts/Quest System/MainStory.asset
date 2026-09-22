@@ -88,13 +88,13 @@ MonoBehaviour:
     waitForQuestId: 
     customEventName: mesaba_solved
     dialogueToPlay:
-      inkJSON: {fileID: 0}
+      inkJSON: {fileID: 4900000, guid: 9c6c06fda7a9e08459a4c9f056558666, type: 3}
       dialogueState: 
       startPath: 
     stateDuringDialogue: 3
     questToAssign:
-      id: inform_lightoller
-      description: Inform lightoller about the message
+      id: 
+      description: 
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}

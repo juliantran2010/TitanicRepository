@@ -28,7 +28,6 @@ public class MesabaMinigameManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float animDuration = 0.2f;
-    [SerializeField] private string TriggerOnCompletion = "mesaba_solved";
 
     // Dynamische Laufzeitdaten von der Note
     private List<MesabaGap> activeGaps = new List<MesabaGap>();
@@ -231,7 +230,6 @@ public class MesabaMinigameManager : MonoBehaviour
                 if (activeNote != null)
                 {
                     activeNote.CloseNote();
-                    StoryDirector.Instance.TriggerEvent(TriggerOnCompletion);
                 }
             });
         }

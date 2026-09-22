@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum InteractionType
 {
-    Dialogue, Pickup, Inspect, Use, Teleport, Read, None, Undefined
+    Dialogue, Pickup, Inspect, Use, Teleport, Read, None, Undefined, Move
 }
 public abstract class InteractableObject : MonoBehaviour
 {
@@ -125,6 +125,16 @@ public abstract class InteractableObject : MonoBehaviour
     protected virtual void OnCannotInteract(){}
 
     protected abstract void OnInteract();
+    protected bool ContainsPersistentState(params string[] keys)
+    {
+        bool containsKeys = true;
+        foreach (string key in keys)
+        {
+            if (!_localState.ContainsKey(key))
+                containsKeys = false;
+        }
+        return containsKeys;
+    }
     protected void SetPersistentStateValue<T>(string key, T value)
     {
         _localState[key] = value;

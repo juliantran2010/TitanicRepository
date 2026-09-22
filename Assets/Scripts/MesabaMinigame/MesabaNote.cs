@@ -8,6 +8,7 @@ public class MesabaNote : Note
     [Header("Minigame Elements")]
     [SerializeField] private Canvas noteWorldCanvas;
     [SerializeField] private List<MesabaGap> gaps = new List<MesabaGap>();
+    [SerializeField] private string TriggerOnCompletion = "mesaba_solved";
 
 
     protected override void OnOpenComplete()
@@ -43,5 +44,8 @@ public class MesabaNote : Note
     private void OnMinigameCompleted()
     {
         // Spezifische Logik beim Lösen (z.B. Quest-Event, Sound)
+        StoryDirector.Instance.TriggerEvent(TriggerOnCompletion);
+        QuestManager.Instance.SetVariable(TriggerOnCompletion, true);
+        isNotInteractable = true;
     }
 }
