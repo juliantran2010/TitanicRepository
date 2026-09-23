@@ -423,7 +423,7 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 5495153916286684049}
   TopClamp: 89
   BottomClamp: -89
-  InitialCameraPitch: 20
+  InitialCameraPitch: 0
 --- !u!114 &5099938626559630659
 MonoBehaviour:
   m_ObjectHideFlags: 0

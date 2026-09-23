@@ -8,6 +8,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Button continueButton;
     [SerializeField] private TextMeshProUGUI continueButtonText;
+    [SerializeField] private GameObject CompanionHologram;
 
     [Header("Choices UI")]
     [SerializeField] private Transform choicesContainer;
@@ -62,6 +64,7 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueBox.SetActive(false);
         continueButton.onClick.AddListener(ContinueDialogue);
+        CompanionHologram.SetActive(false);
     }
 
     public void StartDialogue(Dialogue dialogue, Action<Story> callbackDialogueEnd = null, Action<string> callbackInkTrigger = null)
@@ -148,6 +151,8 @@ public class DialogueManager : MonoBehaviour
         if (colonIndex > 0)
         {
             string potentialSpeaker = line.Substring(0, colonIndex).Trim();
+            bool showHologram = potentialSpeaker.ToLower() == "companion" && SceneManager.GetActiveScene().name != "ComputerScene";
+            CompanionHologram.SetActive(showHologram);
 
             // Sprecher-Namen haben normalerweise keine Leerzeichen (z. B. "Companion", "Old_Man")
             if (!potentialSpeaker.Contains(" "))
@@ -157,7 +162,7 @@ public class DialogueManager : MonoBehaviour
                     ? new Color32(92, 245, 155, 255)
                     : new Color32(80, 120, 225, 255);
 
-                textToDisplay = line.Substring(colonIndex + 1).Trim();
+                textToDisplay = line.Substring(colonIndex + 1).Trim();    
             }
             else
             {
@@ -169,6 +174,7 @@ public class DialogueManager : MonoBehaviour
         {
             nameText.text = "";
             textToDisplay = line.Trim();
+            CompanionHologram.SetActive(false);
         }
 
         //Leere Zeilen überspringen (z.B. wenn in einer Zeile nur ein # trigger steht)
