@@ -98,7 +98,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
-  - beatName: Get Binoculars
+  - beatName: Go to the Mail room
     isDisabled: 0
     delayBeforeStart: 0
     waitForSceneName: 

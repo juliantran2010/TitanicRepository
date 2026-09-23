@@ -24,9 +24,8 @@ public class OpenableObject : InteractableObject
     public UnityEvent OnOpened;
     public UnityEvent OnClosed;
 
-    protected override void Start()
+    private void Awake()
     {
-        base.Start();
         startPos = transform.localPosition;
         startRot = transform.localEulerAngles;
     }
