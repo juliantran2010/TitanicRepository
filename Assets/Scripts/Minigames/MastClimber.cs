@@ -96,6 +96,7 @@ public class MastClimber : InteractableObject
 
         lockedClimbPosition = EvaluateStepTransform(0).pos;
         playerTransform.position = lockedClimbPosition;
+        TimingRingQTE.Instance.BeginQTESession();
 
         TriggerNextQTE();
     }
@@ -125,6 +126,7 @@ public class MastClimber : InteractableObject
         IsClimbingActive = false;
         TimingRingQTE.Instance?.CancelQTE();
         StopAllCoroutines();
+        TimingRingQTE.Instance.EndQTESession();
 
         if (keepLockedAtTop)
         {

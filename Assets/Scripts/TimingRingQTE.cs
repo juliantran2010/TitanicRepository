@@ -26,23 +26,28 @@ public class TimingRingQTE : MonoBehaviour
     [Header("Visuelles Feedback")]
     [SerializeField] private Color initialTextColor;
     [SerializeField] private Color normalColor = Color.white;
-    [SerializeField] private Color hitZoneColor = new Color(1f, 0.92f, 0.016f); // Gelb: Jetzt drücken!
+    [SerializeField] private Color hitZoneColor = new Color(1f, 0.92f, 0.016f); // Gelb
     [SerializeField] private Color successColor = new Color(0.2f, 1f, 0.3f);    // Grün
     [SerializeField] private Color failColor = new Color(1f, 0.25f, 0.25f);     // Rot
     [SerializeField] private float feedbackDuration = 0.2f;
 
-    [Header("Direkte UI Referenzen")]
-    [SerializeField] private GameObject rootContainer;
+    [Header("Container & UI")]
+    [Tooltip("Das ganz übergeordnete Overlay (bleibt während der gesamten Kletter-Session aktiv)")]
+    [SerializeField] private GameObject mainOverlayObject;
+
+    [Tooltip("Unterobjekt, das NUR die Ringe und Tasten-Prompt enthält (geht pro Stufe an/aus)")]
+    [SerializeField] private GameObject ringContainer;
+
+    [Header("Ring Referenzen")]
     [SerializeField] private RectTransform shrinkingRing;
     [SerializeField] private RectTransform targetZoneCircle;
     [SerializeField] private TextMeshProUGUI keyPromptText;
 
     [Header("State")]
-    public bool IsRunning { get; private set; }
-    public float CurrentProgress { get; private set; } // 1.0 -> 0.0
+    public bool IsPromptRunning { get; private set; }
+    public float CurrentProgress { get; private set; }
     public Key CurrentKey { get; private set; }
 
-    // Actions für den Climber oder andere Systeme
     public Action OnSuccess;
     public Action OnFailed;
 
@@ -50,6 +55,7 @@ public class TimingRingQTE : MonoBehaviour
     private Image shrinkingRingImage;
     private Coroutine feedbackCoroutine;
     private bool isInHitWindow = false;
+    private Vector3 initialRingContainerLocalPos;
 
     private void Awake()
     {
@@ -60,34 +66,41 @@ public class TimingRingQTE : MonoBehaviour
         }
         Instance = this;
 
+        if (ringContainer != null)
+        {
+            initialRingContainerLocalPos = ringContainer.transform.localPosition;
+            ringContainer.SetActive(false);
+        }
+
         if (shrinkingRing != null)
         {
             shrinkingRingImage = shrinkingRing.GetComponent<Image>();
         }
 
-        if (rootContainer != null)
+        if (keyPromptText != null)
         {
-            rootContainer.SetActive(false);
+            initialTextColor = keyPromptText.color;
         }
 
-        initialTextColor = keyPromptText.color;
+        if (mainOverlayObject != null)
+        {
+            mainOverlayObject.SetActive(false);
+        }
     }
 
     private void Update()
     {
-        if (!IsRunning) return;
+        if (!IsPromptRunning) return;
 
         timer -= Time.deltaTime;
         CurrentProgress = Mathf.Clamp01(timer / duration);
 
-        // Ring schrumpfen lassen (Original-Formel unverändert)
         if (shrinkingRing != null)
         {
             float currentScale = Mathf.Lerp(0f, maxRingScale, CurrentProgress);
             shrinkingRing.localScale = new Vector3(currentScale, currentScale, 1f);
         }
 
-        // Visueller Hinweis: Befindet man sich gerade im Zielfenster?
         bool insideNow = CurrentProgress <= targetWindowStart && CurrentProgress >= targetWindowEnd;
         if (insideNow != isInHitWindow)
         {
@@ -98,7 +111,6 @@ public class TimingRingQTE : MonoBehaviour
             }
         }
 
-        // Tasteneingabe über das neue Input System abfragen
         var keyboard = Keyboard.current;
         if (keyboard != null && keyboard.anyKey.wasPressedThisFrame)
         {
@@ -108,37 +120,66 @@ public class TimingRingQTE : MonoBehaviour
             {
                 if (insideNow)
                 {
-                    EndQTE(true);
+                    EndPrompt(true);
                 }
                 else
                 {
-                    EndQTE(false); // Zu früh oder zu spät
+                    EndPrompt(false);
                 }
             }
             else
             {
-                EndQTE(false); // Falsche Taste gedrückt
+                EndPrompt(false);
             }
             return;
         }
 
-        // Zeit abgelaufen
         if (timer <= 0f)
         {
-            EndQTE(false);
+            EndPrompt(false);
         }
     }
+
+    // --- SESSION CONTROL ---
+
+    public void BeginQTESession()
+    {
+        if (mainOverlayObject != null)
+        {
+            mainOverlayObject.SetActive(true);
+        }
+        if (ringContainer != null)
+        {
+            ringContainer.SetActive(false);
+        }
+    }
+
+    public void EndQTESession()
+    {
+        if (feedbackCoroutine != null) StopCoroutine(feedbackCoroutine);
+        IsPromptRunning = false;
+
+        if (ringContainer != null) ringContainer.SetActive(false);
+        if (mainOverlayObject != null) mainOverlayObject.SetActive(false);
+    }
+
+    // --- PROMPT CONTROL ---
 
     public void StartQTE(Key keyToPress, float customDuration = -1f)
     {
         if (feedbackCoroutine != null) StopCoroutine(feedbackCoroutine);
+
+        if (mainOverlayObject != null && !mainOverlayObject.activeSelf)
+        {
+            mainOverlayObject.SetActive(true);
+        }
 
         CurrentKey = keyToPress;
         duration = customDuration > 0 ? customDuration : duration;
         timer = duration;
         CurrentProgress = 1f;
         isInHitWindow = false;
-        IsRunning = true;
+        IsPromptRunning = true;
 
         if (shrinkingRingImage != null)
         {
@@ -151,30 +192,27 @@ public class TimingRingQTE : MonoBehaviour
             keyPromptText.color = initialTextColor;
         }
 
-        // Original-Skalierung des Zielkreises beibehalten
         if (targetZoneCircle != null)
         {
             float targetScale = Mathf.Lerp(0f, maxRingScale, (targetWindowStart + targetWindowEnd) * 0.5f);
             targetZoneCircle.localScale = new Vector3(targetScale, targetScale, 1f);
         }
 
-        if (rootContainer != null)
+        if (ringContainer != null)
         {
-            rootContainer.transform.localPosition = Vector3.zero;
-            rootContainer.SetActive(true);
+            ringContainer.transform.localPosition = initialRingContainerLocalPos;
+            ringContainer.SetActive(true);
         }
     }
 
     public void CancelQTE()
     {
-        if (feedbackCoroutine != null) StopCoroutine(feedbackCoroutine);
-        IsRunning = false;
-        if (rootContainer != null) rootContainer.SetActive(false);
+        EndQTESession();
     }
 
-    private void EndQTE(bool success)
+    private void EndPrompt(bool success)
     {
-        IsRunning = false;
+        IsPromptRunning = false;
         feedbackCoroutine = StartCoroutine(ShowFeedbackAndFinish(success));
     }
 
@@ -186,7 +224,7 @@ public class TimingRingQTE : MonoBehaviour
         if (keyPromptText != null) keyPromptText.color = outcomeColor;
 
         Vector3 startScale = shrinkingRing != null ? shrinkingRing.localScale : Vector3.one;
-        Vector3 basePos = rootContainer != null ? rootContainer.transform.localPosition : Vector3.zero;
+        Vector3 basePos = ringContainer != null ? initialRingContainerLocalPos : Vector3.zero;
 
         float elapsed = 0f;
         while (elapsed < feedbackDuration)
@@ -196,7 +234,6 @@ public class TimingRingQTE : MonoBehaviour
 
             if (success)
             {
-                // Kurzer Erfolgs-Pulse (leicht aufspringen)
                 if (shrinkingRing != null)
                 {
                     float bump = 1f + Mathf.Sin(t * Mathf.PI) * 0.18f;
@@ -205,21 +242,20 @@ public class TimingRingQTE : MonoBehaviour
             }
             else
             {
-                // Schütteln bei Fehlversuch
-                if (rootContainer != null)
+                if (ringContainer != null)
                 {
                     float shake = Mathf.Sin(elapsed * 55f) * 10f * (1f - t);
-                    rootContainer.transform.localPosition = basePos + new Vector3(shake, 0f, 0f);
+                    ringContainer.transform.localPosition = basePos + new Vector3(shake, 0f, 0f);
                 }
             }
 
             yield return null;
         }
 
-        if (rootContainer != null)
+        if (ringContainer != null)
         {
-            rootContainer.transform.localPosition = basePos;
-            rootContainer.SetActive(false);
+            ringContainer.transform.localPosition = initialRingContainerLocalPos;
+            ringContainer.SetActive(false);
         }
 
         if (success)
