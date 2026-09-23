@@ -36,7 +36,11 @@ public class TimingRingQTE : MonoBehaviour
     [SerializeField] private GameObject mainOverlayObject;
 
     [Tooltip("Unterobjekt, das NUR die Ringe und Tasten-Prompt enthält (geht pro Stufe an/aus)")]
-    [SerializeField] private GameObject ringContainer;
+    [SerializeField] private RectTransform ringContainer;
+
+    [Header("Screen Offset")]
+    [Tooltip("Optionaler Pixelversatz auf dem Bildschirm (z. B. 0, 20)")]
+    [SerializeField] private Vector2 screenPixelOffset = Vector2.zero;
 
     [Header("Ring Referenzen")]
     [SerializeField] private RectTransform shrinkingRing;
@@ -55,7 +59,9 @@ public class TimingRingQTE : MonoBehaviour
     private Image shrinkingRingImage;
     private Coroutine feedbackCoroutine;
     private bool isInHitWindow = false;
-    private Vector3 initialRingContainerLocalPos;
+
+    // Welt-Positionierung
+    private Vector3? targetWorldPos = null;
 
     private void Awake()
     {
@@ -68,8 +74,7 @@ public class TimingRingQTE : MonoBehaviour
 
         if (ringContainer != null)
         {
-            initialRingContainerLocalPos = ringContainer.transform.localPosition;
-            ringContainer.SetActive(false);
+            ringContainer.gameObject.SetActive(false);
         }
 
         if (shrinkingRing != null)
@@ -118,14 +123,7 @@ public class TimingRingQTE : MonoBehaviour
 
             if (targetControl != null && targetControl.wasPressedThisFrame)
             {
-                if (insideNow)
-                {
-                    EndPrompt(true);
-                }
-                else
-                {
-                    EndPrompt(false);
-                }
+                EndPrompt(insideNow);
             }
             else
             {
@@ -140,6 +138,27 @@ public class TimingRingQTE : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (!targetWorldPos.HasValue || ringContainer == null) return;
+
+        // clampToScreen = true, padding = 60f (damit der Ring nicht am Rand abgeschnitten wird)
+        bool isVisible = InteractionManager.PositionUIToWorld(
+            targetWorldPos.Value,
+            ringContainer,
+            screenPixelOffset,
+            null,
+            clampToScreen: true,
+            screenPadding: 60f
+        );
+
+        bool shouldBeActive = isVisible && (IsPromptRunning || feedbackCoroutine != null);
+        if (ringContainer.gameObject.activeSelf != shouldBeActive)
+        {
+            ringContainer.gameObject.SetActive(shouldBeActive);
+        }
+    }
+
     // --- SESSION CONTROL ---
 
     public void BeginQTESession()
@@ -150,24 +169,58 @@ public class TimingRingQTE : MonoBehaviour
         }
         if (ringContainer != null)
         {
-            ringContainer.SetActive(false);
+            ringContainer.gameObject.SetActive(false);
         }
     }
 
     public void EndQTESession()
     {
         if (feedbackCoroutine != null) StopCoroutine(feedbackCoroutine);
+        feedbackCoroutine = null;
         IsPromptRunning = false;
+        targetWorldPos = null;
 
-        if (ringContainer != null) ringContainer.SetActive(false);
+        if (ringContainer != null) ringContainer.gameObject.SetActive(false);
         if (mainOverlayObject != null) mainOverlayObject.SetActive(false);
     }
 
     // --- PROMPT CONTROL ---
 
+    /// <summary>
+    /// Startet das QTE an einer konkreten 3D-Weltposition (z. B. Leitersprosse).
+    /// </summary>
+    public void StartQTE(Key keyToPress, Vector3 worldPosition, float customDuration = -1f)
+    {
+        Debug.Log($"[TimingRingQTE] StartQTE aufgerufen für Taste {keyToPress} an Pos {worldPosition}!");
+        targetWorldPos = worldPosition;
+        SetupAndRunPrompt(keyToPress, customDuration);
+
+        // Position direkt im ersten Frame setzen
+        if (ringContainer != null)
+        {
+            bool isVisible = InteractionManager.PositionUIToWorld(worldPosition, ringContainer, screenPixelOffset, clampToScreen: true);
+            ringContainer.gameObject.SetActive(isVisible);
+        }
+    }
+
+    /// <summary>
+    /// Fallback: Startet das QTE ohne Weltpositionierung (bleibt an fester Bildschirm-Position).
+    /// </summary>
     public void StartQTE(Key keyToPress, float customDuration = -1f)
     {
+        targetWorldPos = null;
+        SetupAndRunPrompt(keyToPress, customDuration);
+
+        if (ringContainer != null)
+        {
+            ringContainer.gameObject.SetActive(true);
+        }
+    }
+
+    private void SetupAndRunPrompt(Key keyToPress, float customDuration)
+    {
         if (feedbackCoroutine != null) StopCoroutine(feedbackCoroutine);
+        feedbackCoroutine = null;
 
         if (mainOverlayObject != null && !mainOverlayObject.activeSelf)
         {
@@ -197,12 +250,6 @@ public class TimingRingQTE : MonoBehaviour
             float targetScale = Mathf.Lerp(0f, maxRingScale, (targetWindowStart + targetWindowEnd) * 0.5f);
             targetZoneCircle.localScale = new Vector3(targetScale, targetScale, 1f);
         }
-
-        if (ringContainer != null)
-        {
-            ringContainer.transform.localPosition = initialRingContainerLocalPos;
-            ringContainer.SetActive(true);
-        }
     }
 
     public void CancelQTE()
@@ -224,7 +271,6 @@ public class TimingRingQTE : MonoBehaviour
         if (keyPromptText != null) keyPromptText.color = outcomeColor;
 
         Vector3 startScale = shrinkingRing != null ? shrinkingRing.localScale : Vector3.one;
-        Vector3 basePos = ringContainer != null ? initialRingContainerLocalPos : Vector3.zero;
 
         float elapsed = 0f;
         while (elapsed < feedbackDuration)
@@ -242,20 +288,28 @@ public class TimingRingQTE : MonoBehaviour
             }
             else
             {
-                if (ringContainer != null)
+                // Schüttelt den inneren Text/Ring minimal, ohne die Weltprojektion des Containers zu zerschießen
+                if (keyPromptText != null)
                 {
-                    float shake = Mathf.Sin(elapsed * 55f) * 10f * (1f - t);
-                    ringContainer.transform.localPosition = basePos + new Vector3(shake, 0f, 0f);
+                    float shake = Mathf.Sin(elapsed * 55f) * 8f * (1f - t);
+                    keyPromptText.rectTransform.localPosition = new Vector3(shake, 0f, 0f);
                 }
             }
 
             yield return null;
         }
 
+        if (keyPromptText != null)
+        {
+            keyPromptText.rectTransform.localPosition = Vector3.zero;
+        }
+
+        targetWorldPos = null;
+        feedbackCoroutine = null;
+
         if (ringContainer != null)
         {
-            ringContainer.transform.localPosition = initialRingContainerLocalPos;
-            ringContainer.SetActive(false);
+            ringContainer.gameObject.SetActive(false);
         }
 
         if (success)

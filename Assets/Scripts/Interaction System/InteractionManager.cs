@@ -176,26 +176,8 @@ public class InteractionManager : MonoBehaviour
             smoothedWorldPos = Vector3.Lerp(smoothedWorldPos, rawTargetPos, Time.deltaTime * smoothSpeed);
         }
 
-        // 3. Sofortige Projektion auf den Screen (Kameradrehungen greifen ohne jeden Verzug!)
-        Vector3 screenPos = mainCamera.WorldToScreenPoint(smoothedWorldPos);
-
-        if (screenPos.z > 0)
-        {
-            screenPos.z = 0f;
-
-            RectTransform parentRect = promptContainer.parent as RectTransform;
-            Canvas rootCanvas = promptContainer.GetComponentInParent<Canvas>();
-
-            if (parentRect != null && rootCanvas != null)
-            {
-                Camera uiCamera = rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : rootCanvas.worldCamera;
-
-                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPos, uiCamera, out Vector2 localPoint))
-                {
-                    promptContainer.localPosition = localPoint + screenPixelOffset;
-                }
-            }
-        }
+        // 3. Aufruf der statischen Funktion
+        PositionUIToWorld(smoothedWorldPos, promptContainer, screenPixelOffset, mainCamera);
     }
 
     private void SetInteractionTarget(InteractableObject interactable)
@@ -244,7 +226,7 @@ public class InteractionManager : MonoBehaviour
             case InteractionType.Open:
                 OpenableObject obj = interactable as OpenableObject;
                 iconSprite = useIcon;
-                actionPrefix = obj.IsOpened ? "Close " : "Open ";
+                actionPrefix = (obj != null && obj.IsOpened) ? "Close " : "Open ";
                 break;
             case InteractionType.Teleport:
                 iconSprite = teleportIcon;
@@ -268,5 +250,111 @@ public class InteractionManager : MonoBehaviour
                 ? interactable.UniqueInteractionLabel
                 : actionPrefix + objectName;
         }
+    }
+
+    /// <summary>
+    /// Projiziert eine 3D-Weltposition auf ein UI-Element im Canvas.
+    /// Funktioniert sowohl mit Screen Space - Overlay als auch mit Screen Space - Camera.
+    /// </summary>
+    /// <param name="worldPosition">Die Position im 3D-Raum</param>
+    /// <param name="targetUI">Das RectTransform, das positioniert werden soll</param>
+    /// <param name="pixelOffset">Optionaler Versatz in Pixeln</param>
+    /// <param name="camOverride">Optionale Kamera</param>
+    /// <param name="clampToScreen">Wenn true, bleibt das Element am Bildschirmrand kleben, statt zu verschwinden</param>
+    /// <param name="screenPadding">Randabstand in Pixeln beim Klemmen (z. B. 40f für Ring-Größe)</param>
+    /// <returns>True, wenn das UI gezeichnet werden konnte; False bei Fehlern.</returns>
+    public static bool PositionUIToWorld(
+        Vector3 worldPosition,
+        RectTransform targetUI,
+        Vector2 pixelOffset = default,
+        Camera camOverride = null,
+        bool clampToScreen = false,
+        float screenPadding = 40f)
+    {
+        if (targetUI == null)
+        {
+            Debug.LogError("[PositionUIToWorld] targetUI ist NULL!");
+            return false;
+        }
+
+        Camera cam = camOverride != null ? camOverride : (Instance != null && Instance.mainCamera != null ? Instance.mainCamera : Camera.main);
+        if (cam == null)
+        {
+            Debug.LogError("[PositionUIToWorld] Keine Kamera gefunden! (Camera.main ist null)");
+            return false;
+        }
+
+        // 1. Projektion
+        Vector3 screenPos = cam.WorldToScreenPoint(worldPosition);
+        bool isBehindCamera = screenPos.z <= 0.05f;
+
+        // Liegt der Punkt hinter der Kamera?
+        if (isBehindCamera)
+        {
+            if (!clampToScreen)
+            {
+                return false;
+            }
+
+            // Wenn hinter der Kamera: Richtung spiegeln, damit er an die passende Kante wandert
+            screenPos.x = Screen.width - screenPos.x;
+            screenPos.y = Screen.height - screenPos.y;
+        }
+
+        // 2. Am Bildschirmrand festklemmen (Clamping)
+        if (clampToScreen)
+        {
+            // Zentrieren zur Bildschirmmitte für saubere Projektion bei invertierten Vektoren
+            Vector2 screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+            Vector2 fromCenter = (Vector2)screenPos - screenCenter;
+
+            if (isBehindCamera)
+            {
+                // Bei Punkten hinter der Kamera schieben wir den Vektor bewusst über den Bildrand hinaus
+                fromCenter = -fromCenter.normalized * Mathf.Max(Screen.width, Screen.height);
+                screenPos = screenCenter + fromCenter;
+            }
+
+            // Auf sichtbare Bildschirmgrenzen begrenzen
+            screenPos.x = Mathf.Clamp(screenPos.x, screenPadding, Screen.width - screenPadding);
+            screenPos.y = Mathf.Clamp(screenPos.y, screenPadding, Screen.height - screenPadding);
+        }
+        else
+        {
+            // Ohne Clamping: Prüfen ob außerhalb des regulären Sichtfelds
+            if (screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height)
+            {
+                return false;
+            }
+        }
+
+        // Z für ScreenPointToLocalPoint auf 0 setzen
+        screenPos.z = 0f;
+
+        // 3. Parent & Canvas Validierung
+        RectTransform parentRect = targetUI.parent as RectTransform;
+        if (parentRect == null)
+        {
+            Debug.LogError($"[PositionUIToWorld] FEHLSCHLAG: Parent von {targetUI.name} ist KEIN RectTransform!");
+            return false;
+        }
+
+        Canvas rootCanvas = targetUI.GetComponentInParent<Canvas>();
+        if (rootCanvas == null)
+        {
+            Debug.LogError($"[PositionUIToWorld] FEHLSCHLAG: Kein Canvas über {targetUI.name} gefunden!");
+            return false;
+        }
+
+        // 4. UI-Kamera & Umrechnung in lokale Koordinaten
+        Camera uiCamera = rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : rootCanvas.worldCamera;
+
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPos, uiCamera, out Vector2 localPoint))
+        {
+            targetUI.localPosition = localPoint + pixelOffset;
+            return true;
+        }
+
+        return false;
     }
 }

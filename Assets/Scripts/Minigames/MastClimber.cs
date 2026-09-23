@@ -31,6 +31,12 @@ public class MastClimber : InteractableObject
     [SerializeField] private Key[] stepKeys = { Key.Q, Key.E };
     [SerializeField] private Key finalStepKey = Key.Space;
 
+    [Header("QTE World-Position Offset")]
+    [Tooltip("Abstand von der Leitersprosse nach vorne in Blickrichtung der Leiter (z. B. 0.45m vor dem Mast)")]
+    [SerializeField] private float rungForwardOffset = 0.45f;
+    [Tooltip("Zusätzliche Höhe der Sprosse (z. B. 0.2m leicht nach oben versetzt)")]
+    [SerializeField] private float rungHeightOffset = 0.2f;
+
     [Header("Events")]
     public UnityEvent<int, int> onStepChanged;
     public UnityEvent onClimbCompleted;
@@ -103,7 +109,6 @@ public class MastClimber : InteractableObject
 
     private void Update()
     {
-        // Inputs blockieren, solange geklettert wird ODER man oben fest verankert ist
         if ((IsClimbingActive || isLockedAtTop) && starterInputs != null)
         {
             starterInputs.move = Vector2.zero;
@@ -114,7 +119,6 @@ public class MastClimber : InteractableObject
 
     private void LateUpdate()
     {
-        // Fixiert die Position, solange man klettert ODER oben arretiert ist
         if ((IsClimbingActive || isLockedAtTop) && !IsMoving && playerTransform != null)
         {
             playerTransform.position = lockedClimbPosition;
@@ -126,18 +130,16 @@ public class MastClimber : InteractableObject
         IsClimbingActive = false;
         TimingRingQTE.Instance?.CancelQTE();
         StopAllCoroutines();
-        TimingRingQTE.Instance.EndQTESession();
+        TimingRingQTE.Instance?.EndQTESession();
 
         if (keepLockedAtTop)
         {
-            // Oben arretiert lassen (nur Umschauen bleibt aktiv)
             isLockedAtTop = true;
         }
         else
         {
             isLockedAtTop = false;
 
-            // Optional: Auf festen Boden im Korb versetzen
             if (topDismountPoint != null)
             {
                 if (charController != null) charController.enabled = false;
@@ -147,9 +149,6 @@ public class MastClimber : InteractableObject
         }
     }
 
-    /// <summary>
-    /// Falls du den Spieler später über ein Event oder Script wieder freigeben möchtest (z.B. Leiter wieder runterklettern)
-    /// </summary>
     public void UnlockPlayerFromTop()
     {
         isLockedAtTop = false;
@@ -180,10 +179,8 @@ public class MastClimber : InteractableObject
     {
         if (IsMoving) return;
 
-        // Wenn man bereits auf der untersten Sprosse (Stufe 0) ist:
         if (CurrentStep <= 0)
         {
-            // Kein Rückschritt möglich, aber die QTE-Schleife muss weiterlaufen!
             if (IsClimbingActive)
             {
                 TriggerNextQTE();
@@ -237,7 +234,25 @@ public class MastClimber : InteractableObject
             keyIndex++;
         }
 
-        TimingRingQTE.Instance.StartQTE(nextKey);
+        // 1. Hole genau den aktuellen Schritt (wo der Spieler gerade steht)
+        var stepData = EvaluateStepTransform(CurrentStep);
+        Vector3 stepFeetPos = stepData.pos;
+        Quaternion stepRot = stepData.rot;
+
+        // 2. Q links, E rechts
+        float lateralOffset = (nextKey == Key.Q) ? -0.18f : (nextKey == Key.E ? 0.18f : 0f);
+
+        // 3. Fester Weltpunkt:
+        // - Start bei den Füßen der aktuellen Stufe (stepFeetPos)
+        // - rungHeightOffset nach oben (zur Brust-/Griffhöhe)
+        // - rungForwardOffset nach vorne in den Mast
+        // - lateralOffset zur Seite
+        Vector3 rungWorldPos = stepFeetPos
+                             + (Vector3.up * rungHeightOffset)
+                             + (stepRot * Vector3.forward * rungForwardOffset)
+                             + (stepRot * Vector3.right * lateralOffset);
+
+        TimingRingQTE.Instance.StartQTE(nextKey, rungWorldPos);
     }
 
     private (Vector3 pos, Quaternion rot) EvaluateStepTransform(int step)

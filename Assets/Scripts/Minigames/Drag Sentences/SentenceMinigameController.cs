@@ -44,7 +44,6 @@ public class SentenceMinigameController : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
 
         submitButton.onClick.AddListener(OnSubmitClicked);
