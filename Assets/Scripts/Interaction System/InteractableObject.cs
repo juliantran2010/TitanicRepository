@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum InteractionType
 {
-    Dialogue, Pickup, Inspect, Use, Teleport, Read, None, Undefined, Move
+    Dialogue, Pickup, Inspect, Use, Teleport, Read, None, Undefined, Move, Open
 }
 public abstract class InteractableObject : MonoBehaviour
 {

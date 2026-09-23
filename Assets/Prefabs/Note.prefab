@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 125746668548857253}
   - component: {fileID: 5854172595972954124}
   - component: {fileID: 6984747316638286112}
-  - component: {fileID: 6818376776572110186}
+  - component: {fileID: 6886101823973048731}
   m_Layer: 0
   m_Name: Note
   m_TagString: Untagged
@@ -218,7 +218,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99999994, y: 1, z: 6.1232336e-17}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6818376776572110186
+--- !u!114 &6886101823973048731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,21 +227,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1583585002844007101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb07375d43b53a547b5822b76afa513b, type: 3}
+  m_Script: {fileID: 11500000, guid: 13d830c3bd27bc347a6e77f1586bdd30, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Paper
+  m_EditorClassIdentifier: Assembly-CSharp::InspectableObject
   uniqueID: 
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  necessaryVariablesSet: []
+  progressQuestId: 
   objectName: 
   displayName: Note
-  noteDisplay: {fileID: 6808044086919241347}
-  noteText: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-    no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-    amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-    sanctus est Lorem ipsum dolor sit amet.
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
+  cameraFocusTarget: {fileID: 0}
+  dialogueAfterLooking:
+    inkJSON: {fileID: 0}
+    dialogueState: 
+    startPath: 
   distanceInFront: 0.5
   moveDuration: 0.4
   interactionParticles: {fileID: 4101131334229751725}
@@ -351,7 +356,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -414,7 +419,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -856,7 +861,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -0.01
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2491,7 +2496,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2594,7 +2599,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 0
+    inWorldSpace: 1
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
@@ -5146,7 +5151,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: '<u>Tom''s Note</u>
+
+
+    Tom,
+
+
+    I''ve moved the lookout''s binoculars
+    somewhere safe.
+
+
+    First find the cupboard near the door. Look for a small
+    wooden box. Inside, you''ll find another clue.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5168,7 +5184,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 93368250
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

@@ -241,6 +241,11 @@ public class InteractionManager : MonoBehaviour
                 iconSprite = useIcon;
                 actionPrefix = "Use ";
                 break;
+            case InteractionType.Open:
+                OpenableObject obj = interactable as OpenableObject;
+                iconSprite = useIcon;
+                actionPrefix = obj.IsOpened ? "Close " : "Open ";
+                break;
             case InteractionType.Teleport:
                 iconSprite = teleportIcon;
                 actionPrefix = "Go to ";

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MesabaNote : Note
+public class MesabaNote : InspectableObject
 {
     public override string DisplayName => "Mesaba Message";
 

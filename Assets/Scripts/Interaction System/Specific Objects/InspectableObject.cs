@@ -4,20 +4,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class Note : InteractableObject
+public class InspectableObject : InteractableObject
 {
-    public override string DisplayName => "Note";
-    public override InteractionType Type => InteractionType.Read;
+    public override InteractionType Type => InteractionType.Inspect;
 
-    [SerializeField] private Dialogue dialogueAfterLooking;
-    [SerializeField] private TextMeshProUGUI noteDisplay;
-    [TextArea(5, 10)]
-    [SerializeField] private string noteText;
 
     [Header("Inspect Settings")]
+    [SerializeField] private Dialogue dialogueAfterLooking;
     [SerializeField] private float distanceInFront = 0.5f;
     [SerializeField] private float moveDuration = 0.4f;
     [SerializeField] private ParticleSystem interactionParticles;
+    [SerializeField] private bool showParticles = true;
 
     protected InputAction escapeAction;
     protected InputAction clickAction;
@@ -25,20 +22,19 @@ public class Note : InteractableObject
     protected Vector3 originalLocalPosition;
     protected Quaternion originalLocalRotation;
     protected Transform originalParent;
-    protected bool hasBeenRead = false;
-
+    protected bool hasBeenInspected = false;
     private bool clickPending = false;
 
     protected virtual void Awake()
     {
         escapeAction = new InputAction(type: InputActionType.Button, binding: "<Keyboard>/escape");
         clickAction = new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
+        ToggleParticles(showParticles);
     }
 
     protected override void Start()
     {
         base.Start();
-        if (noteDisplay != null) noteDisplay.text = noteText;
         originalLocalPosition = transform.localPosition;
         originalLocalRotation = transform.localRotation;
         originalParent = transform.parent;
@@ -76,7 +72,7 @@ public class Note : InteractableObject
         {
             interactionParticles.Stop();
         }
-        hasBeenRead = GetPersistentStateValue("has_been_read", false);
+        hasBeenInspected = GetPersistentStateValue("has_been_inspected", false);
     }
 
     protected override void OnInteract()
@@ -86,6 +82,13 @@ public class Note : InteractableObject
             if (interactionParticles != null) interactionParticles.Stop();
             OpenNote();
         }
+    }
+
+    public void ToggleParticles(bool active)
+    {
+        if (interactionParticles == null) return;
+        var emission = interactionParticles.emission;
+        emission.enabled = active;
     }
 
     public virtual void OpenNote()
@@ -139,12 +142,12 @@ public class Note : InteractableObject
         DOVirtual.DelayedCall(moveDuration, () =>
         {
             GameStateManager.Instance.SetState(GameState.Gameplay);
-            if (!hasBeenRead && dialogueAfterLooking != null)
+            if (!hasBeenInspected && dialogueAfterLooking != null)
             {
                 DialogueManager.Instance.StartDialogue(dialogueAfterLooking);
             }
-            hasBeenRead = true;
-            SetPersistentStateValue("has_been_read", true);
+            hasBeenInspected = true;
+            SetPersistentStateValue("has_been_inspected", true);
         });
     }
 

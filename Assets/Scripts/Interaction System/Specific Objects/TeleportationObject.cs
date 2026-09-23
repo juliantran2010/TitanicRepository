@@ -2,7 +2,7 @@ using GLTFast.Schema;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Door : InteractableObject
+public class TeleportationObject : InteractableObject
 {
     [Header("Teleportation")]
     [SerializeField] private string targetSceneName;
