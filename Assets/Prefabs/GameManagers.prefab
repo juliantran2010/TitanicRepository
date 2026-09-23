@@ -3216,6 +3216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4552958811328636775}
+  - component: {fileID: 1893759410042328511}
   - component: {fileID: 190665989819812245}
   - component: {fileID: 7223974231866926330}
   - component: {fileID: 865114603761420498}
@@ -3226,7 +3227,6 @@ GameObject:
   - component: {fileID: 8110802278284289392}
   - component: {fileID: 1667200244886104845}
   - component: {fileID: 2079228998441771803}
-  - component: {fileID: 1893759410042328511}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -3251,6 +3251,19 @@ Transform:
   - {fileID: 5042388746068915821}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1893759410042328511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447482488667911103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bed73faa98e7949a383cd7f2621507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CompanionHologramSpawner
+  hologramRigPrefab: {fileID: 1348998837426107415, guid: 2d6491713c73a814cb53950e6f9d5f54, type: 3}
 --- !u!114 &190665989819812245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3300,6 +3313,7 @@ MonoBehaviour:
   dialogueText: {fileID: 5081415018348097076}
   continueButton: {fileID: 2540889714293040196}
   continueButtonText: {fileID: 8453681842607677189}
+  CompanionHologram: {fileID: 6902913497890613784}
   choicesContainer: {fileID: 8131496056336757726}
   choiceButtonPrefab: {fileID: 7648149739211646591, guid: 70550b6687695aa4db63f8ff5f41063d, type: 3}
   choicesScrollRect: {fileID: 9222466092371971815}
@@ -3431,19 +3445,6 @@ MonoBehaviour:
   activeScript: {fileID: 11400000, guid: 6fa70067fcb7f9442a3b3f6f33c6d59f, type: 2}
   startAtIndex: 0
   ignoreConditionsOnStart: 0
---- !u!114 &1893759410042328511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3447482488667911103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bed73faa98e7949a383cd7f2621507, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CompanionHologramSpawner
-  hologramRigPrefab: {fileID: 1348998837426107415, guid: 2d6491713c73a814cb53950e6f9d5f54, type: 3}
 --- !u!1 &3720623156106152789
 GameObject:
   m_ObjectHideFlags: 0

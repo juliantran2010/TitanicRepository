@@ -75377,6 +75377,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6837722442933922718, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -193260,6 +193280,8 @@ GameObject:
   - component: {fileID: 3685345626711917238}
   - component: {fileID: 3197864111817339686}
   - component: {fileID: 3551415604061002009}
+  - component: {fileID: 4534592632796649568}
+  - component: {fileID: 4534592632796649567}
   m_Layer: 0
   m_Name: cabinet_door_03
   m_TagString: Untagged
@@ -193267,6 +193289,64 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4534592632796649567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534592632796649566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07455648291bc5b4eadc941952d681ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenableObject
+  uniqueID: a96e5f7d-d3ba-4eac-a951-ba39d2d52ca8
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  necessaryVariablesSet: []
+  progressQuestId: 
+  objectName: 
+  displayName: Cupboard Door
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
+  cameraFocusTarget: {fileID: 0}
+  moveBy: {x: 0, y: 0, z: 0}
+  rotateBy: {x: 0, y: 155, z: 0}
+  duration: 0.5
+  ease: 7
+  showGizmo: 1
+  gizmoColor: {r: 0, g: 1, b: 0.5, a: 0.6}
+  OnOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClosed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &4534592632796649568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534592632796649566}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4056491, y: 0.50701797, z: 0.033188216}
+  m_Center: {x: -0.19776477, y: -3.3502668e-22, z: 0.0013495832}
 --- !u!137 &4539808532918616918
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -216154,6 +216234,8 @@ GameObject:
   - component: {fileID: 7897688999394983006}
   - component: {fileID: 770479406794454053}
   - component: {fileID: 1268011454391237129}
+  - component: {fileID: 7897688999394983007}
+  - component: {fileID: 7897688999394983008}
   m_Layer: 0
   m_Name: cabinet_door_01
   m_TagString: Untagged
@@ -217860,6 +217942,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4449718980240460525}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7897688999394983007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069023969387220036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07455648291bc5b4eadc941952d681ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenableObject
+  uniqueID: eda75d59-9d66-4b1e-bfdd-9e351ef29ef7
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  necessaryVariablesSet: []
+  progressQuestId: 
+  objectName: 
+  displayName: Cupboard Door
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
+  cameraFocusTarget: {fileID: 0}
+  moveBy: {x: 0, y: 0, z: 0}
+  rotateBy: {x: 0, y: 155, z: 0}
+  duration: 0.5
+  ease: 7
+  showGizmo: 1
+  gizmoColor: {r: 0, g: 1, b: 0.5, a: 0.6}
+  OnOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClosed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &7897688999394983008
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069023969387220036}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.40590355, y: 0.9209688, z: 0.03327868}
+  m_Center: {x: -0.1978793, y: 0.0000001937151, z: 0.0013549811}
 --- !u!137 &7905530708456959438
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -218195,6 +218335,8 @@ GameObject:
   - component: {fileID: 5066760693136831646}
   - component: {fileID: 1085309272718832605}
   - component: {fileID: 7404107194898290363}
+  - component: {fileID: 8079070657543500420}
+  - component: {fileID: 8079070657543500419}
   m_Layer: 0
   m_Name: cabinet_door_04
   m_TagString: Untagged
@@ -218202,6 +218344,64 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &8079070657543500419
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079070657543500418}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.42051578, y: 0.50702393, z: 0.033188447}
+  m_Center: {x: 0.2052836, y: -0.000000014901161, z: 0.0013498118}
+--- !u!114 &8079070657543500420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079070657543500418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07455648291bc5b4eadc941952d681ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenableObject
+  uniqueID: f3c70124-ce29-4715-b821-3177fd2c7ae2
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  necessaryVariablesSet: []
+  progressQuestId: 
+  objectName: 
+  displayName: Cupboard Door
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
+  cameraFocusTarget: {fileID: 0}
+  moveBy: {x: 0, y: 0, z: 0}
+  rotateBy: {x: 0, y: -155, z: 0}
+  duration: 0.5
+  ease: 7
+  showGizmo: 1
+  gizmoColor: {r: 0, g: 1, b: 0.5, a: 0.6}
+  OnOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &8089561153832093630
 Transform:
   m_ObjectHideFlags: 0
@@ -220369,6 +220569,10 @@ PrefabInstance:
       propertyPath: showParticles
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: _isInteractable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -220765,6 +220969,8 @@ GameObject:
   - component: {fileID: 3978682030084919313}
   - component: {fileID: 7299114070735764030}
   - component: {fileID: 1003169347458715455}
+  - component: {fileID: 9140534998673231167}
+  - component: {fileID: 9140534998673231168}
   m_Layer: 0
   m_Name: cabinet_drawer_01
   m_TagString: Untagged
@@ -220772,6 +220978,64 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &9140534998673231167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140534998673231166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07455648291bc5b4eadc941952d681ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenableObject
+  uniqueID: 3f7d9355-360d-4ba9-9ee6-8f5d60cbe91e
+  interactionCooldown: 0.5
+  neccessaryQuestIdFinished: 
+  necessaryVariablesSet: []
+  progressQuestId: 
+  objectName: 
+  displayName: Cupoard Drawer
+  UniqueInteractionLabel: 
+  UniqueInteractionType: 7
+  _showLabel: 1
+  ShowLabelIfCannotInteract: 0
+  _isInteractable: 1
+  cameraFocusTarget: {fileID: 0}
+  moveBy: {x: 0, y: 0, z: 0.3}
+  rotateBy: {x: 0, y: 0, z: 0}
+  duration: 0.5
+  ease: 7
+  showGizmo: 1
+  gizmoColor: {r: 0, g: 1, b: 0.5, a: 0.6}
+  OnOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClosed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &9140534998673231168
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140534998673231166}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3847984, y: 0.1155957, z: 0.4411605}
+  m_Center: {x: 2.8675995e-15, y: 0, z: -0.20178942}
 --- !u!4 &9154507980601068467
 Transform:
   m_ObjectHideFlags: 0
@@ -220889,12 +221153,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8983389427772531350}
+        m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
+        m_MethodName: set_IsInteractable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnClosed:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8983389427772531350}
         m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
         m_MethodName: ToggleParticles
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8983389427772531350}
+        m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
+        m_MethodName: set_IsInteractable
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
