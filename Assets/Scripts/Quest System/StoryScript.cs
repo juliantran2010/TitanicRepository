@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public abstract class StoryAction : ScriptableObject
+{
+    public abstract void Execute();
+}
+
 [Serializable]
 public class StoryBeat
 {
@@ -23,6 +28,12 @@ public class StoryBeat
     public GameState stateDuringDialogue = GameState.Dialogue;
     public Quest questToAssign;
     public string questToComplete;
+    [Header("Spezielle Logik / Szenen-Aktionen")]
+    [Tooltip("Feuert ein Event in der Szene, z. B. 'give_binoculars' oder 'lookout_look_ahead'")]
+    public string triggerToFire;
+
+    [Tooltip("Modulare Aktionen, die keine Szenenreferenz brauchen (z. B. GiveItem, PlaySound)")]
+    public List<StoryAction> customActions = new List<StoryAction>();
 }
 
 [CreateAssetMenu(fileName = "NewStoryScript", menuName = "Story/Story Script")]

@@ -31,6 +31,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: 
+    triggerToFire: 
+    customActions: []
   - beatName: Cabin Find Objects
     isDisabled: 0
     delayBeforeStart: 0
@@ -49,6 +51,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: 
+    triggerToFire: 
+    customActions: []
   - beatName: Objects Found
     isDisabled: 0
     delayBeforeStart: 0
@@ -67,6 +71,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: 
+    triggerToFire: 
+    customActions: []
   - beatName: Go to Marconi Room
     isDisabled: 0
     delayBeforeStart: 5
@@ -85,6 +91,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: 
+    triggerToFire: 
+    customActions: []
   - beatName: Inform Lightoller
     isDisabled: 0
     delayBeforeStart: 0
@@ -103,6 +111,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: 
+    triggerToFire: 
+    customActions: []
   - beatName: Go to the Mail room
     isDisabled: 0
     delayBeforeStart: 0
@@ -121,6 +131,8 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: 
+    triggerToFire: 
+    customActions: []
   - beatName: Talk to Frederic Fleet
     isDisabled: 0
     delayBeforeStart: 0
@@ -139,3 +151,25 @@ MonoBehaviour:
       currentProgress: 0
       questEntryObject: {fileID: 0}
     questToComplete: climb_lookout
+    triggerToFire: 
+    customActions: []
+  - beatName: Give Binoculars
+    isDisabled: 0
+    delayBeforeStart: 0
+    waitForSceneName: 
+    waitForQuestId: 
+    customEventName: give_binoculars
+    dialogueToPlay:
+      inkJSON: {fileID: 0}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: 
+      description: 
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
+    questToComplete: 
+    triggerToFire: 
+    customActions: []

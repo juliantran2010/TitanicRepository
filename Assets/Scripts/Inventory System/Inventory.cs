@@ -21,6 +21,14 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        foreach(PickupObject item in items)
+        {
+            OnItemAdded?.Invoke(item.ObjectName);
+        }
+    }
+
     public bool AddItem(PickupObject item)
     {
         items.Add(item);
@@ -29,20 +37,21 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void RemoveItem(string itemName)
+    public void RemoveItem(string itemName, bool destoryObject = true)
     {
         var itemToRemove = items.FirstOrDefault(i => i.ObjectName == itemName);
         if (itemToRemove != null)
         {
-            RemoveItem(itemToRemove);
+            RemoveItem(itemToRemove, destoryObject);
         }
     }
-    public void RemoveItem(PickupObject item)
+    public void RemoveItem(PickupObject item, bool destoryObject = true)
     {
         if (items.Remove(item))
         {
+            if (destoryObject)
+                Destroy(item.gameObject);
             OnItemRemoved?.Invoke(item.ObjectName);
-            Destroy(item.gameObject);
             OnInventoryChanged?.Invoke(); // UI aktualisieren
         }
     }

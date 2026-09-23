@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
     public bool IsPaused => isPaused;
     private string pendingLine = null;
     private readonly Queue<string> pendingTags = new Queue<string>();
+    public string waitingForTriggerToFinish;
 
     private void Awake()
     {
@@ -232,7 +233,7 @@ public class DialogueManager : MonoBehaviour
                 if (parts.Length >= 3 && parts[2].Trim().ToLower() == "pause")
                 {
                     Debug.Log("[DialogueManager] Sofortige Pause angefordert.");
-                    PauseDialogue();
+                    PauseDialogue(triggerName);
                 }
                 break;
 
@@ -336,10 +337,11 @@ public class DialogueManager : MonoBehaviour
         callbackOnDialogueEnd?.Invoke(currentStory);
     }
 
-    public void PauseDialogue()
+    public void PauseDialogue(string triggerToFinish = "")
     {
         Debug.Log("[DialogueManager] PauseDialogue aufgerufen -> Box wird deaktiviert.");
         isPaused = true;
+        waitingForTriggerToFinish = triggerToFinish;
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         isTyping = false;
         DialogueBox.SetActive(false);
