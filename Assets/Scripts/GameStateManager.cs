@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum GameState
 {
-    Intro, Gameplay, Inspect, Dialogue, PauseMenu, Loading, Minigame
+    Intro, Gameplay, Inspect, Dialogue, PauseMenu, Loading, Minigame, CameraTour
 }
 public class GameStateManager : MonoBehaviour
 {

@@ -292,6 +292,25 @@ public class DialogueManager : MonoBehaviour
                 GameSceneManager.Instance.ChangeScene(sceneName, spawnPointID);
                 break;
 
+            case "cam" when parts.Length >= 2:
+                string tourName = parts[1].Trim();
+                if (tourName == "stop")
+                {
+                    CameraTourManager.Instance.StopTour();
+                    break;
+                }
+
+                if (parts.Length >= 3)
+                {
+                    string waypointIndex = parts[2].Trim();
+                    if (int.TryParse(waypointIndex, out int index))
+                    {
+                        CameraTourManager.Instance.MoveToWaypoint(tourName, index, () => ResumeDialogue());
+                        PauseDialogue(showDialogueBox: true);
+                    }
+                }
+                break;
+
             default:
                 Debug.LogWarning($"Unbekannter Tag-Befehl: {command}");
                 break;
@@ -343,14 +362,14 @@ public class DialogueManager : MonoBehaviour
         callbackOnDialogueEnd?.Invoke(currentStory);
     }
 
-    public void PauseDialogue(string triggerToFinish = "")
+    public void PauseDialogue(string triggerToFinish = "", bool showDialogueBox = false)
     {
         Debug.Log("[DialogueManager] PauseDialogue aufgerufen -> Box wird deaktiviert.");
         isPaused = true;
         waitingForTriggerToFinish = triggerToFinish;
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         isTyping = false;
-        DialogueBox.SetActive(false);
+        DialogueBox.SetActive(showDialogueBox);
     }
 
     public void ResumeDialogue()
