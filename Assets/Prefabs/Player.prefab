@@ -404,6 +404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementLocked: 0
+  AllowLookWhenLocked: 1
   MoveSpeed: 2
   SprintSpeed: 4
   RotationSpeed: 1
@@ -580,8 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e154f634923f3f447bce090cefe20772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  items:
-  - {fileID: 0}
+  items: []
 --- !u!114 &1695371638177689189
 MonoBehaviour:
   m_ObjectHideFlags: 0

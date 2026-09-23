@@ -439,6 +439,7 @@ public class DialogueManager : MonoBehaviour
                 try
                 {
                     story.variablesState[varName] = value;
+                    Debug.Log(varName + " = " + value);
                 }
                 catch (System.Exception ex)
                 {

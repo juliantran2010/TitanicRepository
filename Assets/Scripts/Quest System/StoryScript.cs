@@ -22,6 +22,7 @@ public class StoryBeat
     public Dialogue dialogueToPlay;
     public GameState stateDuringDialogue = GameState.Dialogue;
     public Quest questToAssign;
+    public string questToComplete;
 }
 
 [CreateAssetMenu(fileName = "NewStoryScript", menuName = "Story/Story Script")]

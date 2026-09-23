@@ -17,9 +17,13 @@ public class InteractionManager : MonoBehaviour
         set
         {
             _shouldInteract = value;
-            currentInteractable = null;
-            SetInteractionTarget(null);
+            ResetInteractionOverlay();
         }
+    }
+    public void ResetInteractionOverlay()
+    {
+        currentInteractable = null;
+        SetInteractionTarget(null);
     }
 
     [Header("Einstellungen")]
@@ -92,7 +96,7 @@ public class InteractionManager : MonoBehaviour
         canInteract = newState == GameState.Gameplay;
         if (!canInteract)
         {
-            SetInteractionTarget(null);
+            ResetInteractionOverlay();
         }
 
         if (centerCrosshair != null)
@@ -138,8 +142,7 @@ public class InteractionManager : MonoBehaviour
             }
         }
 
-        currentInteractable = null;
-        SetInteractionTarget(null);
+        ResetInteractionOverlay();
     }
 
     private void UpdatePromptPosition()

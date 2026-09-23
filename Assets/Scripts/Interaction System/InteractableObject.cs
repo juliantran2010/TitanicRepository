@@ -79,6 +79,8 @@ public abstract class InteractableObject : MonoBehaviour
         {
             _isInteractable = value;
             SetPersistentStateValue("is_interactable", this._isInteractable);
+            if (InteractionManager.Instance != null)
+                InteractionManager.Instance.ResetInteractionOverlay();
         }
     }
 

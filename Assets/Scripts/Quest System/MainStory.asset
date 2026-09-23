@@ -30,6 +30,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+    questToComplete: 
   - beatName: Cabin Find Objects
     isDisabled: 0
     delayBeforeStart: 0
@@ -47,6 +48,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+    questToComplete: 
   - beatName: Objects Found
     isDisabled: 0
     delayBeforeStart: 0
@@ -64,6 +66,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+    questToComplete: 
   - beatName: Go to Marconi Room
     isDisabled: 0
     delayBeforeStart: 5
@@ -81,6 +84,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+    questToComplete: 
   - beatName: Inform Lightoller
     isDisabled: 0
     delayBeforeStart: 0
@@ -98,6 +102,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+    questToComplete: 
   - beatName: Go to the Mail room
     isDisabled: 0
     delayBeforeStart: 0
@@ -115,3 +120,22 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
+    questToComplete: 
+  - beatName: Talk to Frederic Fleet
+    isDisabled: 0
+    delayBeforeStart: 0
+    waitForSceneName: 
+    waitForQuestId: 
+    customEventName: lookout_climbed
+    dialogueToPlay:
+      inkJSON: {fileID: 0}
+      dialogueState: 
+      startPath: 
+    stateDuringDialogue: 3
+    questToAssign:
+      id: 
+      description: 
+      targetProgress: -1
+      currentProgress: 0
+      questEntryObject: {fileID: 0}
+    questToComplete: climb_lookout

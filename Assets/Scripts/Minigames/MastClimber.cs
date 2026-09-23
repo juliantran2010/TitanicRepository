@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.Events;
@@ -50,7 +51,6 @@ public class MastClimber : InteractableObject
 
     private FirstPersonController fpsController;
     private CharacterController charController;
-    private StarterAssetsInputs starterInputs;
 
     private Vector3 lockedClimbPosition;
     private bool isLockedAtTop = false;
@@ -98,28 +98,30 @@ public class MastClimber : InteractableObject
 
         fpsController = playerTransform.GetComponent<FirstPersonController>();
         charController = playerTransform.GetComponent<CharacterController>();
-        starterInputs = playerTransform.GetComponent<StarterAssetsInputs>();
+
+        // 1. Controller & Schwerkraft-Physik komplett stummschalten
+        if (fpsController != null)
+        {
+            fpsController.SetMovementLocked(true, allowLook: true);
+        }
+
+        // 2. CharacterController abschalten, damit direkte Positionsänderungen nicht blockieren/jittern
+        if (charController != null)
+        {
+            charController.enabled = false;
+        }
 
         lockedClimbPosition = EvaluateStepTransform(0).pos;
-        playerTransform.position = lockedClimbPosition;
-        TimingRingQTE.Instance.BeginQTESession();
+        playerTransform.DOMove(lockedClimbPosition, stepDuration);
 
+        TimingRingQTE.Instance?.BeginQTESession();
         TriggerNextQTE();
-    }
-
-    private void Update()
-    {
-        if ((IsClimbingActive || isLockedAtTop) && starterInputs != null)
-        {
-            starterInputs.move = Vector2.zero;
-            starterInputs.jump = false;
-            starterInputs.sprint = false;
-        }
     }
 
     private void LateUpdate()
     {
-        if ((IsClimbingActive || isLockedAtTop) && !IsMoving && playerTransform != null)
+        // Nur solange wir oben eingerastet stehen und uns nicht flüssig auf einer Sprosse bewegen
+        if (isLockedAtTop && playerTransform != null)
         {
             playerTransform.position = lockedClimbPosition;
         }
@@ -135,23 +137,38 @@ public class MastClimber : InteractableObject
         if (keepLockedAtTop)
         {
             isLockedAtTop = true;
+            // Mausblick bleibt an, Bewegung bleibt gesperrt
+            if (fpsController != null)
+            {
+                fpsController.SetMovementLocked(true, allowLook: true);
+            }
         }
         else
         {
-            isLockedAtTop = false;
-
-            if (topDismountPoint != null)
-            {
-                if (charController != null) charController.enabled = false;
-                playerTransform.position = topDismountPoint.position;
-                if (charController != null) charController.enabled = true;
-            }
+            UnlockPlayerFromTop();
         }
     }
 
     public void UnlockPlayerFromTop()
     {
         isLockedAtTop = false;
+
+        if (topDismountPoint != null && playerTransform != null)
+        {
+            playerTransform.position = topDismountPoint.position;
+            playerTransform.rotation = topDismountPoint.rotation;
+        }
+
+        // CharacterController und normale Bewegung wieder reaktivieren
+        if (charController != null)
+        {
+            charController.enabled = true;
+        }
+
+        if (fpsController != null)
+        {
+            fpsController.SetMovementLocked(false, allowLook: true);
+        }
     }
 
     public void TakeStepForward()
@@ -167,6 +184,7 @@ public class MastClimber : InteractableObject
             {
                 StopClimbing();
                 onClimbCompleted?.Invoke();
+                StoryDirector.Instance.TriggerEvent("lookout_climbed");
             }
             else if (IsClimbingActive)
             {
@@ -234,19 +252,12 @@ public class MastClimber : InteractableObject
             keyIndex++;
         }
 
-        // 1. Hole genau den aktuellen Schritt (wo der Spieler gerade steht)
         var stepData = EvaluateStepTransform(CurrentStep);
         Vector3 stepFeetPos = stepData.pos;
         Quaternion stepRot = stepData.rot;
 
-        // 2. Q links, E rechts
-        float lateralOffset = (nextKey == Key.Q) ? -0.18f : (nextKey == Key.E ? 0.18f : 0f);
+        float lateralOffset = (nextKey == Key.Q) ? -0.1f : (nextKey == Key.E ? 0.1f : 0f);
 
-        // 3. Fester Weltpunkt:
-        // - Start bei den Füßen der aktuellen Stufe (stepFeetPos)
-        // - rungHeightOffset nach oben (zur Brust-/Griffhöhe)
-        // - rungForwardOffset nach vorne in den Mast
-        // - lateralOffset zur Seite
         Vector3 rungWorldPos = stepFeetPos
                              + (Vector3.up * rungHeightOffset)
                              + (stepRot * Vector3.forward * rungForwardOffset)

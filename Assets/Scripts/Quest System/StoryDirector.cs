@@ -195,6 +195,11 @@ public class StoryDirector : MonoBehaviour
 
         Debug.Log($"[StoryDirector] Alle Bedingungen erfuellt. Starte Aktionen fuer Beat: '{beat.beatName}'");
 
+        if (!string.IsNullOrEmpty(beat.questToComplete))
+        {
+            QuestManager.Instance.CompleteQuest(beat.questToComplete);
+        }
+
         if (!beat.dialogueToPlay.IsEmpty())
         {
             GameStateManager.Instance?.SetState(beat.stateDuringDialogue);

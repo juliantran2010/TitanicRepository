@@ -46,9 +46,9 @@ public class QuestManager : MonoBehaviour
     public Action<string> OnQuestCompleted;
 
     // Speichert aktive Quests mit einer ID/Titel
-    private readonly Dictionary<string, Quest> activeQuests = new Dictionary<string, Quest>();
-    private readonly List<string> completedQuests = new List<string>();
-    private readonly Dictionary<string, object> globalVariables = new Dictionary<string, object>();
+    [SerializeField] private readonly Dictionary<string, Quest> activeQuests = new Dictionary<string, Quest>();
+    [SerializeField] private readonly List<string> completedQuests = new List<string>();
+    [SerializeField] private readonly Dictionary<string, object> globalVariables = new Dictionary<string, object>();
 
     private void Awake()
     {
@@ -67,7 +67,7 @@ public class QuestManager : MonoBehaviour
         if (Inventory.Instance != null)
         {
             Inventory.Instance.OnItemAdded += HandleItemAdded;
-            Inventory.Instance.OnItemAdded += HandleItemRemoved;
+            Inventory.Instance.OnItemRemoved += HandleItemRemoved;
         }
         if (GameSceneManager.Instance != null)
         {
