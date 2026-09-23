@@ -1,4 +1,4 @@
-<color=\#F4D06F><b>Acquired: [Naval Binoculars]</b></color>
+<color=\#F4D06F><b>Acquired: [Binoculars]</b></color>
 
 Companion: You've got the binoculars!
 Companion: Now take them to the Crow's Nest. The lookouts need them. Hurry!

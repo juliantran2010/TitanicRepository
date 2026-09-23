@@ -2370,7 +2370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2582783001720540416
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3222,7 +3222,6 @@ GameObject:
   - component: {fileID: 7395153134687208322}
   - component: {fileID: 3801596232306072326}
   - component: {fileID: 4506080811275305254}
-  - component: {fileID: 7234680643877256501}
   - component: {fileID: 2599536739403416728}
   - component: {fileID: 8110802278284289392}
   - component: {fileID: 1667200244886104845}
@@ -3306,6 +3305,7 @@ MonoBehaviour:
   typingSpeed: 0.025
   commaPause: 0.12
   punctuationPause: 0.35
+  waitingForTriggerToFinish: 
 --- !u!114 &7395153134687208322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3359,30 +3359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cd1f3d6ffe42a449173e7f80fe3493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
---- !u!114 &7234680643877256501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3447482488667911103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 984b6403ab36e5541955ac18c88e2cb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BinocularController
-  playerCamera: {fileID: 0}
-  overlayCanvas: {fileID: 7329935530648408998}
-  normalFOV: 60
-  zoomFOV: 15
-  icebergLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  requiredLookDuration: 1.5
-  dialogueAfterIcebergFound:
-    inkJSON: {fileID: 4900000, guid: 3909923fd58ab414ca237d51a9f67611, type: 3}
-    dialogueState: 
-    startPath: 
 --- !u!114 &2599536739403416728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3452,7 +3428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryDirector
   activeScript: {fileID: 11400000, guid: 6fa70067fcb7f9442a3b3f6f33c6d59f, type: 2}
-  startAtIndex: 6
+  startAtIndex: 0
   ignoreConditionsOnStart: 0
 --- !u!1 &3720623156106152789
 GameObject:
