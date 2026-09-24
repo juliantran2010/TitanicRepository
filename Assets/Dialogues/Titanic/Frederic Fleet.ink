@@ -28,12 +28,12 @@ VAR has_binoculars = false
         # cam:titanic:2
         Frederick_Fleet: (screaming at the top of his lungs) HARD A-STARBOARD, FOR GOD'S SAKE!! HARD A-STARBOARD!!
 
-        # sfx:foghorn_blast
         # trigger:ship_turn_evasion
-        # trigger:victory_screen
         System: Collision averted.
         System: Thanks to the binoculars and your warning, the helm answers just in time.
         System: The Titanic glides safely past the towering wall of ice. You have rewritten history.
+        # trigger:victory_screen
+        # pause
         -> END
 
 - else:
