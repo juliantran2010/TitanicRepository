@@ -19,13 +19,13 @@ VAR has_binoculars = false
         Frederick_Fleet: Wait.
         Frederick_Fleet: ...
         
-        # anim:sheer_panic
+        # cam:titanic:0
         Frederick_Fleet: Sweet Jesus Christ... Right ahead!
         Frederick_Fleet: A berg! A massive wall of ice right in our path!
 
-        # sfx:bell_triple_ring
-        # cam:look_bridge
+        # cam:titanic:1
         Frederick_Fleet: (shouting down to the bridge) ICEBERG, RIGHT AHEAD!!
+        # cam:titanic:2
         Frederick_Fleet: (screaming at the top of his lungs) HARD A-STARBOARD, FOR GOD'S SAKE!! HARD A-STARBOARD!!
 
         # sfx:foghorn_blast

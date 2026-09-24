@@ -299,7 +299,11 @@ public class DialogueManager : MonoBehaviour
                     CameraTourManager.Instance.StopTour();
                     break;
                 }
-
+                if (!CameraTourManager.Instance.TourIsRegistered(tourName))
+                {
+                    Debug.LogWarning($"Tour '{tourName}' is not registered!");
+                    break;
+                }
                 if (parts.Length >= 3)
                 {
                     string waypointIndex = parts[2].Trim();
