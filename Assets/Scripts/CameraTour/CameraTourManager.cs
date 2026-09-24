@@ -12,7 +12,10 @@ public class CameraTourManager : MonoBehaviour
         public Transform pointTransform;
         public Transform lookAtTarget;
         [Tooltip("Ungefähre Flugzeit zum Punkt in Sekunden")]
-        public float smoothTime = 2.5f;
+        public float flightTime = 2.5f;
+        [Tooltip("Bei wie viel Prozent der gefahrenen Teilstrecke soll 'onComplete' auslösen? (0.85 = bei 85% des Weges)")]
+        [Range(0.1f, 0.98f)]
+        public float arrivalThreshold = 0.85f;
     }
 
     [System.Serializable]
@@ -26,9 +29,6 @@ public class CameraTourManager : MonoBehaviour
     [SerializeField] private Camera tourCamera;
 
     [Header("Drift & Übergänge")]
-    [Tooltip("Bei wie viel Prozent der gefahrenen Teilstrecke soll 'onComplete' auslösen? (0.85 = bei 85% des Weges)")]
-    [Range(0.5f, 0.98f)]
-    [SerializeField] private float arrivalProgressThreshold = 0.85f;
 
     [Tooltip("Mindest-Restdistanz in Metern, ab der alternativ ausgelöst wird (besonders wichtig bei kurzen Schwenks)")]
     [SerializeField] private float arrivalDistanceFallback = 2.0f;
@@ -38,7 +38,8 @@ public class CameraTourManager : MonoBehaviour
 
     private Vector3 currentVelocity = Vector3.zero;
     private Vector3 targetPosition;
-    private float currentSmoothTime = 2f;
+    private float currentFlightTime = 2f;
+    private float currentArrivalThreshold = 0.85f;
     private bool isMoving = false;
     private Action currentOnCompleteCallback;
 
@@ -77,14 +78,14 @@ public class CameraTourManager : MonoBehaviour
                 camTrans.position,
                 targetPosition,
                 ref currentVelocity,
-                currentSmoothTime
+                currentFlightTime
             );
 
             float remainingDistance = Vector3.Distance(camTrans.position, targetPosition);
             float progress = totalSegmentDistance > 0.01f ? 1f - (remainingDistance / totalSegmentDistance) : 1f;
 
             // Löst frühzeitig aus: Sobald die Prozentmarke ODER die Fallback-Distanz erreicht ist
-            if (currentOnCompleteCallback != null && (progress >= arrivalProgressThreshold || remainingDistance <= arrivalDistanceFallback))
+            if (currentOnCompleteCallback != null && (progress >= currentArrivalThreshold || remainingDistance <= arrivalDistanceFallback))
             {
                 var callback = currentOnCompleteCallback;
                 currentOnCompleteCallback = null; // Verhindert doppelte Ausführung
@@ -183,7 +184,8 @@ public class CameraTourManager : MonoBehaviour
 
         targetPosition = wp.pointTransform.position;
         targetRotation = wp.pointTransform.rotation;
-        currentSmoothTime = Mathf.Max(0.1f, wp.smoothTime);
+        currentFlightTime = Mathf.Max(0.1f, wp.flightTime);
+        currentArrivalThreshold = wp.arrivalThreshold;
         currentLookAtTarget = wp.lookAtTarget;
 
         // Gesamtstrecke ermitteln, um Fortschritt präzise zu messen
