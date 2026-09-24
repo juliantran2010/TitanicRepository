@@ -147,6 +147,7 @@ public class QuestManager : MonoBehaviour
 
         activeQuests.Add(quest.id, quest);
         OnQuestAdded?.Invoke(quest.id);
+        SetVariable($"quest_active_{quest.id}", true);
     }
 
     /// <summary>
@@ -169,6 +170,8 @@ public class QuestManager : MonoBehaviour
         activeQuests.Remove(questId);
         completedQuests.Add(questId);
         OnQuestCompleted?.Invoke(questId);
+        SetVariable($"quest_completed_{questId}", true);
+        SetVariable($"quest_active_{questId}", false);
         if (quest.nextQuest != null)
             AddQuest(quest.nextQuest); // Nächste Quest hinzufügen, falls vorhanden
 
@@ -204,6 +207,10 @@ public class QuestManager : MonoBehaviour
     public bool IsQuestCompleted(string questId)
     {
         return completedQuests.Contains(questId);
+    }
+    public bool IsQuestActive(string questId)
+    {
+        return activeQuests.Keys.Contains(questId);
     }
 
     public Quest GetOldestActiveQuest()

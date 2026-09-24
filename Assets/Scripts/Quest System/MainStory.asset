@@ -75,7 +75,7 @@ MonoBehaviour:
     customActions: []
   - beatName: Go to Marconi Room
     isDisabled: 0
-    delayBeforeStart: 5
+    delayBeforeStart: 2
     waitForSceneName: 
     waitForQuestId: warn_lightoller
     customEventName: 
@@ -120,7 +120,7 @@ MonoBehaviour:
     waitForQuestId: 
     customEventName: order_game_solved
     dialogueToPlay:
-      inkJSON: {fileID: 4900000, guid: a80080621ca89ab4fa9db6e1677621c8, type: 3}
+      inkJSON: {fileID: 4900000, guid: 34781f9f3b793ec46ac54d77be638d83, type: 3}
       dialogueState: 
       startPath: 
     stateDuringDialogue: 3
@@ -130,7 +130,7 @@ MonoBehaviour:
       targetProgress: -1
       currentProgress: 0
       questEntryObject: {fileID: 0}
-    questToComplete: 
+    questToComplete: order_game
     triggerToFire: 
     customActions: []
   - beatName: Talk to Frederic Fleet

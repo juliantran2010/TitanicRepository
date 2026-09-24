@@ -324,6 +324,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_goto_mail
@@ -1004,6 +1005,7 @@ MonoBehaviour:
   uniqueID: 12d0a2bb-a7fc-4815-806f-fbddc013632d
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -2567,6 +2569,7 @@ MonoBehaviour:
   uniqueID: 6f3eab36-a6b1-45d8-acb8-7a2c77f46b32
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -2574,7 +2577,7 @@ MonoBehaviour:
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
   _showLabel: 1
-  ShowLabelIfCannotInteract: 0
+  ShowLabelIfCannotInteract: 1
   _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: TitanicScene
@@ -3408,6 +3411,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_lookout_ice
@@ -4306,7 +4310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &328315992
 Transform:
   m_ObjectHideFlags: 0
@@ -4352,6 +4356,7 @@ MonoBehaviour:
   uniqueID: 6f3eab36-a6b1-45d8-acb8-7a2c77f46b32
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -4508,6 +4513,7 @@ MonoBehaviour:
   uniqueID: 69ac1740-c943-45fd-b41e-de6b6504b25f
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: goto_MailScene_mail
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -4515,7 +4521,7 @@ MonoBehaviour:
   UniqueInteractionLabel: Enter Crew Stairs to Mail Room
   UniqueInteractionType: 7
   _showLabel: 1
-  ShowLabelIfCannotInteract: 0
+  ShowLabelIfCannotInteract: 1
   _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: MailScene
@@ -4681,6 +4687,7 @@ MonoBehaviour:
   uniqueID: 69ac1740-c943-45fd-b41e-de6b6504b25f
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: goto_MarconiScene_marconi
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -4688,7 +4695,7 @@ MonoBehaviour:
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
   _showLabel: 1
-  ShowLabelIfCannotInteract: 0
+  ShowLabelIfCannotInteract: 1
   _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: MarconiScene
@@ -4971,6 +4978,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_check_warnings
@@ -5639,6 +5647,7 @@ MonoBehaviour:
   uniqueID: 4e51ae3d-06e9-417e-8959-348790158778
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -6997,6 +7006,7 @@ MonoBehaviour:
   uniqueID: 617542e2-b1e0-428f-9dbf-68cd8cccecee
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -7012,7 +7022,7 @@ MonoBehaviour:
   topLookoutPoint: {fileID: 1434177739}
   keepLockedAtTop: 1
   topDismountPoint: {fileID: 438992217}
-  totalSteps: 1
+  totalSteps: 10
   basketTransitionThreshold: 0.8
   stepDuration: 0.35
   delayBetweenChecks: 1.2
@@ -7222,7 +7232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &712704304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7462,6 +7472,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_watch_pos
@@ -8360,6 +8371,7 @@ MonoBehaviour:
   uniqueID: 69ac1740-c943-45fd-b41e-de6b6504b25f
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: goto_TitanicScene_deck_stair_bottom
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -8367,7 +8379,7 @@ MonoBehaviour:
   UniqueInteractionLabel: Go down to Lower Foredeck
   UniqueInteractionType: 7
   _showLabel: 1
-  ShowLabelIfCannotInteract: 0
+  ShowLabelIfCannotInteract: 1
   _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: TitanicScene
@@ -10114,6 +10126,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_crows_nest
@@ -21094,6 +21107,7 @@ MonoBehaviour:
   uniqueID: 69ac1740-c943-45fd-b41e-de6b6504b25f
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -21101,7 +21115,7 @@ MonoBehaviour:
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
   _showLabel: 1
-  ShowLabelIfCannotInteract: 0
+  ShowLabelIfCannotInteract: 1
   _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: StaircaseScene
@@ -21172,6 +21186,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_reduce_speed
@@ -21777,6 +21792,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_inform_bridge
@@ -22326,6 +22342,7 @@ MonoBehaviour:
   uniqueID: fb81aad4-ac34-4ae8-83c1-2c0cb899845d
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: officer_lightoller
@@ -22779,6 +22796,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_reach_captain
@@ -25869,6 +25887,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_alter_course
@@ -131004,7 +131023,7 @@ GameObject:
   - component: {fileID: 5727990863569499242}
   - component: {fileID: 4608692199833613402}
   - component: {fileID: 5727990863569499243}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Object_687
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199290,6 +199309,7 @@ MonoBehaviour:
   uniqueID: bbf8afe5-a910-4b30-a212-a58579867bd0
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -199391,6 +199411,7 @@ MonoBehaviour:
   uniqueID: d1043e36-b07d-4a8e-97c5-811c6e305ee9
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -210664,6 +210685,7 @@ MonoBehaviour:
   uniqueID: 4e51ae3d-06e9-417e-8959-348790158778
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -225468,6 +225490,7 @@ MonoBehaviour:
   uniqueID: f7db5ce8-b6f1-4301-be70-5e7bf9c632db
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -228999,6 +229022,7 @@ MonoBehaviour:
   uniqueID: cd6c7ff4-12c3-4019-bba9-fb1691d56c46
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -229720,10 +229744,11 @@ MonoBehaviour:
   uniqueID: 949ee477-63f9-494b-ab7f-876edfeae0dd
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
-  objectName: sailor_hogg
-  displayName: Sailor Hogg
+  objectName: 
+  displayName: 
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
   _showLabel: 1
@@ -229731,7 +229756,7 @@ MonoBehaviour:
   _isInteractable: 1
   cameraFocusTarget: {fileID: 0}
   dialogue:
-    inkJSON: {fileID: 4900000, guid: 076871b1a0bb1fc439e60a744a62789c, type: 3}
+    inkJSON: {fileID: 0}
     dialogueState: 
     startPath: 
   DialogeIfCannotInteract:
@@ -258130,6 +258155,7 @@ MonoBehaviour:
   uniqueID: 847998c0-85bc-41b5-be5e-1c7a259f3f13
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -282856,6 +282882,7 @@ MonoBehaviour:
   uniqueID: ec69ee8c-2950-4823-bd36-91fafcd8bbde
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: climb_lookout
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -297530,6 +297557,7 @@ MonoBehaviour:
   uniqueID: 2ef395ba-5834-478a-ae87-278cfbdaa0ef
   interactionCooldown: 0.1
   neccessaryQuestIdFinished: show_lightoller_mesaba
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: order_warn_officers
@@ -298156,6 +298184,7 @@ MonoBehaviour:
   uniqueID: 12d0a2bb-a7fc-4815-806f-fbddc013632d
   interactionCooldown: 1
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 

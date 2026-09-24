@@ -45,7 +45,6 @@ public class MesabaNote : InspectableObject
     {
         // Spezifische Logik beim Lösen (z.B. Quest-Event, Sound)
         StoryDirector.Instance.TriggerEvent(TriggerOnCompletion);
-        QuestManager.Instance.SetVariable(TriggerOnCompletion, true);
         IsInteractable = false;
     }
 }

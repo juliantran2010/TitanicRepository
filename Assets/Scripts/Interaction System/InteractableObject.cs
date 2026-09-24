@@ -46,6 +46,7 @@ public abstract class InteractableObject : MonoBehaviour
     protected float lastInteractionTime = -Mathf.Infinity;
     public bool InteractionIsOnCooldown => Time.time < lastInteractionTime + interactionCooldown;
     [SerializeField] protected string neccessaryQuestIdFinished;
+    [SerializeField] protected string neccessaryQuestIdActive;
     [SerializeField] protected VariablesEntry[] necessaryVariablesSet;
     private Dictionary<string, object> _localState = new Dictionary<string, object>();
     public bool HasInteracted => GetPersistentStateValue<bool>("has_interacted", false);
@@ -92,6 +93,8 @@ public abstract class InteractableObject : MonoBehaviour
         if (!IsInteractable) return false;
         QuestManager questManager = QuestManager.Instance;
         if (!string.IsNullOrWhiteSpace(neccessaryQuestIdFinished) && !questManager.IsQuestCompleted(neccessaryQuestIdFinished.Trim()))
+            return false;
+        if (!string.IsNullOrWhiteSpace(neccessaryQuestIdActive) && !questManager.IsQuestActive(neccessaryQuestIdActive.Trim()))
             return false;
         if (InteractionIsOnCooldown) return false;
         if (necessaryVariablesSet != null)
