@@ -3095,7 +3095,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2774928648556222513}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -3869,7 +3869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryDirector
   activeScript: {fileID: 11400000, guid: 6fa70067fcb7f9442a3b3f6f33c6d59f, type: 2}
-  startAtIndex: 0
+  startAtIndex: 6
   ignoreConditionsOnStart: 0
 --- !u!1 &3720623156106152789
 GameObject:

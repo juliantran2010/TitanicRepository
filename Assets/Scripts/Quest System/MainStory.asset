@@ -75,7 +75,7 @@ MonoBehaviour:
     customActions: []
   - beatName: Go to Marconi Room
     isDisabled: 0
-    delayBeforeStart: 2
+    delayBeforeStart: 1
     waitForSceneName: 
     waitForQuestId: warn_lightoller
     customEventName: 

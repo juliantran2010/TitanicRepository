@@ -12,6 +12,7 @@ VAR quest_completed_order_game = false
 { quest_completed_order_game:
     Second_Officer_Lightoller: Exactly. Get the binoculars first, then take them to the lookouts. Hurry!
     # add_quest:goto_MailScene_mail:Go to the Mail room to get the binoculars>pickup_binoculars:Try to find hints where the binoculars could be
+    # guide:mail
     -> END
 }
 

@@ -33,4 +33,20 @@ public class TeleportationObject : InteractableObject
         }
         DialogueManager.Instance.ShowText("I shouldn't go there yet. I first need to " + taskText);
     }
+
+    private void OnEnable()
+    {
+        if (PathGuideManager.Instance != null)
+        {
+            PathGuideManager.Instance.RegisterTarget(targetSpawnPointID, transform);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (PathGuideManager.Instance != null)
+        {
+            PathGuideManager.Instance.UnregisterTarget(targetSpawnPointID);
+        }
+    }
 }

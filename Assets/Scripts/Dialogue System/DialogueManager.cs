@@ -314,6 +314,11 @@ public class DialogueManager : MonoBehaviour
                     }
                 }
                 break;
+            case "guide" when parts.Length >= 2:
+                Debug.LogWarning("starting path guide");
+                string targetId = parts[1];
+                PathGuideManager.Instance.ShowPathToTarget(targetId);
+                break;
 
             default:
                 Debug.LogWarning($"Unbekannter Tag-Befehl: {command}");
