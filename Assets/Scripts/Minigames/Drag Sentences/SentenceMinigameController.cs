@@ -219,6 +219,7 @@ public class SentenceMinigameController : MonoBehaviour
 
             // 2. StoryDirector Event auslösen
             StoryDirector.Instance?.TriggerEvent("sentence_minigame_won");
+            QuestManager.Instance.SetVariable("sentence_minigame_won", true);
 
             // 3. Event feuern
             OnMinigameCompleted?.Invoke();
