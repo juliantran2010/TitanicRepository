@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28297549d0333ca4bb3159dfe1221c4d, type: 3}
   m_Name: Cabin
   m_EditorClassIdentifier: Assembly-CSharp::WordBankData
-  quickInput: bunk, pillow, blanket, towel, washbasin, tap, mirror, suitcase, bed,
-    coat, door, lamp
+  quickInput: bunk bed, pillow, blanket, towel, sink, water tank, mirror, suitcase,
+    coat, door, lamp, bench
   words:
-  - bunk
+  - bunk bed
   - pillow
   - blanket
   - towel
-  - washbasin
-  - tap
+  - sink
+  - water tank
   - mirror
   - suitcase
-  - bed
   - coat
   - door
   - lamp
+  - bench

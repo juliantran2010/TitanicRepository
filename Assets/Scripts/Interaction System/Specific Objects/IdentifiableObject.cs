@@ -60,7 +60,7 @@ public class IdentifiableObject : InteractableObject
 
     public void MarkAsCompleted()
     {
-        IsInteractable = false;
+        IsSetAsInteractable = false;
         if (!string.IsNullOrWhiteSpace(progressQuestId))
         {
             QuestManager.Instance.AddProgress(progressQuestId);

@@ -4,31 +4,29 @@ VAR quest_active_order_game = false
 VAR quest_completed_order_game = false
 
 { quest_active_order_game:
-    Second_Officer_Lightoller: Go down to the mail room and find the binoculars! That is your first priority.
+    Second_Officer_Lightoller: Go down to the Mail Room and find the binoculars! That is your first priority.
         Second_Officer_Lightoller: Check the chart table over there, pick your tasks, and hurry!
     -> END
 }
 
 { quest_completed_order_game:
     Second_Officer_Lightoller: Exactly. Get the binoculars first, then take them to the lookouts. Hurry!
-    # add_quest:goto_MailScene_mail:Go to the Mail room to get the binoculars>pickup_binoculars:Try to find hints where the binoculars could be
+    # add_quest:goto_MailScene_mail:Go to the Mail Room to get the binoculars.>pickup_binoculars:Try to find hints where the binoculars could be.
     # guide:mail
     -> END
 }
 
 { quest_active_show_lightoller_mesaba:
-    + [Hand Over Mesaba Message]
+    + [Hand Over Mesaba Message.]
         # complete_quest:show_lightoller_mesaba
         Second_Officer_Lightoller: I believe you. This is a serious warning.
         Second_Officer_Lightoller: (shouts to Crew) Quartermaster, stand by! Helmsman, change course!
-        
         Second_Officer_Lightoller: (looking at you) You! I need your help right now.
-        Second_Officer_Lightoller: The lookouts up in the crow's nest can't see anything in the dark.
-        Second_Officer_Lightoller: Go down to the mail room and find the binoculars! That is your first priority.
-        Second_Officer_Lightoller: Check the chart table over there, pick your tasks, and hurry!
-        # add_quest:order_game:Go to the chart table and pick your tasks in the correct order
+        Second_Officer_Lightoller: Take care of the lookout's eyes. You will find them in ... (loud disturbing sound)
+        Second_Officer_Lightoller: Check the chart table over there, pick your tasks, put them in the right order and hurry!
+        # add_quest:order_game:Go to the chart table and pick your tasks in the correct order.
         -> END
-    + [Leave]
+    + [Leave.]
         -> END
 - else:
     { not quest_completed_warn_lightoller:

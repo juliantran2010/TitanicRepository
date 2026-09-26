@@ -72,14 +72,14 @@ public abstract class InteractableObject : MonoBehaviour
         }
     }
     [SerializeField] public bool ShowLabelIfCannotInteract = false;
-    [SerializeField] private bool _isInteractable = true;
-    public bool IsInteractable
+    [SerializeField] private bool _isSetAsInteractable = true;
+    public bool IsSetAsInteractable
     {
-        get => _isInteractable;
+        get => _isSetAsInteractable;
         set
         {
-            _isInteractable = value;
-            SetPersistentStateValue("is_interactable", this._isInteractable);
+            _isSetAsInteractable = value;
+            SetPersistentStateValue("is_interactable", this._isSetAsInteractable);
             if (InteractionManager.Instance != null)
                 InteractionManager.Instance.ResetInteractionOverlay();
         }
@@ -90,7 +90,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     public bool CanInteract()
     {
-        if (!IsInteractable) return false;
+        if (!IsSetAsInteractable) return false;
         QuestManager questManager = QuestManager.Instance;
         if (!string.IsNullOrWhiteSpace(neccessaryQuestIdFinished) && !questManager.IsQuestCompleted(neccessaryQuestIdFinished.Trim()))
             return false;
@@ -112,7 +112,16 @@ public abstract class InteractableObject : MonoBehaviour
     protected virtual void Start()
     {
         RestoreState();
+        QuestManager.Instance.OnVariableSet += OnGlobalVariableSet;
     }
+
+    protected virtual void OnDestroy()
+    {
+        QuestManager.Instance.OnVariableSet -= OnGlobalVariableSet;
+    }
+
+    protected virtual void OnGlobalVariableSet(string varName, object value) {}
+
     public void Interact()
     {
         if (InteractionIsOnCooldown) return;
@@ -194,7 +203,7 @@ public abstract class InteractableObject : MonoBehaviour
         {
             _localState = new Dictionary<string, object>(savedState);
             if (ContainsPersistentState("is_interactable"))
-                _isInteractable = GetPersistentStateValue<bool>("is_interactable");
+                _isSetAsInteractable = GetPersistentStateValue<bool>("is_interactable");
             if (ContainsPersistentState("show_label"))
                 _showLabel = GetPersistentStateValue<bool>("show_label");
             OnStateRestored();

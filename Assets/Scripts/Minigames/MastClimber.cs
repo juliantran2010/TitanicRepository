@@ -314,6 +314,6 @@ public class MastClimber : InteractableObject
     protected override void OnInteract()
     {
         StartClimbing(PersistentPlayer.Instance.gameObject.transform);
-        IsInteractable = false;
+        IsSetAsInteractable = false;
     }
 }

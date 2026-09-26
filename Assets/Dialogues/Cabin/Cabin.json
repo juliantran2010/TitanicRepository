@@ -1,1 +1,1 @@
-﻿{"inkVersion":21,"root":[["^Companion: Can you hear me?","\n","^Companion: Look around. What can you see?","\n","#","^add_quest:cabin_objects:Find and identify objects in the cabin:5","/#",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
+﻿{"inkVersion":21,"root":[["^Companion: Can you hear me?","\n","^Companion: Look around. What can you see?","\n","#","^add_quest:cabin_objects:Find and identify objects in the cabin.:5","/#",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

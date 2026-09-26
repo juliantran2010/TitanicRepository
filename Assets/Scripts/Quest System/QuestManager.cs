@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
 public class Quest : ISerializationCallbackReceiver
@@ -44,6 +45,7 @@ public class QuestManager : MonoBehaviour
 
     public Action<string> OnQuestAdded;
     public Action<string> OnQuestCompleted;
+    public Action<string, object> OnVariableSet;
 
     // Speichert aktive Quests mit einer ID/Titel
     [SerializeField] private readonly Dictionary<string, Quest> activeQuests = new Dictionary<string, Quest>();
@@ -73,6 +75,7 @@ public class QuestManager : MonoBehaviour
         {
             GameSceneManager.Instance.OnSceneChanged += HandleSceneChanged;
         }
+        SetVariable("wrong_choices", 0);
     }
 
     private void OnDestroy()
@@ -187,11 +190,24 @@ public class QuestManager : MonoBehaviour
     public void SetVariable(string varName, object value)
     {
         globalVariables[varName] = value;
+        OnVariableSet?.Invoke(varName, value);
     }
 
     public bool TryGetVariable(string varName, out object value)
     {
         return globalVariables.TryGetValue(varName, out value);
+    }
+
+    public bool TryGetBoolVariable(string varName, out bool result)
+    {
+        if (TryGetVariable(varName, out object val) && val is bool b)
+        {
+            result = b;
+            return true;
+        }
+
+        result = false;
+        return false;
     }
 
     public void HandleVariableTag(string name, string valStr)

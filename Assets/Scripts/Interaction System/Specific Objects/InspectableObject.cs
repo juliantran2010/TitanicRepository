@@ -10,11 +10,11 @@ public class InspectableObject : InteractableObject
 
 
     [Header("Inspect Settings")]
-    [SerializeField] private Dialogue dialogueAfterLooking;
-    [SerializeField] private float distanceInFront = 0.5f;
-    [SerializeField] private float moveDuration = 0.4f;
-    [SerializeField] private ParticleSystem interactionParticles;
-    [SerializeField] private bool showParticles = true;
+    [SerializeField] protected Dialogue dialogueAfterLooking;
+    [SerializeField] protected float distanceInFront = 0.5f;
+    [SerializeField] protected float moveDuration = 0.4f;
+    [SerializeField] protected ParticleSystem interactionParticles;
+    [SerializeField] protected bool showParticles = true;
 
     protected InputAction escapeAction;
     protected InputAction clickAction;
@@ -38,6 +38,7 @@ public class InspectableObject : InteractableObject
         originalLocalPosition = transform.localPosition;
         originalLocalRotation = transform.localRotation;
         originalParent = transform.parent;
+        if (!CanInteract()) interactionParticles.Stop();
     }
 
     protected virtual void Update()
@@ -148,6 +149,8 @@ public class InspectableObject : InteractableObject
             }
             hasBeenInspected = true;
             SetPersistentStateValue("has_been_inspected", true);
+            Debug.Log($"{objectName} has been inspected");
+            QuestManager.Instance.SetVariable($"has_inspected_{objectName}", true);
         });
     }
 

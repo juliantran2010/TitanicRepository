@@ -230,6 +230,15 @@ public class DialogueManager : MonoBehaviour
                 QuestManager.Instance.HandleVariableTag(variableName, value);
                 break;
 
+            case "add" when parts.Length >= 3:
+                string variableName2 = parts[1].Trim();
+                string value2 = parts[2].Trim().ToLower();
+                if(int.TryParse(value2, out int intVal))
+                { 
+                    //QuestManager.Instance.Add
+                }
+                break;
+
             case "trigger" when parts.Length >= 2:
                 string triggerName = parts[1].Trim();
                 Debug.Log($"[DialogueManager] Trigger erkannt: {triggerName}");

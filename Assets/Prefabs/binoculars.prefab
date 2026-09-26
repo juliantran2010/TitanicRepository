@@ -108,6 +108,7 @@ MonoBehaviour:
   uniqueID: 
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: binoculars
@@ -116,10 +117,10 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 0
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   dialogue:
-    inkJSON: {fileID: 4900000, guid: 20ea2c3eaae930b43a1f4094c9503c99, type: 3}
+    inkJSON: {fileID: 4900000, guid: d88784939cc119741b8ec38fffcc6c64, type: 3}
     dialogueState: 
     startPath: 
   DialogeIfCannotInteract:

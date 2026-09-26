@@ -2523,6 +2523,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 630040224}
     m_Modifications:
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: uniqueID
+      value: cd4f465c-23e6-4fd8-95b1-b6291bd82926
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: objectName
+      value: hint1
+      objectReference: {fileID: 0}
     - target: {fileID: 1583585002844007101, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_Name
       value: Tom's Note 1
@@ -2541,7 +2549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.6802
+      value: 1.828
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2549,11 +2557,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.5858
+      value: -1.543
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.967492
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2561,7 +2569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.25290176
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2573,7 +2581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -29.299
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2583,7 +2591,7 @@ PrefabInstance:
       propertyPath: m_text
       value: "<u>Tom's Note</u>\n\nTom,\n\nI've moved the lookout's binoculars somewhere
         safe.\n\nFirst find the cupboard near the door. Open its right drawer. Inside,
-        you'll find another clue\n\n\t        Good luck!\n\t\t  - James"
+        you'll find another clue.\n\n\t        Good luck!\n\t\t  - James"
       objectReference: {fileID: 0}
     - target: {fileID: 6808044086919241347, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_fontSize
@@ -2592,6 +2600,10 @@ PrefabInstance:
     - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: uniqueID
       value: 9c2e6383-6437-48a7-890c-e02c0e7a7702
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: objectName
+      value: hint1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22370,15 +22382,18 @@ MonoBehaviour:
   uniqueID: d7299047-452a-49a8-b869-499ee83aa262
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
-  necessaryVariablesSet: []
+  neccessaryQuestIdActive: 
+  necessaryVariablesSet:
+  - name: has_inspected_hint3
+    value: 1
   progressQuestId: 
   objectName: 
   displayName: Parcel
-  UniqueInteractionLabel: Move Parcel
+  UniqueInteractionLabel: 
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: -0.002, y: 0.002, z: -0.0018}
   rotateBy: {x: 0, y: 0, z: 0}
@@ -43628,6 +43643,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7236583356752669189}
     m_Modifications:
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: uniqueID
+      value: 9cd15187-7eac-4721-be6a-c893d29ef838
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: objectName
+      value: hint3
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: showParticles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].name
+      value: has_inspected_hint2
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1583585002844007101, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_Name
       value: Tom's Note 3
@@ -43650,11 +43689,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0036419993
+      value: -0.00364
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.004274042
+      value: 0.00373
       objectReference: {fileID: 0}
     - target: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -43686,12 +43725,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6808044086919241347, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_text
-      value: "<u>Clue 3</u>\n\nAlmost there!\n\nThe binoculars are below the second
-        lowest shelf, behind the red parcel.\n\n\n\t\t\t- J"
+      value: "<u>Clue 3</u>\n\nAlmost there!\n\nFind the wider parcel between two
+        narrow ones.\nThe binoculars are behind the wide parcel.\n\n\n\t\t\t- J"
       objectReference: {fileID: 0}
     - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: uniqueID
       value: 4954b437-8fa8-472f-a86d-832f894553f7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: objectName
+      value: hint3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: ShowLabelIfCannotInteract
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].name
+      value: has_inspected_hint2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -75213,6 +75272,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1236622592160586116, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2552482657626902978, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -75337,6 +75400,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571470458655544586, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666501473815844304, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6837722442933922718, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -75376,6 +75459,10 @@ PrefabInstance:
     - target: {fileID: 8075601571598637743, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131496056336757726, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8155555969692834055, guid: 5f2017d248fe1eb44b04e9c3e0003077, type: 3}
       propertyPath: m_AnchorMax.y
@@ -98744,10 +98831,6 @@ PrefabInstance:
       propertyPath: uniqueID
       value: 3fe1dd94-a1ed-4f3e-aac0-13002228ec58
       objectReference: {fileID: 0}
-    - target: {fileID: 6243148100993037890, guid: 56bacc03cd6a55b48910464d346d279c, type: 3}
-      propertyPath: dialogue.inkJSON
-      value: 
-      objectReference: {fileID: 4900000, guid: d88784939cc119741b8ec38fffcc6c64, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -128212,6 +128295,7 @@ MonoBehaviour:
   uniqueID: b5515b12-a095-4388-ac15-04e4ded58c1d
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: door_mail_staircase
@@ -128220,7 +128304,7 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   targetSceneName: TitanicScene
   targetSpawnPointID: deck_crew
@@ -193196,6 +193280,7 @@ MonoBehaviour:
   uniqueID: a96e5f7d-d3ba-4eac-a951-ba39d2d52ca8
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -193204,7 +193289,7 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: 0, y: 0, z: 0}
   rotateBy: {x: 0, y: 155, z: 0}
@@ -217849,6 +217934,7 @@ MonoBehaviour:
   uniqueID: eda75d59-9d66-4b1e-bfdd-9e351ef29ef7
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -217857,7 +217943,7 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: 0, y: 0, z: 0}
   rotateBy: {x: 0, y: 155, z: 0}
@@ -218272,6 +218358,7 @@ MonoBehaviour:
   uniqueID: f3c70124-ce29-4715-b821-3177fd2c7ae2
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -218280,7 +218367,7 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: 0, y: 0, z: 0}
   rotateBy: {x: 0, y: -155, z: 0}
@@ -220391,6 +220478,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4842215145130090998}
     m_Modifications:
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: uniqueID
+      value: 8aead6a9-1c58-4b72-8d06-bed723cd7deb
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: objectName
+      value: hint2
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: showParticles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].name
+      value: has_inspected_hint1
+      objectReference: {fileID: 0}
+    - target: {fileID: 618893266860302519, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1583585002844007101, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_Name
       value: Tom's Note 2
@@ -220450,12 +220561,19 @@ PrefabInstance:
     - target: {fileID: 6808044086919241347, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: m_text
       value: "<u>Clue 2</u>\n\nWell done!\n\nNow go to the shelves opposite the cupboard.\nLook
-        at the very last one on the right side.\n\nFind the red parcel between two
-        mailboxes.\n\n\n\t\t\t-J"
+        at the very last one on the right side.\n\n\n\t\t\t-J"
       objectReference: {fileID: 0}
     - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: uniqueID
       value: f968ef00-6c7b-4b0e-ac88-185296947d54
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: objectName
+      value: hint2
       objectReference: {fileID: 0}
     - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
       propertyPath: showParticles
@@ -220465,7 +220583,20 @@ PrefabInstance:
       propertyPath: _isInteractable
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].name
+      value: has_inspected_hint1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
+      propertyPath: necessaryVariablesSet.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -220475,17 +220606,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5046904695729172510, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
   m_PrefabInstance: {fileID: 8983389427772531348}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8983389427772531350 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6886101823973048731, guid: 30c989594d4b0354d913719ecf226d3c, type: 3}
-  m_PrefabInstance: {fileID: 8983389427772531348}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d830c3bd27bc347a6e77f1586bdd30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InspectableObject
 --- !u!1 &9010799891393672300
 GameObject:
   m_ObjectHideFlags: 0
@@ -220667,6 +220787,7 @@ MonoBehaviour:
   uniqueID: 3e545380-5025-4eb4-94a5-165871ec97ad
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -220675,7 +220796,7 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: 0, y: 0, z: 0}
   rotateBy: {x: 0, y: -155, z: 0}
@@ -220885,6 +221006,7 @@ MonoBehaviour:
   uniqueID: 3f7d9355-360d-4ba9-9ee6-8f5d60cbe91e
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -220893,7 +221015,7 @@ MonoBehaviour:
   UniqueInteractionType: 7
   _showLabel: 1
   ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: 0, y: 0, z: 0.3}
   rotateBy: {x: 0, y: 0, z: 0}
@@ -221014,6 +221136,7 @@ MonoBehaviour:
   uniqueID: e71f6696-462b-46e3-baa4-46daf32febaf
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -221021,8 +221144,8 @@ MonoBehaviour:
   UniqueInteractionLabel: 
   UniqueInteractionType: 7
   _showLabel: 1
-  ShowLabelIfCannotInteract: 0
-  _isInteractable: 1
+  ShowLabelIfCannotInteract: 1
+  _isSetAsInteractable: 1
   cameraFocusTarget: {fileID: 0}
   moveBy: {x: 0, y: 0, z: 0.3}
   rotateBy: {x: 0, y: 0, z: 0}
@@ -221033,7 +221156,7 @@ MonoBehaviour:
   OnOpened:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8983389427772531350}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
         m_MethodName: ToggleParticles
         m_Mode: 6
@@ -221045,7 +221168,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 8983389427772531350}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
         m_MethodName: set_IsInteractable
         m_Mode: 6
@@ -221060,7 +221183,7 @@ MonoBehaviour:
   OnClosed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8983389427772531350}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
         m_MethodName: ToggleParticles
         m_Mode: 6
@@ -221072,7 +221195,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8983389427772531350}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InspectableObject, Assembly-CSharp
         m_MethodName: set_IsInteractable
         m_Mode: 6

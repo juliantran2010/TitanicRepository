@@ -4,12 +4,12 @@ VAR has_binoculars = false
     Frederick_Fleet: What in God's name are you doing up here?!
     Frederick_Fleet: You shouldn't have climbed all the way up the mast in this freezing wind! What happened down there?
 
-    You: I found the key to the second officer's locker. I have the missing binoculars!
+    You: I found the missing binoculars!
 
     Frederick_Fleet: The binoculars?! The ones everyone said were locked away since Southampton?!
     Frederick_Fleet: Sweet Lord, we've been straining our bare eyes into pitch blackness for hours! Hand them over, quick!
 
-    + [Hand over the binoculars]
+    + [Hand over the binoculars.]
         # trigger:put_down_binoculars:pause
         You: Here, take them!
         Frederick_Fleet: Let's see what is lurking out there in this haze...

@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 468802938421942844}
   - component: {fileID: 1989182289361751943}
   - component: {fileID: 1695371638177689189}
+  - component: {fileID: 1502624218012061998}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -600,3 +601,16 @@ MonoBehaviour:
   mouseLookScript: {fileID: 6620238835570894617}
   travelDuration: 0.8
   travelEase: 10
+--- !u!114 &1502624218012061998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471750930743251387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3631f53a1fdf39489150bbb4d9a514b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLookController
+  cinemachineCameraTarget: {fileID: 215557487156177995}

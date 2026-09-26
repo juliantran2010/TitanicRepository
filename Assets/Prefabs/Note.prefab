@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 125746668548857253}
   - component: {fileID: 5854172595972954124}
   - component: {fileID: 6984747316638286112}
-  - component: {fileID: 6886101823973048731}
+  - component: {fileID: 618893266860302519}
   m_Layer: 0
   m_Name: Note
   m_TagString: Untagged
@@ -218,7 +218,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99999994, y: 1, z: 6.1232336e-17}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6886101823973048731
+--- !u!114 &618893266860302519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,12 +227,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1583585002844007101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d830c3bd27bc347a6e77f1586bdd30, type: 3}
+  m_Script: {fileID: 11500000, guid: edd7e3c5cb5b9a44ab59ddd6a1eb3d89, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InspectableObject
+  m_EditorClassIdentifier: Assembly-CSharp::Note
   uniqueID: 
   interactionCooldown: 0.5
   neccessaryQuestIdFinished: 
+  neccessaryQuestIdActive: 
   necessaryVariablesSet: []
   progressQuestId: 
   objectName: 
@@ -250,6 +251,8 @@ MonoBehaviour:
   distanceInFront: 0.5
   moveDuration: 0.4
   interactionParticles: {fileID: 4101131334229751725}
+  showParticles: 1
+  textBox: {fileID: 6808044086919241347}
 --- !u!1 &2263402876279597618
 GameObject:
   m_ObjectHideFlags: 0
